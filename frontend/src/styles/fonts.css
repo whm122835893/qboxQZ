@@ -1,0 +1,9 @@
+/* 字体文件下载自原站，保证字形渲染一致 */
+@font-face{font-family:SourceHanSansCN-Regular;src:url('/static/font/SourceHanSansCN-Regular.otf');font-display:swap}
+@font-face{font-family:SourceHanSansCN-Medium;src:url('/static/font/SourceHanSansCN-Medium.otf');font-display:swap}
+@font-face{font-family:SourceHanSansCN-Bold;src:url('/static/font/SourceHanSansCN-Bold.otf');font-display:swap}
+@font-face{font-family:MiSans-Light;src:url('/static/font/MiSans-Light.otf');font-display:swap}
+@font-face{font-family:MiSans-Regular;src:url('/static/font/MiSans-Regular.otf');font-display:swap}
+@font-face{font-family:MiSans-Semibold;src:url('/static/font/MiSans-Semibold.otf');font-display:swap}
+@font-face{font-family:AlimamaFangYuanTiVF-Thin;src:url('/static/font/AlimamaFangYuanTiVF-Thin.ttf');font-display:swap}
+@font-face{font-family:NanoByongGyeHei-Regular;src:url('/static/font/NanoByongGyeHei-Regular.ttf');font-display:swap}
