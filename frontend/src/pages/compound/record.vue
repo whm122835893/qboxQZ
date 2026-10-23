@@ -128,7 +128,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   object-fit: contain;
 }
 .nav-title {
-  font-size: 32px;
+  font-size: 30.8px;
   color: #111;
   font-family: var(--font-bold);
 }

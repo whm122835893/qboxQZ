@@ -196,7 +196,8 @@ getDetails()
 }
 /* ---- 卡片区 ---- */
 .cards {
-  padding: 24px 32px calc(24px + env(safe-area-inset-bottom) + 120px);
+  margin-top: 51px;
+  padding: 0 32px calc(24px + env(safe-area-inset-bottom) + 120px);
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -205,7 +206,7 @@ getDetails()
   width: 100%;
   background: #fff;
   border-radius: 32px;
-  padding: 32px 28px;
+  padding: 32px 28px 31px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -215,7 +216,7 @@ getDetails()
 .pf-watermark {
   position: absolute;
   left: 42px;
-  top: 34px;
+  top: 9px;
   font-weight: 400;
   font-size: 51px;
   line-height: 26px;
@@ -227,6 +228,7 @@ getDetails()
 }
 .pf-title-row {
   width: 100%;
+  margin-top: 16px;
   position: relative;
   z-index: 1;
   display: flex;
@@ -246,7 +248,7 @@ getDetails()
 .pf-title {
   position: relative;
   z-index: 1;
-  font-size: 32px;
+  font-size: 30.8px;
   color: #2d2d2d;
   font-family: 'AlimamaFangYuanTiVF-Thin', var(--font-regular);
 }

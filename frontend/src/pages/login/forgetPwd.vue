@@ -27,7 +27,7 @@
         <input v-model="form.confirm" class="ipt-input" type="password" placeholder="请确认登录密码" />
       </div>
 
-      <div class="btn-primary" @click="submit">确认</div>
+      <div class="btn-primary" @click="submit"><span>确认</span></div>
     </div>
   </div>
 </template>
@@ -137,7 +137,7 @@ onUnmounted(() => timer && clearInterval(timer))
   box-sizing: border-box;
 }
 .ipt-label {
-  font-size: 29px;
+  font-size: 25.4px;
   color: #111;
   font-family: var(--font-regular);
   flex-shrink: 0;
@@ -164,7 +164,7 @@ onUnmounted(() => timer && clearInterval(timer))
 }
 .get-code {
   flex-shrink: 0;
-  font-size: 25.4px;
+  font-size: 23.6px;
   color: #0047ff;
 }
 .btn-primary {
@@ -175,7 +175,7 @@ onUnmounted(() => timer && clearInterval(timer))
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 30.8px;
   color: #fff;
   font-family: var(--font-medium);
   margin-top: 23.6px;

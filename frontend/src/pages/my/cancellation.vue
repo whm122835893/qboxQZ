@@ -94,17 +94,18 @@ function onConfirm() {
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .body {
   padding: 0 30px;
 }
 .page-title {
   display: block;
-  margin-top: 12px;
-  font-size: 44px;
+  margin-top: 33px;
+  font-size: 39.9px;
+  line-height: 1;
   color: #111;
   font-family: var(--font-bold);
 }
@@ -112,19 +113,19 @@ function onConfirm() {
   display: block;
   margin-top: 36px;
   text-align: center;
-  font-size: 32px;
+  font-size: 28.8px;
   color: #111;
   font-family: var(--font-bold);
 }
 .center-warn {
   display: block;
-  margin-top: 14px;
+  margin-top: 0;
   text-align: center;
-  font-size: 28px;
+  font-size: 25.4px;
   color: #f5222d;
 }
 .safe-card {
-  margin-top: 36px;
+  margin-top: 63px;
   background: #fff;
   border-radius: 16px;
   padding: 24px;
@@ -133,12 +134,12 @@ function onConfirm() {
   gap: 14px;
 }
 .safe-title {
-  font-size: 28px;
+  font-size: 27.2px;
   color: #111;
   font-family: var(--font-bold);
 }
 .safe-text {
-  font-size: 26px;
+  font-size: 23.6px;
   line-height: 1.6;
   color: #666;
 }
@@ -162,7 +163,7 @@ function onConfirm() {
   justify-content: center;
 }
 .confirm-text {
-  font-size: 30px;
+  font-size: 27.2px;
   color: #fff;
   font-family: var(--font-medium);
 }
@@ -187,7 +188,7 @@ function onConfirm() {
 }
 .agree-title {
   text-align: center;
-  font-size: 32px;
+  font-size: 28.8px;
   font-weight: 600;
   color: #000;
   font-family: var(--font-medium);
@@ -244,7 +245,7 @@ function onConfirm() {
   flex: 1;
   padding: 25px 0;
   text-align: center;
-  font-size: 32px;
+  font-size: 28.8px;
   color: #000;
 }
 .agree-btn-primary {

@@ -48,7 +48,7 @@
     <div class="footer">
       <div class="footer-inner">
         <span class="total"><span class="total-symbol">￥</span><span class="total-num">{{ totalPrice }}</span></span>
-        <div class="pay-btn"  @click="onPay"><span class="pay-btn-text"> 立即支付 </span></div>
+        <div class="pay-btn pay-btn-text" @click="onPay"> 立即支付 </div>
       </div>
     </div>
   </div>
@@ -123,7 +123,7 @@ init()
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
   font-family: var(--font-medium);
 }
@@ -131,6 +131,7 @@ init()
   padding: 0 17.7px;
 }
 .goods-card {
+  margin-top: 38px;
   background: #f4f6fa;
   border-radius: 8px;
   padding: 8.8px;
@@ -153,7 +154,7 @@ init()
   justify-content: center;
 }
 .goods-name {
-  font-size: 14px;
+  font-size: 27.2px;
   color: #000;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -170,7 +171,7 @@ init()
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 27.2px;
   margin-bottom: 8.8px;
 }
 .info-row:last-child {
@@ -194,12 +195,12 @@ init()
 }
 .amount {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 30.8px;
   font-family: 'PingFang SC-Medium', 'PingFang SC', var(--font-medium);
 }
 /* ---- 支付方式 ---- */
 .pay-card {
-  margin-top: 8.8px;
+  margin-top: 56.7px;
   background: #f5f5f5;
   border-radius: 11px;
   overflow: hidden;
@@ -207,7 +208,7 @@ init()
   flex-direction: column;
 }
 .pay-row {
-  padding: 15.4px 13.2px;
+  padding: 27.2px 13.2px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -223,7 +224,7 @@ init()
   flex-shrink: 0;
 }
 .pay-badge-text {
-  font-size: 12.1px;
+  font-size: 25.4px;
   color: #fff;
   font-family: var(--font-bold);
 }
@@ -231,11 +232,11 @@ init()
   flex: 1;
   min-width: 0;
   margin-left: 8.8px;
-  font-size: 14.3px;
+  font-size: 25.4px;
   color: #111;
 }
 .pay-unsupport {
-  font-size: 12.1px;
+  font-size: 21.7px;
   color: #8c8c8c;
   flex-shrink: 0;
 }
@@ -252,21 +253,21 @@ init()
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 17.7px calc(8px + env(safe-area-inset-bottom));
+  padding: 14.5px 17.7px calc(14.5px + env(safe-area-inset-bottom));
   box-sizing: border-box;
 }
 .total {
   color: #000;
 }
 .total-symbol {
-  font-size: 13.2px;
+  font-size: 23.6px;
 }
 .total-num {
-  font-size: 22px;
+  font-size: 39.9px;
 }
 .pay-btn {
   width: 264.9px;
-  height: 48.5px;
+  height: 90.6px;
   border-radius: 44px;
   background: #ff7800;
   display: flex;
@@ -275,7 +276,7 @@ init()
   flex-shrink: 0;
 }
 .pay-btn-text {
-  font-size: 16.5px;
+  font-size: 29px;
   color: #fff;
   font-family: var(--font-medium);
 }

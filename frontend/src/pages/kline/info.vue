@@ -15,6 +15,8 @@
       <div class="quote-row">
         <span class="q-name">藏品名称</span>
         <span class="q-code">比太</span>
+      </div>
+      <div class="quote-row quote-row-price">
         <span class="q-price">112.34CNY</span>
         <span class="q-change">-0.53%</span>
       </div>
@@ -60,7 +62,7 @@ import { ref } from 'vue'
  *    + 关注图标 24px + 关注 11px 白字
  */
 const grid = [['流通：', 30000], ['最近5min成交量：', 30000], ['24h最高：', 30000], ['最近1h成交量：', 30000], ['24h最低：', 30000], ['今日成交量：', 30000]]
-const kTabs = ['行情', '历史委托', '历史成交', 'holder榜']
+const kTabs = ['行情', '相关公告', '成交记录', '换手榜', '寄售']
 const current = ref(0)
 </script>
 
@@ -102,7 +104,7 @@ const current = ref(0)
 }
 .banner {
   margin: 10px 17.7px 0;
-  height: 165px;
+  height: 262px;
   border-radius: 16px;
   background: url('/static/banner/kline-banner.jpg') center / cover no-repeat;
 }
@@ -124,9 +126,11 @@ const current = ref(0)
   color: #7a7a7a;
 }
 .q-price {
-  margin-left: 21px;
   font-size: 30.8px;
   color: #333;
+}
+.quote-row-price {
+  margin-top: 12px;
 }
 .q-change {
   margin-left: 12px;
@@ -134,7 +138,7 @@ const current = ref(0)
   color: #2eaf63;
 }
 .data-grid {
-  margin-top: 32px;
+  margin-top: 5px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -143,6 +147,8 @@ const current = ref(0)
   padding: 5px 0;
   display: flex;
   align-items: baseline;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 .d-label {
   font-size: 23.6px;
@@ -154,13 +160,15 @@ const current = ref(0)
   color: #fff;
 }
 .k-tabs {
-  margin-top: 40px;
+  margin-top: 26px;
   display: flex;
-  gap: 36px;
-  padding: 0 17.7px;
+  gap: 111px;
+  padding: 0 17.7px 0 72px;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 .k-tab {
-  font-size: 23.6px;
+  font-size: 27.2px;
   color: #7a7a7a;
 }
 .k-tab-active {

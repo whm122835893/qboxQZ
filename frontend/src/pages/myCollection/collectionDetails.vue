@@ -40,7 +40,7 @@
       </div>
 
       <!-- 藏品介绍卡（ALLCOMEQBOX 水印 28px；藏品介绍 17px #2d2d2d） -->
-      <div class="intro-card">
+      <div class="intro-card intro-pad">
         <span class="watermark watermark-wide">ALLCOMEQBOX ALLCOMEQBOX</span>
         <span class="creator-title">藏品介绍</span>
       </div>
@@ -49,7 +49,7 @@
       <div class="notice-card">
         <span class="watermark watermark-wide">QBOX</span>
         <span class="creator-title">购买须知</span>
-        <p class="notice-text">数字藏品为虚拟数字商品，而非实物，仅限实名认证为年满14周岁的中国大陆用户购买。数字藏品版权由发行方或原创作者拥有，除甲方书面授权外，不得将数字藏品用于任何商业用途。数字藏品一经购买，不支持退换。数字藏品禁止炒作、场外交易和任何形式的违规使用。</p>
+        <p class="notice-text">数字藏品为虚拟数字商品，而非实物，仅限实名认证为年满18周岁，并小于60周岁的中国大陆用户购买。数字藏品的版权由发行方或原创者拥有，除另行取得版权拥有者书面同意外，用户不得将数字藏品用于任何商业用途。本商品一经售出，不支持退换请勿对数字藏品进行炒作、场外交易、欺诈，或以任何其他非法方式进行使用。</p>
       </div>
     </div>
 
@@ -104,12 +104,17 @@
 .main-img {
   margin-top: 8px;
   width: 100%;
-  height: 617px;
+  height: 560px;
   border-radius: 28px;
   background: #0e0f12;
 }
 .num-row {
-  margin-top: 25px;
+  margin-top: 22px;
+  width: 100%;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
 }
@@ -134,7 +139,7 @@
   padding: 8px 22px;
 }
 .info-row {
-  padding: 28px 0;
+  padding: 22px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -156,16 +161,16 @@
 .intro-card,
 .notice-card {
   position: relative;
-  margin-top: 25px;
+  margin-top: 24px;
   background: #fff;
   border-radius: 16px;
-  padding: 28px 28px 34px;
+  padding: 31px 28px 34px;
   overflow: hidden;
 }
 .watermark {
   position: absolute;
   left: 24px;
-  top: 20px;
+  top: 9px;
   font-size: 50.7px;
   line-height: 26px;
   color: rgba(104, 104, 104, 0.08);
@@ -179,6 +184,7 @@
 .creator-title {
   position: relative;
   z-index: 1;
+  margin-top: 25px;
   font-size: 30.8px;
   color: #2d2d2d;
   font-family: 'AlimamaShuHeiTi-Bold', var(--font-medium);
@@ -186,14 +192,14 @@
 .creator-row {
   position: relative;
   z-index: 1;
-  margin-top: 36px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .creator-avatar {
-  width: 121px;
-  height: 121px;
+  width: 103px;
+  height: 103px;
   object-fit: contain;
 }
 .creator-name {
@@ -202,10 +208,13 @@
   color: #2d2d2d;
   font-family: 'AlimamaFangYuanTiVF-Thin', var(--font-regular);
 }
+.intro-pad {
+  padding-bottom: 35px;
+}
 .notice-text {
   position: relative;
   z-index: 1;
-  margin: 22px 0 0;
+  margin: 27px 0 0;
   font-size: 21.7px;
   line-height: 1.7;
   color: #696969;

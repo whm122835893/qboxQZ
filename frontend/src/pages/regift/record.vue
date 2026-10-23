@@ -61,7 +61,7 @@
 }
 .card {
   background: #f4f6fa;
-  padding: 6.6px 6.6px 8.8px;
+  padding: 33px 6.6px 8.8px;
   border-radius: 12px;
   margin-bottom: 6.6px;
 }
@@ -93,7 +93,7 @@
   min-width: 0;
 }
 .regift-name {
-  font-size: 15.4px;
+  font-size: 29px;
   font-weight: 500;
   color: #555;
   display: -webkit-box;
@@ -103,7 +103,7 @@
 }
 .regift-code {
   align-self: flex-start;
-  font-size: 11px;
+  font-size: 19.9px;
   background: #f5f6fa;
   border-radius: 50px;
   padding: 2.2px 4.4px 2.2px 8.8px;
@@ -121,22 +121,25 @@
 }
 .status-text {
   margin-left: 2.2px;
-  font-size: 15.4px;
+  font-size: 27.2px;
   color: #555;
 }
 .divider {
-  padding-top: 11px;
+  padding-top: 40px;
   border-bottom: 0.5px solid #eee;
 }
 .info-rows {
-  font-size: 15.4px;
+  font-size: 27.2px;
   padding: 0 6.6px 6.6px;
 }
 .info-row {
-  margin-top: 8.8px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.info-row:first-child {
+  margin-top: 32px;
 }
 .info-row .k {
   color: #999;
@@ -149,14 +152,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 320px;
+  margin-top: 31px;
 }
 .empty-img {
   width: 264.5px;
   object-fit: contain;
 }
 .empty-text {
-  margin-top: 29px;
+  margin-top: 7px;
   font-size: 25.4px;
   color: #999;
 }

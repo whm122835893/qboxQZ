@@ -211,9 +211,9 @@ onMounted(init)
   width: 398.6px;
   text-align: center;
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #fff;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
   white-space: nowrap;
 }
 
@@ -335,7 +335,7 @@ onMounted(init)
   flex-direction: column;
 }
 .open-title {
-  font-size: 32px;
+  font-size: 30.8px;
   color: #fff4d9;
   font-family: var(--font-bold);
 }
@@ -360,7 +360,7 @@ onMounted(init)
 }
 .price-num {
   font-weight: bold;
-  font-size: 32px;
+  font-size: 30.8px;
   color: #dbbfa5;
   line-height: 1;
   font-family: 'AlimamaFangYuanTiVF-Thin', var(--font-regular);

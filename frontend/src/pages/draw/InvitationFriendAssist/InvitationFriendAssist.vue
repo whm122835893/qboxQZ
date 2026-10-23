@@ -100,7 +100,7 @@
   justify-content: center;
 }
 .capsule-text {
-  font-size: 26px;
+  font-size: 27.2px;
   color: #b8b2a8;
 }
 .capsule-num {
@@ -119,7 +119,7 @@
   color: #999;
 }
 .empty {
-  margin-top: 40px;
+  margin-top: 78px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,7 +130,7 @@
   height: 110px;
 }
 .empty-text {
-  font-size: 24px;
+  font-size: 25.4px;
   color: #999;
 }
 .rule-btn {
@@ -145,7 +145,7 @@
   box-sizing: border-box;
 }
 .rule-text {
-  font-size: 28px;
+  font-size: 30.8px;
   color: #6b6455;
 }
 </style>

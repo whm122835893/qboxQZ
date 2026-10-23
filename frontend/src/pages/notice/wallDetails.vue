@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 348px;
+  margin-top: 660px;
 }
 .spinner {
   width: 20px;

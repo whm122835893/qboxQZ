@@ -54,7 +54,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 590px;
+  margin-top: 566px;
 }
 .spinner {
   width: 30px;
@@ -69,7 +69,7 @@
 }
 .loading-text {
   margin-top: 16px;
-  font-size: 26px;
+  font-size: 21.7px;
   color: #c0c0c0;
 }
 </style>

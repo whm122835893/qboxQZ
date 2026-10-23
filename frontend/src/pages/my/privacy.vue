@@ -49,12 +49,12 @@ const on = ref(true)
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .switch-card {
-  margin: 0 17.7px;
+  margin: 49px 17.7px 0;
   background: #f5f6fa;
   border-radius: 16px;
   padding: 15px 24px;

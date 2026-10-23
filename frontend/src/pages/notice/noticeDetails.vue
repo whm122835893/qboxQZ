@@ -119,9 +119,9 @@ onUnmounted(() => {
   transform: translate(-50%, -50%);
   width: 398.5px;
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -139,7 +139,7 @@ onUnmounted(() => {
   margin-top: 27.2px;
   display: flex;
   align-items: center;
-  font-size: 21.7px;
+  font-size: 23.6px;
 }
 .crumb-parent {
   color: #333;
@@ -200,7 +200,7 @@ onUnmounted(() => {
   flex-direction: column;
 }
 .d-title {
-  font-size: 29px;
+  font-size: 30.8px;
   color: #333;
   font-family: var(--font-bold);
 }

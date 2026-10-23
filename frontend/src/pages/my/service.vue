@@ -45,18 +45,18 @@
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .body {
   padding: 0 30px;
 }
 .sv-title {
   display: block;
-  margin-top: 50px;
+  margin-top: 81px;
   text-align: center;
-  font-size: 36px;
+  font-size: 39.9px;
   color: #111;
   font-family: var(--font-bold);
 }
@@ -68,7 +68,7 @@
 }
 .sv-gray {
   display: block;
-  margin-top: 50px;
+  margin-top: 59px;
   text-align: center;
   font-size: 24px;
   color: #999;

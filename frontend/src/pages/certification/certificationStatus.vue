@@ -61,20 +61,20 @@ onMounted(async () => {
   top: 50%;
   transform: translate(-50%, -50%);
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .status-body {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 174px;
+  padding-top: 172px;
 }
 .status-title {
   margin-top: 0;
-  font-size: 58px;
+  font-size: 47.1px;
   color: #000;
   font-family: var(--font-regular);
 }
@@ -85,7 +85,7 @@ onMounted(async () => {
   font-family: var(--font-regular);
 }
 .retry-btn {
-  margin-top: 536.3px;
+  margin-top: 515px;
   width: 327.9px;
   height: 79.7px;
   background: #ff7800;
@@ -95,7 +95,7 @@ onMounted(async () => {
   justify-content: center;
 }
 .retry-text {
-  font-weight: bold;
+  font-weight: 600;
   font-size: 29px;
   color: #fff;
   font-family: var(--font-bold);

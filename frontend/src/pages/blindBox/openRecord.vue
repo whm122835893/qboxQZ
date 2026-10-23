@@ -104,9 +104,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 /* ---- 记录行（plr-16 ptb-12） ---- */
 .rec-row {
@@ -154,7 +154,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 }
 .rec-empty-text {
   margin-top: 16px;
-  font-size: 24px;
+  font-size: 25.4px;
   color: #999;
   font-family: var(--font-regular);
 }

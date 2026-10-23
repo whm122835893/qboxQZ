@@ -62,6 +62,9 @@ export function mockRequest(path, data = {}) {
     if (base.data) {
       if (profileStore.nickname) base.data.nickname = profileStore.nickname
       if (profileStore.avatar) base.data.avatar = profileStore.avatar
+      // 原站账号已设操作密码（原站直接访问 setPwd 显示设置表单而非跳转短信验证），
+      // mock 数据缺 pay_password 字段会导致 setPwd 页误跳 getCode，这里补齐（已在 API 文档登记）
+      if (base.data.pay_password === undefined) base.data.pay_password = 1
     }
     return base
   }

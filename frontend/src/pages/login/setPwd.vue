@@ -20,7 +20,7 @@
 
       <div class="pwd-tip">密码内需同时包含数字、字母，长度在6-12之间</div>
 
-      <div class="btn-primary" @click="submit">确认</div>
+      <div class="btn-primary" @click="submit"><span>确认</span></div>
     </div>
   </div>
 </template>
@@ -106,7 +106,7 @@ async function submit() {
   box-sizing: border-box;
 }
 .ipt-label {
-  font-size: 29px;
+  font-size: 25.4px;
   color: #111;
   font-family: var(--font-regular);
   flex-shrink: 0;
@@ -134,7 +134,7 @@ async function submit() {
 .toggle-show {
   flex-shrink: 0;
   margin-left: 16.3px;
-  font-size: 25.4px;
+  font-size: 23.6px;
   color: #939393;
 }
 .pwd-tip {
@@ -150,7 +150,7 @@ async function submit() {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 30.8px;
   color: #fff;
   font-family: var(--font-medium);
   margin-top: 47.1px; /* 原站实测：提示行到按钮间隔 26px@414 */

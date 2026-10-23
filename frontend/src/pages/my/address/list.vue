@@ -97,9 +97,9 @@ onMounted(load)
   width: 398.6px;
   text-align: center;
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
   white-space: nowrap;
 }
 /* 加载中 */
@@ -143,7 +143,7 @@ onMounted(load)
   background: #0018ff;
   border-radius: 45.3px;
   color: #fff;
-  font-size: 25.4px;
+  font-size: 23.6px;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -173,7 +173,7 @@ onMounted(load)
   gap: 21.7px;
 }
 .addr-name {
-  font-size: 29px;
+  font-size: 23.6px;
   font-weight: 600;
   color: #000;
   font-family: var(--font-medium);

@@ -51,13 +51,13 @@
   height: auto;
 }
 .nav-title {
-  font-size: 32.6px;
-  font-weight: 500;
+  font-size: 27.2px;
+  font-weight: 700;
   color: #000;
   font-family: var(--font-medium);
 }
 .body {
-  padding: 30px 0 0;
+  padding: 32px 0 0;
 }
 .dark-capsule {
   width: 100%;
@@ -74,15 +74,16 @@
 }
 .capsule-num {
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
   margin: 0 4px;
+  font-size: 27.2px;
 }
 .footer {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 16px 15px calc(16px + env(safe-area-inset-bottom));
+  padding: 16px 15px 56px;
   box-sizing: border-box;
   background: #f5f5f5;
 }
@@ -96,6 +97,10 @@
   justify-content: center;
 }
 .invite-text {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 30px;
   color: #fff;
   font-family: var(--font-bold);

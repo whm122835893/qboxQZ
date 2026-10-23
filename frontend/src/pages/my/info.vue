@@ -91,9 +91,9 @@ onMounted(async () => {
   width: 398.6px;
   text-align: center;
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
   white-space: nowrap;
 }
 /* 行（原站实测：行1 h100、行2/3 h55，bg#fff padding 30.8，行间 1px 灰，label fs27.2 #000，值 fs23.6 #000） */

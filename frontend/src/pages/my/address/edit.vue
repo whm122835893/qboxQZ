@@ -194,9 +194,9 @@ async function save() {
   width: 398.6px;
   text-align: center;
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
   white-space: nowrap;
 }
 /* 表单卡（原站实测 17,61,380×311 r13） */

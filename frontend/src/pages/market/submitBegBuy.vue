@@ -177,9 +177,9 @@ getInfo()
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .body {
   width: 100%;
@@ -431,7 +431,7 @@ getInfo()
   color: #111;
 }
 .total-price {
-  font-size: 32px;
+  font-size: 30.8px;
   color: #111;
   font-family: 'AlimamaFangYuanTiVF-Thin', var(--font-regular);
   font-weight: bold;

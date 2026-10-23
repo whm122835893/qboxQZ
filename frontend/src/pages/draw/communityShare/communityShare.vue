@@ -96,7 +96,7 @@
   box-sizing: border-box;
 }
 .capsule-text {
-  font-size: 26px;
+  font-size: 27.2px;
   color: #b8b2a8;
 }
 .capsule-num {
@@ -105,7 +105,7 @@
   margin: 0 4px;
 }
 .capsule-action {
-  font-size: 26px;
+  font-size: 27.2px;
   color: #ff7800;
 }
 .upload-title {
@@ -124,22 +124,22 @@
 }
 .upload-tip {
   display: block;
-  margin-top: 20px;
-  font-size: 24px;
+  margin-top: 56px;
+  font-size: 27.2px;
   color: #999;
 }
 .table-head {
-  margin-top: 54px;
+  margin-top: 27px;
   display: flex;
 }
 .th {
   flex: 1;
   text-align: center;
-  font-size: 24px;
+  font-size: 23.6px;
   color: #999;
 }
 .empty {
-  margin-top: 78px;
+  margin-top: 122px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,11 +150,11 @@
   height: 110px;
 }
 .empty-text {
-  font-size: 24px;
+  font-size: 25.4px;
   color: #999;
 }
 .rule-btn {
-  margin-top: 92px;
+  margin-top: 50px;
   width: 687px;
   height: 100px;
   background: #302920;
@@ -165,7 +165,7 @@
   box-sizing: border-box;
 }
 .rule-text {
-  font-size: 28px;
+  font-size: 30.8px;
   color: #6b6455;
 }
 .footer {
@@ -173,7 +173,7 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 30px 30px calc(30px + env(safe-area-inset-bottom));
+  padding: 0 30px 33px;
   box-sizing: border-box;
   background: #f5f5f5;
 }

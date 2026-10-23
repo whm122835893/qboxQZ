@@ -27,10 +27,8 @@
 
       <!-- 分享社群规则按钮 -->
       <div class="rule-btn"><span class="rule-text">分享社群规则</span></div>
-    </div>
 
-    <!-- 底部提交（fixed 黑色，本页与社群分享页不同） -->
-    <div class="footer">
+      <!-- 提交按钮（原站在内容流内 y446，非 fixed） -->
       <div class="submit-btn"><span class="submit-text">提交</span></div>
     </div>
   </div>
@@ -89,7 +87,7 @@
   box-sizing: border-box;
 }
 .capsule-text {
-  font-size: 26px;
+  font-size: 27.2px;
   color: #b8b2a8;
 }
 .capsule-num {
@@ -98,7 +96,7 @@
   margin: 0 4px;
 }
 .capsule-action {
-  font-size: 26px;
+  font-size: 27.2px;
   color: #ff7800;
 }
 .upload-title {
@@ -117,18 +115,18 @@
 }
 .upload-tip {
   display: block;
-  margin-top: 20px;
-  font-size: 24px;
+  margin-top: 56px;
+  font-size: 27.2px;
   color: #999;
 }
 .table-head {
-  margin-top: 54px;
+  margin-top: 27px;
   display: flex;
 }
 .th {
   flex: 1;
   text-align: center;
-  font-size: 24px;
+  font-size: 23.6px;
   color: #999;
 }
 .rule-btn {
@@ -156,6 +154,7 @@
   background: #f5f5f5;
 }
 .submit-btn {
+  margin-top: 54px;
   width: 100%;
   height: 88px;
   background: #141416;
@@ -165,6 +164,10 @@
   justify-content: center;
 }
 .submit-text {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 30px;
   color: #fff;
   font-family: var(--font-bold);

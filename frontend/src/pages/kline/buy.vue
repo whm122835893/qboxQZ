@@ -79,7 +79,7 @@ const current = ref(0)
 }
 .banner {
   margin: 10px 17.7px 0;
-  height: 165px;
+  height: 262px;
   border-radius: 16px;
   background: url('/static/banner/kline-banner.jpg') center / cover no-repeat;
 }
@@ -112,7 +112,7 @@ const current = ref(0)
   color: #333;
 }
 .q-tabs {
-  margin-top: 32px;
+  margin-top: 2px;
   display: flex;
   gap: 43px;
 }

@@ -80,7 +80,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 160px;
+  margin-top: 185px;
 }
 .empty-img {
   width: 265px;

@@ -68,7 +68,7 @@ function onDownload(platform) {
 .bg-img {
   margin-top: 27px;
   width: 100%;
-  height: 1223px;
+  height: 1208px;
   background: url('/static/qbox/download-bg.png') center top / 100% auto no-repeat;
 }
 .btn-group {
@@ -76,7 +76,7 @@ function onDownload(platform) {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-top: -80px;
+  margin-top: 0;
 }
 .dl-btn {
   height: 88px;

@@ -124,9 +124,9 @@ onMounted(async () => {
   top: 50%;
   transform: translate(-50%, -50%);
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .setting-container {
   width: 677.5px;
@@ -134,7 +134,7 @@ onMounted(async () => {
   margin-left: 34.4px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 .setting-row {
   height: 94.2px;

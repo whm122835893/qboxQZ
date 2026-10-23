@@ -34,7 +34,7 @@
 
       <!-- 字段组二（求购/委托订单） -->
       <span class="group-title">{{ isEntrust ? '委托订单' : '求购订单' }}</span>
-      <div class="field-card">
+      <div class="field-card field-card-sm">
         <div class="field-row">
           <span class="field-label">订单编号</span>
           <span class="field-value">--</span>
@@ -78,10 +78,12 @@ request(isEntrust.value ? '/api/order/order/entrustOrderInfo' : '/api/order/orde
 .navbar {
   position: relative;
   width: 100%;
-  height: 79.7px;
+  height: 116px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  padding-bottom: 12px;
+  box-sizing: border-box;
 }
 .navbar-back {
   position: absolute;
@@ -132,7 +134,7 @@ request(isEntrust.value ? '/api/order/order/entrustOrderInfo' : '/api/order/orde
   padding: 6px 22px;
 }
 .field-row {
-  padding: 30px 0;
+  padding: 24px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -148,6 +150,7 @@ request(isEntrust.value ? '/api/order/order/entrustOrderInfo' : '/api/order/orde
 }
 .field-price {
   font-size: 27.2px;
+  line-height: 1;
   font-family: 'AlimamaShuHeiTi-Bold', var(--font-medium);
   color: #111;
 }
@@ -157,12 +160,20 @@ request(isEntrust.value ? '/api/order/order/entrustOrderInfo' : '/api/order/orde
 }
 .group-title {
   display: block;
-  margin: 40px 4px 0;
+  margin: 28px 4px 0;
   font-size: 27.2px;
   font-weight: 700;
   color: #111;
 }
 .field-card + .group-title {
   margin-top: 40px;
+}
+.field-card-sm .field-label {
+  font-size: 25.4px;
+  font-weight: 400;
+  color: #8c8c8c;
+}
+.field-card-sm .field-row {
+  padding: 16px 0;
 }
 </style>

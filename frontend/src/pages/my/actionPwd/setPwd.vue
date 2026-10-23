@@ -100,15 +100,8 @@ async function submit() {
   }
 }
 
-onMounted(async () => {
-  // 原站 chunk 实测：直接进入本页且无验证码时，重定向到验证手机号页
-  //（action 取值：pay_password 存在 → 'set' 旧密码校验模式；不存在 → 'reset' 短信模式）
-  if (!form.captcha) {
-    const res = await userStore.getUserInfo()
-    const action = res.data?.pay_password ? 'set' : 'reset'
-    router.replace('/pages/my/actionPwd/getCode?action=' + action)
-    return
-  }
+onMounted(() => {
+  // 2026-10-23 实测修正：原站直接访问本页显示「设置操作密码」表单，不重定向到验证手机号页
   // 手机号默认带出当前账号（原站同款逻辑：表单 mobile 预填）
   if (!form.mobile && userStore.userinfo?.mobile) form.mobile = userStore.userinfo.mobile
 })
@@ -149,7 +142,7 @@ onUnmounted(() => timer && clearInterval(timer))
   transform: translate(-50%, -50%);
   width: 398.6px;
   text-align: center;
-  font-size: 32.6px;
+  font-size: 32.7px;
   font-weight: 500;
   color: #000;
   font-family: var(--font-medium);
@@ -165,7 +158,7 @@ onUnmounted(() => timer && clearInterval(timer))
   margin-top: 0;
   display: flex;
   flex-direction: column;
-  gap: 34.4px;
+  gap: 59.4px;
 }
 .ipt-row {
   height: 87px;
@@ -212,7 +205,7 @@ onUnmounted(() => timer && clearInterval(timer))
 }
 /* 提示（原站实测 y666 → 距表单底 117.8 设计） */
 .tip {
-  margin-top: 117.8px;
+  margin-top: 49px;
   font-size: 23.6px;
   color: #8c8c8c;
   font-family: var(--font-regular);
@@ -222,12 +215,12 @@ onUnmounted(() => timer && clearInterval(timer))
   position: fixed;
   left: 47.1px;
   right: 47.1px;
-  bottom: 47.1px;
+  bottom: 20px;
   height: 87px;
   background: #0047ff;
   border-radius: 43.5px;
   color: #fff;
-  font-size: 29px;
+  font-size: 30.8px;
   font-weight: 600;
   display: flex;
   align-items: center;

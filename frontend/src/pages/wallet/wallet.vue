@@ -25,7 +25,7 @@
             <span class="card-name">{{ w.name }}</span>
             <span class="card-desc">{{ w.desc }}</span>
           </div>
-          <span class="card-pill" :class="{ off: !w.open }">{{ w.open ? '已开通' : '敬请期待对接中' }}</span>
+          <span v-if="w.open" class="card-pill">已开通</span>
         </div>
         <div class="card-footer" :style="{ background: w.footerColor }">
           <span class="footer-label">余额</span>
@@ -91,9 +91,9 @@ onMounted(async () => {
   top: 50%;
   transform: translate(-50%, -50%);
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .wallet-container {
   width: 100%;
@@ -131,15 +131,15 @@ onMounted(async () => {
 }
 .card-head {
   width: 100%;
-  padding: 27.2px 27.2px 23.6px;
+  padding: 25px 27.2px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   background: #fff;
 }
 .card-icon {
-  width: 79.7px;
-  height: 79.7px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
   border-radius: 14.5px;
 }
@@ -185,7 +185,7 @@ onMounted(async () => {
 }
 .card-footer {
   width: 100%;
-  height: 83.3px;
+  height: 83px;
   padding: 0 27.2px;
   box-sizing: border-box;
   display: flex;

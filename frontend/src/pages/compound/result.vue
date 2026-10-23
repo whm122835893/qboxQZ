@@ -80,7 +80,9 @@ getDetails()
 }
 .navbar-inner {
   width: 684px;
-  height: 72px;
+  height: 116px;
+  padding-top: 36px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -94,7 +96,7 @@ getDetails()
 .nav-title {
   flex: 1;
   padding: 0 24px;
-  font-size: 32px;
+  font-size: 30.8px;
   color: #111;
   font-family: var(--font-bold);
   text-align: center;

@@ -17,7 +17,7 @@
           <span class="g-name">藏品名称</span>
           <div class="floor-col">
             <span class="floor-label">地板价</span>
-            <span class="floor-price">￥--</span>
+            <span class="floor-price"><span class="floor-cny">¥</span>--</span>
           </div>
         </div>
         <div class="num-row">
@@ -123,11 +123,12 @@ const current = ref(0)
 .main-img {
   margin-top: 8px;
   width: 100%;
-  height: 617px;
+  height: 536px;
   border-radius: 28px;
   background: #0e0f12;
 }
 .name-card {
+  position: relative;
   margin-top: 25px;
   background: #fff;
   border-radius: 16px;
@@ -143,7 +144,9 @@ const current = ref(0)
   color: #111;
 }
 .floor-col {
-  margin-left: auto;
+  position: absolute;
+  right: 43px;
+  top: 44px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -153,9 +156,14 @@ const current = ref(0)
   color: #000;
 }
 .floor-price {
-  font-size: 25.4px;
+  font-size: 36px;
   font-weight: 700;
   color: #111;
+}
+.floor-cny {
+  font-size: 21.7px;
+  font-weight: 400;
+  margin-right: 2px;
 }
 .num-row {
   margin-top: 18px;
@@ -170,10 +178,10 @@ const current = ref(0)
   margin-right: 12px;
 }
 .m-tabs {
-  margin-top: 40px;
+  margin-top: 60px;
   display: flex;
-  justify-content: space-between;
-  padding: 0 8px;
+  gap: 27px;
+  padding: 0 8px 0 12px;
 }
 .m-tab {
   font-size: 27.2px;
@@ -184,13 +192,14 @@ const current = ref(0)
   font-weight: 700;
 }
 .filter-row {
-  margin-top: 30px;
+  margin-top: 52px;
   display: flex;
   align-items: center;
+  padding-left: 33px;
 }
 .mini-tabs {
   display: flex;
-  gap: 30px;
+  gap: 54px;
 }
 .mini-tab {
   font-size: 23.6px;
@@ -210,7 +219,7 @@ const current = ref(0)
   margin-left: 30px;
 }
 .sort-label {
-  font-size: 23.6px;
+  font-size: 21.7px;
   color: #666;
 }
 .sort-icon {
@@ -234,7 +243,7 @@ const current = ref(0)
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(20px + env(safe-area-inset-bottom));
+  bottom: -20px;
   width: 681px;
   height: 90px;
   border-radius: 45px;

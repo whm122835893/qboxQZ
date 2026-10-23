@@ -155,9 +155,9 @@ onMounted(async () => {
   top: 50%;
   transform: translate(-50%, -50%);
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .cert-container {
   width: 100%;

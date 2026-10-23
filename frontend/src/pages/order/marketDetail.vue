@@ -36,7 +36,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 348px;
+  margin-top: 660px;
 }
 .spinner {
   width: 20px;
@@ -51,7 +51,7 @@ onMounted(async () => {
 }
 .loading-text {
   margin-top: 12px;
-  font-size: 14px;
+  font-size: 21.7px;
   color: #c8c8c8;
 }
 .uni-toast {

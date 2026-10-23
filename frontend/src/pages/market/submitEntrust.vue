@@ -9,7 +9,7 @@
     <div class="body">
       <!-- 商品卡（bg#fff r12 padding20） -->
       <div class="goods-card">
-        <div class="goods-img-box">
+        <div v-if="info.listimg" class="goods-img-box">
           <img v-if="info.listimg" class="goods-img" :src="resolveImg(info.listimg)" alt="" />
         </div>
         <div class="goods-name-box">
@@ -57,7 +57,7 @@
     <div class="footer">
       <div class="footer-inner">
         <span class="total-text">合计：￥{{ totalPrice }}</span>
-        <div class="prepay-btn" :style="{ opacity: disable ? 0.5 : 1 }" @click="createOrder"><span class="prepay-text">预付</span></div>
+        <div class="prepay-btn prepay-text" :style="{ opacity: disable ? 0.5 : 1 }" @click="createOrder">预付</div>
       </div>
     </div>
   </div>
@@ -162,15 +162,15 @@ getInfo()
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .body {
   padding: 0 32px;
 }
 .goods-card {
-  margin-top: 20px;
+  margin-top: 40px;
   background: #fff;
   border-radius: 12px;
   padding: 20px;
@@ -202,17 +202,21 @@ getInfo()
   font-size: 32px;
   color: #000;
   font-family: var(--font-medium);
+  margin-bottom: 24px;
 }
 .field-block {
-  margin-top: 20px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
+}
+.field-block:last-child {
+  margin-top: 40px;
 }
 .field-block-mt {
   margin-top: 24px;
 }
 .field-title {
-  font-size: 32px;
+  font-size: 30.8px;
   font-weight: 500;
   color: #000;
   font-family: var(--font-bold);
@@ -295,7 +299,7 @@ getInfo()
   flex-shrink: 0;
 }
 .pay-name {
-  font-size: 32px;
+  font-size: 30.8px;
   color: #000;
   font-family: var(--font-medium);
 }

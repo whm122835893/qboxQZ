@@ -31,7 +31,7 @@
         <input v-model="form.inviter_code" class="ipt-input" type="text" placeholder="请输入邀请码" />
       </div>
 
-      <div class="btn-primary" @click="submit">注册</div>
+      <div class="btn-primary" @click="submit"><span>注册</span></div>
       <div class="btn-outline" @click="$router.push('/pages/login/login?loginType=1')"><span class="btn-outline-text">去登录</span></div>
 
       <!-- 协议（与登录页同款） -->
@@ -160,7 +160,7 @@ onUnmounted(() => timer && clearInterval(timer))
   box-sizing: border-box;
 }
 .ipt-label {
-  font-size: 29px;
+  font-size: 25.4px;
   color: #111;
   font-family: var(--font-regular);
   flex-shrink: 0;
@@ -187,7 +187,7 @@ onUnmounted(() => timer && clearInterval(timer))
 }
 .get-code {
   flex-shrink: 0;
-  font-size: 25.4px;
+  font-size: 23.6px;
   color: #0047ff;
 }
 .btn-primary {
@@ -198,7 +198,7 @@ onUnmounted(() => timer && clearInterval(timer))
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 30.8px;
   color: #fff;
   font-family: var(--font-medium);
   margin-top: 23.6px;
@@ -218,11 +218,11 @@ onUnmounted(() => timer && clearInterval(timer))
 }
 .btn-outline-text {
   color: #1a1a1a;
-  font-size: 32px;
+  font-size: 30.8px;
   font-family: var(--font-medium);
 }
 .agreement-row {
-  margin-top: 156px;
+  margin-top: 147px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,7 +243,7 @@ onUnmounted(() => timer && clearInterval(timer))
   border-color: #000;
 }
 .agreement-text {
-  font-size: 25.4px;
+  font-size: 23.6px;
   color: #333;
   font-family: var(--font-regular);
 }

@@ -125,16 +125,16 @@ onUnmounted(() => {
   top: 50%;
   transform: translate(-50%, -50%);
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .shop-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 262.7px 34.4px 79.7px;
+  padding: 188.7px 34.4px 79.7px;
   box-sizing: border-box;
 }
 
@@ -223,11 +223,11 @@ onUnmounted(() => {
   top: 50%;
   transform: translateY(-50%);
   font-family: 'NanoByongGyeHei-Regular', var(--font-regular);
-  font-size: 18.1px;
+  font-size: 72.5px;
   color: #686868;
 }
 .card-body {
-  padding-top: 32.6px;
+  padding-top: 57.6px;
   display: flex;
   flex-direction: column;
   align-items: center;

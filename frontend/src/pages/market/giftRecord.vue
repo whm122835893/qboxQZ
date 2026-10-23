@@ -53,9 +53,9 @@ onMounted(async () => {
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .list-box {
   margin: 0 29px;

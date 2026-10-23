@@ -137,10 +137,10 @@ onMounted(async () => {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 30.8px;
-  font-weight: 500;
+  font-size: 32.6px;
+  font-weight: 700;
   color: #111;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .invite-container {
   width: 100%;
@@ -203,12 +203,12 @@ onMounted(async () => {
   gap: 7.2px;
 }
 .code-tip {
-  font-size: 21.7px;
+  font-size: 23.6px;
   color: #999;
   font-family: var(--font-regular);
 }
 .code-value {
-  font-size: 36.2px;
+  font-size: 34.4px;
   font-weight: bold;
   color: #111;
   font-family: var(--font-bold);
@@ -228,7 +228,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 23.6px;
+  font-size: 27.2px;
   color: #0047ff;
   font-family: var(--font-regular);
 }
@@ -241,7 +241,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 23.6px;
+  font-size: 27.2px;
   color: #fff;
   font-family: var(--font-regular);
 }
@@ -255,7 +255,7 @@ onMounted(async () => {
 }
 .record-title {
   font-weight: 600;
-  font-size: 30.8px;
+  font-size: 27.2px;
   color: #111;
   font-family: var(--font-bold);
 }

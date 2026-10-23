@@ -51,9 +51,9 @@
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .body {
   display: flex;
@@ -69,13 +69,13 @@
 }
 .about-label {
   align-self: flex-start;
-  margin: 175px 0 0 33px;
-  font-size: 32px;
+  margin: 247px 0 0 33px;
+  font-size: 28.8px;
   color: #111;
   font-family: var(--font-bold);
 }
 .agreements {
-  margin-top: 250px;
+  margin-top: 226px;
   display: flex;
   justify-content: center;
   gap: 4px;

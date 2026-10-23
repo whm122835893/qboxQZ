@@ -40,8 +40,11 @@
         <div class="cal-grid">
           <div v-for="(cell, i) in cells" :key="i" class="cal-cell">
             <template v-if="cell.day">
-              <span v-if="!isSigned(cell)" class="cal-day" :class="{ dim: !cell.current }">{{ cell.day }}</span>
-              <span v-else class="cal-signed">已签到</span>
+              <span v-if="isSigned(cell)" class="cal-extra"><span class="cal-extra-line">已</span><span class="cal-extra-line">签到</span></span>
+              <span v-else class="cal-day" :class="{ dim: !cell.current, today: isToday(cell) }">
+                {{ cell.day }}
+                <span v-if="isToday(cell)" class="cal-today-tag">today</span>
+              </span>
             </template>
           </div>
         </div>
@@ -91,13 +94,19 @@ const cells = computed(() => {
   const arr = []
   for (let i = lead - 1; i >= 0; i--) arr.push({ day: prevDays - i, current: false })
   for (let d = 1; d <= daysInMonth; d++) arr.push({ day: d, current: true })
-  // 原站 uni-calendar 固定渲染 6 行（42 格）
-  while (arr.length < 42) arr.push({ day: 0, current: false })
+  // 原站 uni-calendar 固定渲染 6 行（42 格），末尾补下月日期（灰色）
+  let nd = 1
+  while (arr.length < 42) arr.push({ day: nd++, current: false })
   return arr
 })
 
 function isSigned(cell) {
   return cell.current && signedDays.value.includes(cell.day)
+}
+
+function isToday(cell) {
+  const n = new Date()
+  return cell.current && cell.day === n.getDate() && calYear.value === n.getFullYear() && calMonth.value === n.getMonth() + 1
 }
 
 function changeMonth(delta) {
@@ -177,9 +186,9 @@ onMounted(async () => {
   top: 50%;
   transform: translate(-50%, -50%);
   font-size: 30.8px;
-  font-weight: 500;
+  font-weight: 700;
   color: #111;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 .sign-container {
   width: 100%;
@@ -227,7 +236,7 @@ onMounted(async () => {
 /* 连签 */
 .streak-row {
   width: 693.8px;
-  margin-top: 18.1px;
+  margin-top: 33px;
   display: flex;
   align-items: center;
 }
@@ -246,7 +255,7 @@ onMounted(async () => {
 /* 日历卡 */
 .calendar-card {
   width: 695.6px;
-  margin-top: 29px;
+  margin-top: 16px;
   border-radius: 29px;
   overflow: hidden;
   background: #fff;
@@ -257,10 +266,10 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   gap: 36.2px;
-  padding: 25.4px 0 18.1px;
+  padding: 25.4px 0 34.4px;
 }
-.cal-month {
-  font-size: 29px;
+.cal-month { /* 14 渲染 */
+  font-size: 25.4px;
   color: #111;
   font-family: var(--font-regular);
 }
@@ -275,16 +284,17 @@ onMounted(async () => {
 .cal-week-label {
   flex: 1;
   text-align: center;
-  font-size: 21.7px;
+  font-size: 25.4px;
   color: #333;
   font-family: var(--font-regular);
 }
 .cal-grid {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 7.2px 25.4px;
+  padding: 18px 7.2px 25.4px;
 }
 .cal-cell {
+  position: relative;
   width: 14.2857%;
   height: 99.6px;
   display: flex;
@@ -292,27 +302,42 @@ onMounted(async () => {
   justify-content: center;
 }
 .cal-day {
-  font-size: 27.2px;
+  font-size: 25.4px;
   color: #111;
   font-family: var(--font-regular);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cal-day.today {
+  font-weight: 400;
+  color: #2a51ef;
+}
+.cal-today-tag {
+  font-size: 21.7px;
+  color: #2a51ef;
+  font-family: var(--font-regular);
+  margin-top: 3.6px;
 }
 .cal-day.dim {
-  color: #c8c9cc;
+  color: #c0c0c0;
 }
-.cal-signed {
-  width: 87px;
-  height: 87px;
+/* 已签到徽章：原站 uni-calendar-item__weeks-extra 实测 32x35 渲染px */
+.cal-extra {
+  width: 58px;
+  height: 63.7px;
   background: #2a51ef;
-  border-radius: 14.5px;
+  border-radius: 9px;
   color: #fff;
-  font-size: 18.1px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  line-height: 1.2;
-  padding: 5.4px;
-  word-break: break-all;
+  line-height: 1.15;
+}
+.cal-extra-line {
+  font-size: 20px;
+  font-family: var(--font-regular);
 }
 
 /* 底部固定按钮 */

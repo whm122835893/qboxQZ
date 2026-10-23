@@ -104,9 +104,9 @@ function goConsign() {
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 
 /* ---- 内容区（.con 绝对居中，与原站一致） ---- */

@@ -35,7 +35,7 @@
             <svg class="lb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9 2h6"/></svg>
             申购时间
           </span>
-          <span class="info-value" style="font-size: 26rpx;">2026.01.01 14:00 - 2026.01.02 14:00</span>
+          <span class="info-value" style="font-size: 14px;">2026.01.01 14:00 - 2026.01.02 14:00</span>
         </div>
       </div>
 

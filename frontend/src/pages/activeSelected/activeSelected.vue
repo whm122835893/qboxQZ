@@ -69,7 +69,7 @@ request('/api/Activity/category', {})
   color: #000;
 }
 .capsule-tabs {
-  margin-top: 8px;
+  margin-top: 73px;
   display: flex;
   justify-content: space-between;
   padding: 0 33px;
@@ -85,7 +85,7 @@ request('/api/Activity/category', {})
   background: #0018ff;
 }
 .empty {
-  margin-top: 290px;
+  margin-top: 237px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -136,9 +136,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 }
 .nav-title {
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 /* ---- Tab（inactiveStyle/activeStyle 28rpx #333，行高 80rpx；下划线 18×4 #393939） ---- */
 .tab {

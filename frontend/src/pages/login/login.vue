@@ -339,7 +339,7 @@ async function handleSmsLogin() {
   border: none;
   outline: none;
   background: transparent;
-  font-size: 32px;
+  font-size: 30.8px;
   color: #000000;
   font-family: 'AlimamaFangYuanTiVF-Thin', var(--font-regular);
   min-width: 0;
@@ -380,7 +380,7 @@ async function handleSmsLogin() {
 }
 .btn-primary-text {
   color: #fff;
-  font-size: 32px;
+  font-size: 30.8px;
   font-family: var(--font-medium);
 }
 .btn-outline {
@@ -398,7 +398,7 @@ async function handleSmsLogin() {
 }
 .btn-outline-text {
   color: #1a1a1a;
-  font-size: 32px;
+  font-size: 30.8px;
   font-family: var(--font-medium);
 }
 
@@ -454,7 +454,7 @@ async function handleSmsLogin() {
   gap: 16px;
 }
 .smscode-title {
-  font-size: 32px;
+  font-size: 30.8px;
   color: #111;
   font-family: var(--font-medium);
 }

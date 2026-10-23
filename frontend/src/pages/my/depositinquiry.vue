@@ -54,7 +54,7 @@ const result = ref('')
   font-family: var(--font-medium);
 }
 .panel {
-  margin: 0 8.8px;
+  margin: 36px 8.8px 0;
   background: #f5f6fa;
   border-radius: 16px;
   padding: 20px 16px;
@@ -68,7 +68,7 @@ const result = ref('')
 .dq-textarea {
   margin-top: 14px;
   width: 100%;
-  height: 100px;
+  height: 178px;
   background: #fff;
   border: 1px solid #e5e5e5;
   border-radius: 8px;
@@ -85,7 +85,7 @@ const result = ref('')
 .dq-result {
   margin-top: 14px;
   width: 100%;
-  height: 100px;
+  height: 178px;
   background: #fff;
   border: 1px solid #e5e5e5;
   border-radius: 8px;

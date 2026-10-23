@@ -85,7 +85,7 @@ function onPublish() {
   color: #c0c4cc;
 }
 .anon-row {
-  margin-top: 200px;
+  margin-top: 130px;
   display: flex;
   align-items: center;
   justify-content: flex-end;

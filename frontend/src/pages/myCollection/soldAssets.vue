@@ -89,9 +89,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   width: 398.6px;
   text-align: center;
   font-size: 30.8px;
-  font-weight: 500;
+  font-weight: 700;
   color: #111;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
   white-space: nowrap;
 }
 /* 列表区（原站实测 padding 7.2 23.6 79.7） */

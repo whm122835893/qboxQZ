@@ -139,9 +139,9 @@ onUnmounted(() => timer && clearInterval(timer))
   width: 398.6px;
   text-align: center;
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
   white-space: nowrap;
 }
 /* 内容区（原站实测 mt378.6，左右 74.3） */

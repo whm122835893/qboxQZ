@@ -36,10 +36,12 @@ onMounted(async () => {
 .navbar {
   position: relative;
   width: 100%;
-  height: 79.7px;
+  height: 116px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  padding-bottom: 12px;
+  box-sizing: border-box;
 }
 .navbar-back {
   position: absolute;

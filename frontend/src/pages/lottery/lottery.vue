@@ -158,7 +158,7 @@ onUnmounted(() => {
   top: 50%;
   margin-top: 18.1px;
   transform: translate(-50%, -50%);
-  font-size: 32.6px;
+  font-size: 30.8px;
   font-weight: 500;
   color: #000;
   font-family: var(--font-medium);
@@ -238,7 +238,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 5.4px;
-  font-size: 19.9px;
+  font-size: 21.7px;
   color: #111;
   font-family: var(--font-medium);
 }
@@ -250,7 +250,7 @@ onUnmounted(() => {
 /* ---- 当前奖池白卡 ---- */
 .cur-card {
   width: 683px;
-  margin-top: 29px;
+  margin-top: 34px;
   background: #fff;
   border-radius: 30.8px;
   padding: 27.2px 23.6px;
@@ -309,7 +309,7 @@ onUnmounted(() => {
 /* ---- 剩余次数 ---- */
 .remain-row {
   width: 683px;
-  margin-top: 25px;
+  margin-top: 110px;
 }
 .remain-text {
   font-size: 21.7px;
@@ -321,7 +321,7 @@ onUnmounted(() => {
 .btn-row {
   position: relative;
   width: 683px;
-  margin-top: 16.3px;
+  margin-top: 14px;
   display: flex;
   gap: 21.7px;
 }
@@ -331,19 +331,20 @@ onUnmounted(() => {
   background: #0047ff;
   border-radius: 14.5px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 }
 .btn-five-title {
   font-weight: bold;
-  font-size: 25.4px;
+  font-size: 27.2px;
   color: #fff;
   font-family: var(--font-bold);
 }
 .btn-five-sub {
-  margin-top: 3.6px;
-  font-size: 14.5px;
+  margin-top: 0;
+  font-size: 19.9px;
   color: rgba(255, 255, 255, 0.8);
   font-family: var(--font-regular);
 }
@@ -354,19 +355,20 @@ onUnmounted(() => {
   border: 1.8px solid #0047ff;
   border-radius: 14.5px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 }
 .btn-one-title {
   font-weight: bold;
-  font-size: 25.4px;
+  font-size: 27.2px;
   color: #0047ff;
   font-family: var(--font-bold);
 }
 .btn-one-sub {
-  margin-top: 3.6px;
-  font-size: 14.5px;
+  margin-top: 0;
+  font-size: 19.9px;
   color: #0047ff;
   opacity: 0.8;
   font-family: var(--font-regular);
@@ -402,7 +404,7 @@ onUnmounted(() => {
 /* ---- 抽奖规则卡 ---- */
 .rule-card {
   width: 683px;
-  margin-top: 47.1px;
+  margin-top: 39px;
   background: #fff;
   border-radius: 30.8px;
   padding: 32.6px 23.6px;

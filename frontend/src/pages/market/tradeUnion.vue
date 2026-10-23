@@ -103,10 +103,10 @@ const current = ref(0)
 .nav-title {
   width: 398.6px;
   font-size: 32.6px;
-  font-weight: 500;
+  font-weight: 700;
   color: #000;
   text-align: center;
-  font-family: var(--font-medium);
+  font-family: var(--font-bold);
 }
 /* ---- 主体（container padding-top 55px 渲染） ---- */
 .body {
@@ -123,12 +123,12 @@ const current = ref(0)
 .lock-title {
   margin-top: 43.5px;
   margin-bottom: 38px;
-  font-size: 29px;
+  font-size: 30.8px;
   font-weight: 700;
   color: #26292d;
 }
 .lock-sub {
-  font-size: 21.7px;
+  font-size: 23.6px;
   color: #fcd8b1;
 }
 /* ---- Tabs（mt-40 渲染；text 82×66px；line 20×3 bottom 20rpx） ---- */
@@ -174,7 +174,7 @@ const current = ref(0)
   height: 470px;
   background: #513724;
   border-radius: 20px;
-  padding: 50px;
+  padding: 25px 50px 50px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -206,8 +206,8 @@ const current = ref(0)
   color: #e3a86a;
 }
 .benefit-text {
-  margin-top: 7px;
-  font-size: 21.7px;
+  margin-top: 27px;
+  font-size: 23.6px;
   color: #cab6a1;
   line-height: 34.4px;
 }

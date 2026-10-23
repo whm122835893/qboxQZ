@@ -35,7 +35,7 @@ onMounted(async () => {
   background: #fff;
 }
 .table-head {
-  margin-top: 92px;
+  margin-top: 166px;
   display: flex;
   padding: 0 33px;
 }
@@ -54,7 +54,7 @@ onMounted(async () => {
   text-align: right;
 }
 .empty {
-  margin-top: 260px;
+  margin-top: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
