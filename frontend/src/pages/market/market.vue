@@ -46,7 +46,7 @@
             @click="selectSeries(s)"
           >
             <div class="series-head">
-              <template v-if="s.is_def === 1">
+              <template v-if="s.series_id === selectedSeriesId">
                 <img class="series-badge" src="/static/qbox/market-board-badge.png" alt="板块" />
                 <span class="series-name on">{{ s.series_name }}</span>
               </template>
@@ -54,7 +54,7 @@
                 <span class="series-name">{{ s.series_name }}</span>
               </template>
             </div>
-            <span class="series-value" :class="{ on: s.is_def === 1 }"> -- </span>
+            <span class="series-value" :class="{ on: s.series_id === selectedSeriesId }"> -- </span>
           </div>
         </div>
 
@@ -419,6 +419,8 @@ onUnmounted(() => {
 .series-head {
   display: flex;
   align-items: center;
+  /* 徽章与名称间距：原站实测 6px 渲染 = 10.9 源码px */
+  gap: 10.9px;
 }
 .series-badge {
   width: 87px;
@@ -443,10 +445,13 @@ onUnmounted(() => {
   white-space: nowrap;
   font-family: 'AlimamaFangYuanTiVF-Thin', var(--font-regular);
   color: #98a6bf;
-  font-size: 27.2px;
+  /* 普通态 14px 渲染 = 25.4 源码px（原站实测） */
+  font-size: 25.4px;
 }
 .series-value.on {
   color: #1a2440;
+  /* 选中态放大 18px 渲染 = 32.7 源码px（原站实测：点击哪个板块哪个的价格数字变大） */
+  font-size: 32.7px;
 }
 
 /* ---- 筛选行 ---- */
