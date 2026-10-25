@@ -1,0 +1,93 @@
+
+/* ---- 藏品列表容器（页面级：包裹 MarketGoodsRow 组件实例）---- */
+.list-body {
+  width: 678px;
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+}
+/* ---- 列表空态（页面级：包裹在 .list-body 内的空态区块）----
+   源站实测 2026-10-25 17:05：uni-image 容器 142×142（=284rpx），top=390，
+   图片 common-empty.png（原始 277×405）以 background-size:contain 等比缩放居中。
+   注：object-fit:contain 与 background-size:contain 完全等价。 */
+.list-empty {
+  width: 100%;
+  min-height: 478.2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.list-empty-img {
+  width: 284px;
+  height: 284px;
+  object-fit: contain;
+}
+/* ---- 列表藏品行（2026-10-24 源站实测 1:1：
+     行卡 678×128 圆角 24 内边距 20/24；左区 236 宽（封面 86×86 圆角 16 + gap 12 + 名称 26px MiSans-Semibold #0c0c0c）；
+     地板价列 118 宽 22px AlimamaShuHeiTi-Bold #323232 居中；
+     发行/流通/成交列 118 宽 18px MiSans-Regular（标签 #9a9a9a + 数字 AlimamaShuHeiTi-Bold #323232 同段）；
+     涨跌幅列 110 宽右对齐，箭头图 28×20 + 22px AlimamaShuHeiTi-Bold #ff3b30；行间距 24）---- */
+
+/* 退市行（源站实测 is_out=1：名称下方红色「已退市」，地板价/涨跌幅显示 --） */
+
+
+/* ---- 回到顶部 ---- */
+.totop {
+  position: fixed;
+  right: 19.9px;
+  bottom: 119.6px;
+  width: 70.7px;
+  height: 72.5px;
+  border-radius: 50%;
+  z-index: 9990;
+}
+
+/* ---- 底部弹窗（选择日期 / 全部份数） ---- */
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+  display: flex;
+  align-items: flex-end;
+}
+.sheet {
+  width: 100%;
+  background: #fff;
+  border-radius: 29px 29px 0 0;
+  padding: 32px 25px calc(25px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+.sheet-btns {
+  margin-top: 21.7px;
+  display: flex;
+  gap: 21.7px;
+}
+.btn-cancel {
+  flex: 1;
+  height: 79.7px;
+  background: #fff;
+  border: 1.8px solid #ececec;
+  border-radius: 39.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #333;
+  font-family: var(--font-medium);
+}
+.btn-ok {
+  flex: 1;
+  height: 79.7px;
+  background: #0024ff;
+  border-radius: 39.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #fff;
+  font-family: var(--font-medium);
+}
+
+/* ---- 全部份数弹窗 ---- */

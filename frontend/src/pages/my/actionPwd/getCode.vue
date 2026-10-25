@@ -21,7 +21,9 @@
       </div>
       <div class="box cap-box">
         <input v-model="captcha" class="box-input" type="number" maxlength="6" placeholder="请输入验证码" />
-        <span class="send-btn" @click="sendCode">{{ countDown > 0 ? `(重新发送 ${countDown}s)` : '发送验证码' }}</span>
+        <!-- 源站实测（2026-10-25）：按钮文字恒为「发送验证码」，不显示倒计时
+             （进入页面自动发码，倒计时仅内部用于防重复点击） -->
+        <span class="send-btn" @click="sendCode">发送验证码</span>
       </div>
     </div>
 

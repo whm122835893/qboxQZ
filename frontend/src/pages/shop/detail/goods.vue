@@ -1,16 +1,19 @@
 <template>
-  <!-- 积分商品详情（pages/shop/detail/goods）：需携带商品参数进入；
-       原站直接访问（无参数）实测重定向回首页（2026-10-23 抓包：URL 变为 /pages/index/index），
-       有效参数下的详情 UI 未观测到（积分商城商品列表为空），按规则7不臆造，仅复刻重定向行为 -->
+  <div class="sdg-page"></div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-onMounted(() => {
-  // 原站行为：无商品参数直接访问 → 重定向首页
-  router.replace('/pages/index/index')
-})
+/**
+ * 源站 DOM 实测（2026-10-25，750 视口，登录态）：
+ * uni-page-body 内容为 <!---->（空注释节点），页面 body.innerText 长度为 0，
+ * location.hash 保持 /pages/shop/detail/goods（不跳转首页）。
+ * 说明：源站积分商城商品列表为空，该详情页无数据可渲染，故为空白。
+ */
 </script>
+
+<style scoped>
+.sdg-page {
+  min-height: 100vh;
+  background: #f7f7f7;
+}
+</style>

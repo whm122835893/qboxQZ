@@ -10,3 +10,17 @@ export function toast(msg) {
   document.body.appendChild(el)
   setTimeout(() => el.remove(), 2000)
 }
+
+/**
+ * 居中轻提示（复刻源站 uni-toast 默认位置：视口正中，深色圆角 + 下箭头）
+ * 源站实测（2026-10-25 pages/lottery/lottery，接口失败时）：
+ *   容器 750 视口下 rect=[316,648,118,39] → 水平居中、垂直约 48.6% 处
+ */
+export function centerToast(msg) {
+  const el = document.createElement('div')
+  el.textContent = msg
+  el.style.cssText =
+    'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);color:#fff;font-size:14px;line-height:20px;padding:10px 16px;border-radius:8px;z-index:99999;font-family:var(--font-regular);white-space:nowrap;'
+  document.body.appendChild(el)
+  setTimeout(() => el.remove(), 2000)
+}

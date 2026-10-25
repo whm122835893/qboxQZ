@@ -10,9 +10,11 @@ export const useUserStore = defineStore('user', {
     async login(account, password) {
       const res = await request('/api/user/login', { account, password })
       if (res.code === 1) {
-        this.token = res.data.token
+        // 源站实测（2026-10-24）：token 位于 data.userinfo.token（不在 data.token）
+        const token = res.data?.userinfo?.token || res.data?.token || ''
+        this.token = token
         this.userinfo = res.data.userinfo
-        setToken(res.data.token)
+        setToken(token)
         localStorage.setItem('userinfo', JSON.stringify(res.data.userinfo))
       }
       return res

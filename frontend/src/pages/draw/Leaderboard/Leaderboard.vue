@@ -9,7 +9,7 @@
     <div class="body">
       <!-- 参与人数深胶囊（近全宽，左右 15rpx 边距） -->
       <div class="dark-capsule">
-        <span class="capsule-text">参与人数 <span class="capsule-num">0</span> 人</span>
+        <span class="capsule-text">参与人数<span class="capsule-num">0</span>人</span>
       </div>
     </div>
 

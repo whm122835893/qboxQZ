@@ -1,0 +1,260 @@
+/* 无参数时的空白态（源站登录态实测：完全空白） */
+.cs-blank {
+  min-height: 100vh;
+  background: #fff;
+}
+.cs-page {
+  min-height: 100vh;
+  background: #f2f3f5;
+  padding-bottom: 200px;
+  box-sizing: border-box;
+}
+.navbar {
+  position: relative;
+  width: 100%;
+  height: 79.7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-back {
+  position: absolute;
+  left: 23.6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 17px;
+  height: auto;
+}
+.nav-title {
+  font-size: 32.6px;
+  font-weight: 700;
+  color: #000;
+}
+
+/* 藏品卡 */
+.goods-card {
+  margin: 0 34.4px;
+  background: #fff;
+  border-radius: 21.7px;
+  padding: 27.2px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.g-cover {
+  width: 116px;
+  height: 116px;
+  border-radius: 14.5px;
+  object-fit: cover;
+  background: #f2f2f2;
+  flex-shrink: 0;
+}
+.g-info {
+  flex: 1;
+  min-width: 0;
+  margin-left: 16.3px;
+  display: flex;
+  flex-direction: column;
+}
+.g-name {
+  font-size: 29px;
+  color: #111;
+  font-family: 'SourceHanSansCN-Bold', var(--font-bold);
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.g-line {
+  margin-top: 7.2px;
+  font-size: 21.7px;
+  color: #8c8c8c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.g-market-btn {
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-left: 12px;
+  height: 54.4px;
+  padding: 0 23.6px;
+  background: #0018ff;
+  border-radius: 12.7px;
+  display: flex;
+  align-items: center;
+  font-size: 21.7px;
+  color: #fff;
+}
+
+/* 寄售单价 + 收款方式卡 */
+.form-card {
+  margin: 21.7px 34.4px 0;
+  background: #fff;
+  border-radius: 21.7px;
+  padding: 27.2px;
+  box-sizing: border-box;
+}
+.form-title {
+  display: block;
+  font-size: 29px;
+  color: #111;
+}
+.sec-gap {
+  margin-top: 43.5px;
+}
+.price-box {
+  margin-top: 18.1px;
+  height: 79.7px;
+  background: #f5f5f5;
+  border-radius: 14.5px;
+  padding: 0 21.7px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.price-cny {
+  font-size: 29px;
+  color: #111;
+  margin-right: 9px;
+}
+.price-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 25.4px;
+  color: #111;
+  font-family: var(--font-regular);
+}
+.price-input::placeholder {
+  color: #c8c8c8;
+}
+.price-unit {
+  font-size: 23.6px;
+  color: #9a9a9a;
+  margin-left: 9px;
+}
+
+/* 收款方式行 */
+.pay-row {
+  margin-top: 18.1px;
+  height: 119.6px;
+  background: #f5f5f5;
+  border-radius: 19.9px;
+  padding: 0 27.2px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.pay-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.pay-info {
+  flex: 1;
+  min-width: 0;
+  margin-left: 16.3px;
+  display: flex;
+  flex-direction: column;
+}
+.pay-name {
+  font-size: 25.4px;
+  color: #111;
+}
+.pay-sub {
+  margin-top: 5.4px;
+  font-size: 19.9px;
+  color: #9a9a9a;
+}
+.pay-check {
+  width: 36.2px;
+  height: 36.2px;
+  border-radius: 50%;
+  background: #0018ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.pay-check svg {
+  width: 19.9px;
+  height: 16.3px;
+}
+
+/* 费用明细（页面背景上三行） */
+.fee-area {
+  margin: 27.2px 43.5px 0;
+}
+.fee-row {
+  padding: 12.7px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.fee-label {
+  font-size: 25.4px;
+  color: #111;
+}
+.fee-value {
+  font-size: 25.4px;
+  color: #111;
+}
+
+/* 寄售说明卡 */
+.notice-card {
+  margin: 9px 34.4px 0;
+  background: #fff;
+  border-radius: 21.7px;
+  padding: 27.2px;
+  box-sizing: border-box;
+}
+.notice-title {
+  display: block;
+  font-size: 27.2px;
+  color: #111;
+  font-family: 'SourceHanSansCN-Bold', var(--font-bold);
+  font-weight: 400;
+}
+.notice-text {
+  margin: 14.5px 0 0;
+  font-size: 21.7px;
+  line-height: 1.6;
+  color: #696969;
+}
+
+/* 底部固定按钮（未填写禁用浅色，填写后 #0018ff） */
+.cs-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #f2f3f5;
+  padding: 18.1px 34.4px calc(14.5px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  z-index: 100;
+}
+.cs-btn {
+  width: 100%;
+  height: 87px;
+  border-radius: 43.5px;
+  background: #0018ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #fff;
+}
+.cs-btn.disabled {
+  background: #7385f2;
+}

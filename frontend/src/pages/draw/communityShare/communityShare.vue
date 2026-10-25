@@ -14,7 +14,7 @@
       </div>
 
       <!-- 上传图片 -->
-      <span class="upload-title">上传图片：</span>
+      <span class="upload-title">上传图片:</span>
       <div class="upload-box"></div>
       <span class="upload-tip">上传截图，图片大小限制5M内，数量3张</span>
 

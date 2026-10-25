@@ -5,8 +5,14 @@
       <span class="nav-title">流转记录</span>
     </div>
 
+    <!-- 加载态（源站实测：数据到达前展示「加载中」） -->
+    <div v-if="loading" class="loading-row">
+      <span class="loading-spinner"></span>
+      <span class="loading-text">加载中</span>
+    </div>
+
     <!-- 空态（getRecord 参数错误实测 → search-empty 空态「暂无内容」） -->
-    <div class="empty">
+    <div v-else class="empty">
       <img class="empty-img" src="/static/empty/search-empty.png" alt="" />
       <span class="empty-text">暂无内容</span>
     </div>
@@ -21,12 +27,13 @@ import { request } from '../../api/request'
  * 原站 chunk 反解（pages-my-flowDoc）：
  *  - 流转记录页：/api/user_collection/user_collection/getRecord {page:1} →
  *    {code:0,msg:参数错误}（实测，直接访问无藏品 id）→ search-empty 空态「暂无内容」
+ *  - 源站实测页面进入时先显示「加载中」，数据到达后才切空态
  */
-const loadingType = ref('none')
+const loading = ref(true)
 
 onMounted(async () => {
   const res = await request('/api/user_collection/user_collection/getRecord', { page: 1 })
-  loadingType.value = 'empty'
+  loading.value = false
 })
 </script>
 

@@ -32,7 +32,8 @@ export default defineConfig({
   plugins: [vue(), pxToVw()],
   server: {
     host: '0.0.0.0',
-    port: 5173,
+    port: Number(process.env.PORT) || 5173,
+    allowedHosts: true,
     proxy: {
       // 独立项目：默认走本项目 ThinkPHP 后端；后端未启动时前端使用 mock（见 src/api/request.js）
       '/api': { target: 'http://127.0.0.1:8000', changeOrigin: true }

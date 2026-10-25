@@ -1,0 +1,276 @@
+.my-page {
+  min-height: 100vh;
+  background-color: #f8f8f9;
+}
+.my-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 181.2px 34.4px 23.6px;
+  box-sizing: border-box;
+  background-color: #f8f8f9;
+  background-image: url('/static/qbox/my-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center top;
+}
+
+/* ---- 头部 ---- */
+.my-header {
+  width: 677.5px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.my-header-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16.3px;
+  min-width: 0;
+}
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 27.2px;
+}
+.nickname {
+  font-weight: bold;
+  font-size: 41.7px;
+  color: #000;
+  line-height: 1.2;
+  font-family: var(--font-bold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.name-badges {
+  height: 39.9px;
+  display: flex;
+  align-items: stretch;
+  background: #c5c5c5;
+  border-radius: 0 19.9px 19.9px 0;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.badge-real {
+  padding: 0 16.3px 0 14.5px;
+  display: flex;
+  align-items: center;
+  font-size: 19.9px;
+  color: #111;
+  font-family: var(--font-medium);
+}
+.badge-cert {
+  padding: 0 14.5px 0 21.7px;
+  display: flex;
+  align-items: center;
+  background: #3f7cff;
+  font-size: 19.9px;
+  color: #fff;
+  font-family: var(--font-medium);
+}
+.nft-addr {
+  font-weight: 400;
+  font-size: 18.1px;
+  color: #939393;
+  line-height: 1.4;
+  font-family: var(--font-regular);
+}
+.vip-row {
+  align-self: flex-start;
+  height: 43.5px;
+  display: flex;
+  align-items: stretch;
+}
+.vip-left {
+  height: 43.5px;
+  padding: 0 12.7px;
+  background: #010101;
+  border-radius: 12.7px 0 0 12.7px;
+  display: flex;
+  align-items: center;
+}
+.vip-icon {
+  width: 30.8px;
+  height: 30.8px;
+}
+.vip-right {
+  width: 72.5px;
+  height: 43.5px;
+  background: #e8e8e8;
+  border-radius: 0 12.7px 12.7px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16.3px;
+  color: #111;
+  font-family: var(--font-medium);
+}
+.avatar {
+  width: 163px;
+  height: 163px;
+  border-radius: 83.3px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.08) 0 5.4px 14.5px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+/* ---- 资产两卡 ---- */
+.asset-row {
+  width: 677.5px;
+  margin-top: 53.6px;
+  display: flex;
+  gap: 21.7px;
+}
+.asset-card {
+  width: 327.9px;
+  height: 121.4px;
+  background: #fff;
+  border-radius: 21.7px;
+  box-shadow: rgba(0, 0, 0, 0.03) 0 7.2px 27.2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.asset-label {
+  height: 29px;
+  line-height: 29px;
+  font-weight: 400;
+  font-size: 21.7px;
+  color: #1f1f1f;
+  font-family: var(--font-regular);
+}
+.asset-value-row {
+  height: 47.1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+.asset-value-row-left {
+  justify-content: flex-start;
+  width: 99.6px;
+}
+.asset-yen {
+  font-weight: normal;
+  font-size: 23.6px;
+  color: #111;
+  font-family: 'AlimamaFangYuanTiVF-Thin', var(--font-regular);
+}
+.asset-num {
+  font-weight: normal;
+  font-size: 36.2px;
+  color: #111;
+  line-height: 47.1px;
+  font-family: var(--font-regular);
+}
+.asset-arrow {
+  width: 34.4px;
+  height: 23.6px;
+}
+
+/* ---- VIP 横幅 ---- */
+.vip-banner {
+  width: 677.5px;
+  margin-top: 36.2px;
+  height: 166.7px;
+}
+
+/* ---- 钱包 / 收藏 ---- */
+.quick-row {
+  width: 677.5px;
+  margin-top: 30.8px;
+  display: flex;
+  gap: 18.1px;
+}
+.quick-card {
+  width: 329.7px;
+  height: 152.2px;
+  background: #fff;
+  border-radius: 23.6px;
+  box-shadow: rgba(17, 24, 39, 0.04) 0 7.2px 27.2px;
+  padding: 27.2px 23.6px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.quick-head {
+  display: flex;
+  align-items: center;
+  gap: 21.7px;
+}
+.quick-icon-wallet {
+  width: 36.2px;
+  height: 27.2px;
+}
+.quick-icon-coll {
+  width: 39.9px;
+  height: 43.5px;
+}
+.quick-title {
+  font-weight: bold;
+  font-size: 27.2px;
+  color: #1f1f1f;
+  font-family: var(--font-bold);
+}
+.quick-sub {
+  display: flex;
+  align-items: center;
+  gap: 7.2px;
+}
+.quick-sub-text {
+  font-weight: 500;
+  font-size: 18.1px;
+  color: #b5b4b4;
+  font-family: var(--font-regular);
+}
+.quick-sub-arrow {
+  width: 14.5px;
+  height: 14.5px;
+}
+
+/* ---- 功能菜单 ---- */
+.menu-card {
+  width: 677.5px;
+  margin-top: 43.5px;
+  background: #fff;
+  border-radius: 30.8px;
+  box-shadow: rgba(0, 0, 0, 0.03) 0 7.2px 27.2px;
+  overflow: hidden;
+}
+.menu-row {
+  padding: 0 47.1px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 94.2px;
+}
+.menu-label {
+  flex: 1;
+  font-weight: bold;
+  font-size: 25.4px;
+  color: #1f1f1f;
+  font-family: var(--font-bold);
+}
+.menu-arrow {
+  width: 30.8px;
+  height: 30.8px;
+}
+
+/* ---- 回到顶部 ---- */
+.totop {
+  position: fixed;
+  right: 19.9px;
+  bottom: 119.6px;
+  width: 70.7px;
+  height: 72.5px;
+  border-radius: 50%;
+  z-index: 9990;
+}

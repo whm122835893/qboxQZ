@@ -7,3 +7,6 @@
 @font-face{font-family:MiSans-Semibold;src:url('/static/font/MiSans-Semibold.otf');font-display:swap}
 @font-face{font-family:AlimamaFangYuanTiVF-Thin;src:url('/static/font/AlimamaFangYuanTiVF-Thin.ttf');font-display:swap}
 @font-face{font-family:NanoByongGyeHei-Regular;src:url('/static/font/NanoByongGyeHei-Regular.ttf');font-display:swap}
+/* 源站实测：@font-face AlimamaShuHeiTi-Bold 复用 AlimamaFangYuanTiVF-Thin.ttf（同文件），
+   价格/数字类字形（地板价、发行/流通/成交、涨跌幅）均走此字体，缺失会导致回退成默认字形 */
+@font-face{font-family:AlimamaShuHeiTi-Bold;src:url('/static/font/AlimamaFangYuanTiVF-Thin.ttf');font-display:swap}

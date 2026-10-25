@@ -12,7 +12,7 @@
 
       <!-- 助力次数深胶囊 -->
       <div class="dark-capsule">
-        <span class="capsule-text">您已成功获得助力 <span class="capsule-num">0</span> 次</span>
+        <span class="capsule-text">您已成功获得助力<span class="capsule-num">0</span>次</span>
       </div>
 
       <!-- 表头 -->

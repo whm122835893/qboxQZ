@@ -1,0 +1,44 @@
+.success-img-box {
+  width: 320px;
+  height: 320px;
+  background: #0e0f12;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.success-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.success-label {
+  font-size: 24px;
+  color: #111;
+}
+.success-ft {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.s-btn {
+  flex: 1;
+  height: 116px;
+  padding-top: 36px;
+  box-sizing: border-box;
+  border-radius: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s-btn-dark {
+  background: #0e0f12;
+}
+.s-btn-blue {
+  background: #0018ff;
+}
+.s-btn-text {
+  font-size: 26px;
+  color: #fff;
+  font-family: var(--font-medium);
+}

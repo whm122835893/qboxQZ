@@ -1,0 +1,250 @@
+.market-page {
+  min-height: 100vh;
+  background-color: #f8f8f9;
+}
+.market-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 44px 36px 220px;
+  box-sizing: border-box;
+  background-color: #f8f8f9;
+  background-image: url('/static/qbox/market-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center top;
+}
+.market-title-row {
+  width: 678px;
+}
+.market-title {
+  font-weight: 400;
+  font-size: 47px;
+  color: #000;
+  line-height: 56.4px;
+  font-family: 'NanoByongGyeHei-Regular', var(--font-regular);
+}
+
+/* ---- Tab 行（源站实测：文字 29px/700，活动市场 x=36→152，板块间距 24）---- */
+.tab-row {
+  width: 678px;
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tab-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+}
+.tab-item-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.tab-text {
+  font-size: 29px;
+  font-family: 'MiSans-Semibold', sans-serif;
+  color: #5b5b5b;
+  white-space: nowrap;
+}
+.tab-text.on {
+  font-weight: bold;
+  color: #000;
+}
+.tab-line {
+  width: 47.1px;
+  height: 5.4px;
+  border-radius: 1.8px;
+  background: transparent;
+}
+.tab-line.on {
+  background: #0047ff;
+}
+.tab-item-start {
+  align-items: flex-start;
+}
+.tab-free-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.new-badge {
+  padding: 1.8px 9.1px;
+  background: #0018ff;
+  border-radius: 7.2px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 12.7px;
+  color: #fff;
+  font-family: 'MiSans-Semibold', sans-serif;
+}
+.today-pill {
+  padding: 7.2px 19.9px;
+  background: #d9ddff;
+  border-radius: 18.1px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.today-text {
+  font-size: 24px;
+  color: #0018ff;
+  font-family: 'MiSans-Regular', sans-serif;
+}
+.today-arrow {
+  width: 10.9px;
+  height: 10.9px;
+  transform: rotate(90deg);
+  opacity: 0.55;
+}
+
+/* ---- 板块横滑 ---- */
+.series-scroll {
+  width: 678px;
+  height: 148px;
+  margin-top: 17px;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.series-scroll::-webkit-scrollbar {
+  display: none;
+}
+.series-card {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  height: 148px;
+  min-width: 154px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: linear-gradient(#fff, #fdfeff);
+  border-radius: 28px;
+  border: 2px solid transparent;
+}
+.series-card.selected {
+  background: linear-gradient(#eee, #fdfdfd);
+  border-radius: 20px;
+  border: 2px solid #fdfdfd;
+}
+.series-head {
+  display: flex;
+  align-items: center;
+  /* 徽章与名称间距：源站实测 gap 12px */
+  gap: 12px;
+  flex-shrink: 0;
+}
+.series-badge {
+  width: 88px;
+  height: 30px;
+  flex-shrink: 0;
+  margin-left: -14px;
+}
+.series-name {
+  font-size: 24px;
+  line-height: 30px;
+  color: #98a6bf;
+  font-family: 'MiSans-Regular', sans-serif;
+  white-space: nowrap;
+}
+.series-name.on {
+  color: #343434;
+  font-family: 'MiSans-Semibold', sans-serif;
+}
+.series-value {
+  margin-top: 16px;
+  line-height: 1.1;
+  white-space: nowrap;
+  font-family: 'AlimamaShuHeiTi-Bold', var(--font-medium);
+  color: #98a6bf;
+  /* 源站实测：未选中态 26px */
+  font-size: 26px;
+}
+.series-value.on {
+  color: #1a2440;
+  /* 源站实测：选中态 33px（点击哪个板块哪个的价格数字变大） */
+  font-size: 33px;
+}
+
+/* ---- 筛选行 ---- */
+.filter-row {
+  width: 678px;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.filter-pill {
+  padding: 16px 23px;
+  display: flex;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 27px;
+  gap: 6px;
+}
+.filter-text {
+  font-size: 24px;
+  color: #8c8c8c;
+  font-family: 'MiSans-Regular', sans-serif;
+}
+.pill-arrow {
+  width: 10.9px;
+  height: 10.9px;
+  transform: rotate(90deg);
+  opacity: 0.35;
+}
+
+/* ---- 自由市场/我的关注 小标题 ---- */
+.sub-title {
+  width: 677.5px;
+  margin-top: 27.2px;
+  font-weight: bold;
+  font-size: 29px;
+  color: #000;
+  font-family: 'MiSans-Semibold', sans-serif;
+}
+
+/* ---- 搜索行 ---- */
+.search-row {
+  width: 678px;
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.search-box {
+  flex: 1;
+  height: 72px;
+  background: #f0f0f0;
+  border-radius: 36px;
+  padding: 0 28px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.search-icon {
+  width: 32px;
+  height: 32px;
+}
+.search-placeholder {
+  font-size: 24px;
+  color: #c8c8c8;
+  font-family: 'MiSans-Regular', sans-serif;
+}
+.search-sort {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+/* ---- 列表表头 ---- */

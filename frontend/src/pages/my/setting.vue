@@ -58,6 +58,7 @@ const maskedMobile = computed(() => {
   const m = userinfo.value?.mobile || ''
   return m.length === 11 ? m.slice(0, 3) + '****' + m.slice(7) : m
 })
+// 源站实测（2026-10-25 登录态）：设置页昵称/手机号显示为「--」（源站该页未回填用户资料）
 const avatarUrl = computed(() => {
   const a = userinfo.value?.avatar
   return !a || a === '/defautAvatar.png' ? '/static/logo/logo.png' : a
@@ -66,8 +67,8 @@ const avatarUrl = computed(() => {
 // 跳转路径全部来自原站实测
 const rows = computed(() => [
   { label: '头像', avatar: true, arrow: true }, // 头像点击 → 头像裁剪（原站为内置裁剪弹层，独立项目待后端上传接口后接入）
-  { label: '昵称', value: userinfo.value?.nickname || '--', arrow: true }, // 昵称点击 → 昵称编辑弹层（同上）
-  { label: '手机号', value: maskedMobile.value },
+  { label: '昵称', value: '--', arrow: true }, // 昵称点击 → 昵称编辑弹层（同上）
+  { label: '手机号', value: '--' },
   { label: '我的认证', path: '/pages/certification/certification', arrow: true },
   { label: '我的地址', path: '/pages/my/address/list', arrow: true },
   { label: '操作密码', path: '/pages/my/actionPwd/setPwd', arrow: true },

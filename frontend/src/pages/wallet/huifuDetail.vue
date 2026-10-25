@@ -1,6 +1,9 @@
 <template>
-  <!-- 汇付钱包内嵌页的本地复刻（原站为 webview 加载第三方汇付 H5；规则9 独立实现，余额打码/静态数据） -->
-  <div class="huifu-page">
+  <!-- 汇付钱包内嵌页的本地复刻（原站为 webview 加载第三方汇付 H5；规则9 独立实现，余额打码/静态数据）
+       源站登录态实测（750 视口，2026-10-25）：直接访问（无参数）时页面完全空白
+       （uni-page-body 内无节点，innerText 长度 0），故无参数时保持空白。 -->
+  <div v-if="!hasParams" class="hf-blank"></div>
+  <div v-else class="huifu-page">
     <!-- 顶部：标题 + 铃铛 -->
     <div class="hf-head">
       <span class="hf-title">我的钱包</span>
@@ -47,8 +50,13 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 const router = useRouter()
+const route = useRoute()
+
+/** 源站实测：无参数时页面空白；带参数（如 from/订单号）时渲染汇付 H5 */
+const hasParams = computed(() => Object.keys(route.query).length > 0)
 
 // 图标：深色圆形底 + 白色描边 SVG（P0-1 图标规范；原页面图标为汇付侧资源，独立项目以 SVG 等效绘制）
 const ic = (path) =>
@@ -68,6 +76,11 @@ function goBack() {
 </script>
 
 <style scoped>
+/* 无参数时的空白态（源站登录态实测：完全空白） */
+.hf-blank {
+  min-height: 100vh;
+  background: #fff;
+}
 .huifu-page {
   min-height: 100vh;
   background-color: #2e2c29;

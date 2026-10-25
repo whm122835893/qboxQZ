@@ -1,0 +1,279 @@
+.coll-page {
+  min-height: 100vh;
+  background-color: #f8f8f9;
+}
+.coll-navbar {
+  position: relative;
+  width: 100%;
+  height: 79.7px;
+  display: flex;
+  align-items: center;
+}
+.nav-back {
+  width: 16.3px;
+  height: 29px;
+  margin-left: 27.2px;
+}
+.nav-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32.6px;
+  font-weight: 700;
+  color: #000;
+  font-family: var(--font-bold);
+}
+.coll-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 34.4px;
+  box-sizing: border-box;
+}
+
+/* 搜索框 */
+.search-bar {
+  width: 677.5px;
+  height: 70.7px;
+  margin-top: 23.6px;
+  background: #eeeded;
+  border-radius: 34.4px;
+  padding: 0 27.2px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.search-input {
+  flex: 1;
+  height: 70.7px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 23.6px;
+  color: #111;
+  font-family: var(--font-regular);
+}
+.search-input::placeholder {
+  color: #b2b2b2;
+}
+.search-icon {
+  width: 34.4px;
+  height: 34.4px;
+  flex-shrink: 0;
+}
+
+/* 组合分类卡（2 张） */
+.seg-row {
+  width: 677.5px;
+  margin-top: 23.6px;
+  display: flex;
+  gap: 30.8px;
+}
+.seg-card {
+  flex: 1;
+  height: 112.3px;
+  border: 5.4px solid #fefefe;
+  border-radius: 21.7px;
+  box-sizing: border-box;
+  padding: 0 19.9px;
+  display: flex;
+  align-items: center;
+  background: #f2f2f2;
+}
+.seg-card.selected {
+  background: #fff;
+}
+.seg-icon {
+  width: 70.7px;
+  height: 70.7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.seg-text {
+  display: flex;
+  flex-direction: column;
+  gap: 7.2px;
+  margin-left: 14.5px;
+  min-width: 0;
+}
+.seg-label {
+  font-size: 27.2px;
+  font-family: var(--font-bold);
+  color: #c8c8c8;
+  white-space: nowrap;
+}
+.seg-label.on {
+  color: #111;
+}
+.seg-sub {
+  font-size: 19.9px;
+  font-family: var(--font-regular);
+  color: #d0d0d0;
+  white-space: nowrap;
+}
+.seg-sub.on {
+  color: #8c8c8c;
+}
+
+/* 列表区 */
+.list-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 34.4px;
+  box-sizing: border-box;
+}
+
+/* 持仓藏品卡（样式 1:1 实测自源站 2026-10-24：
+        两列网格 gap 18.1、白卡圆角 21.7 内边距 16.3、封面方形容器 #363636 圆角 21.7、
+        右下角数量角标 #f5f5f5 高 34.4 圆角 7.2、名称 23.6 #111、"持有N" 19.9 #b0b0b0） */
+.coll-grid {
+  width: 677.5px;
+  margin-top: 23.6px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18.1px;
+}
+.coll-card {
+  background: #fff;
+  border-radius: 21.7px;
+  padding: 16.3px;
+  box-sizing: border-box;
+}
+.cc-cover-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 21.7px;
+  background: #363636;
+  overflow: hidden;
+}
+.cc-cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cc-badge {
+  position: absolute;
+  right: 11px;
+  bottom: 11px;
+  height: 34.4px;
+  background: #f5f5f5;
+  border-radius: 7.2px;
+  padding: 0 10.8px 0 9px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.cc-badge-icon {
+  width: 23.6px;
+  height: 23.6px;
+  object-fit: contain;
+  margin-right: 3.6px;
+}
+.cc-badge-num {
+  font-size: 19.9px;
+  color: #111;
+}
+.cc-name {
+  display: block;
+  margin-top: 10.8px;
+  font-size: 23.6px;
+  color: #111;
+  font-family: var(--font-regular);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cc-hold {
+  display: block;
+  margin-top: 7.2px;
+  font-size: 19.9px;
+  color: #b0b0b0;
+  font-family: var(--font-regular);
+}
+
+.list-empty {
+  width: 100%;
+  min-height: 478.2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.list-empty-img {
+  width: 282.6px;
+  height: 282.6px;
+  /* 原站 uni-image 实测：156×156 容器 + background-size:contain → 图等比缩放为 106.7×156 居中显示；
+     object-fit:contain 与其完全等价（此前 fill 压扁 / height:auto 放大 均有偏差，已按实测修正） */
+  object-fit: contain;
+}
+
+/* 回到顶部 */
+.totop {
+  position: fixed;
+  right: 19.9px;
+  bottom: 119.6px;
+  width: 70.7px;
+  height: 72.5px;
+  border-radius: 50%;
+  z-index: 9990;
+}
+
+/* ---- 持仓弹窗（样式 1:1 实测自源站 2026-10-24，弹窗总高 502rpx：
+        无拖拽条；关闭按钮右上独立行(dy 23.6，图标区 47×47)；
+        标题 30.8 #111 + 发行胶囊灰底 #f0f0f0/灰字 #8c8c8c h34.4 圆角16.3；
+        批量寄售/去寄售 蓝底 #0018ff h54.4 圆角27.2 字23.6；
+        "持有:N个" 23.6 #6e7f9a；明细封面 94.2 圆角14.5，编号 27.2 #111，购入价格 21.7 #9a9a9a，行距 39.9） ---- */
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+.popup {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: 39.9px 39.9px 0 0;
+  /* 底部留白 65.2：源站弹窗总高 277px(502rpx)，明细行下方实测留 36px */
+  padding: 0 39.9px 65.2px;
+  box-sizing: border-box;
+}
+.pp-topbar {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  padding: 23.6px 3.6px 7.2px 0;
+}
+/* 灰色拖拽条（源站实测：居中、dy13、35×4px → 63.4×7.2rpx、#e6e6e6、圆角 3.6） */
+.pp-handle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 23.6px;
+  width: 63.4px;
+  height: 7.2px;
+  background: #e6e6e6;
+  border-radius: 3.6px;
+}
+.pp-close {
+  width: 47px;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 39.9px;
+  line-height: 1;
+  font-weight: 300;
+  color: #b8b8b8;
+}
+.pp-head {
+  margin-top: 7.2px;
+  display: flex;
+  align-items: center;
+}

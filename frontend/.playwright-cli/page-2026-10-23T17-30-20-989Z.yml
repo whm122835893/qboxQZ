@@ -1,0 +1,29 @@
+- generic [ref=f5e3]:
+  - generic [ref=f5e4]:
+    - img "返回" [ref=f5e30]
+    - generic [ref=f5e5]: KUUKIE 怪物口袋·黑熊
+    - img "收藏" [ref=f5e6]
+  - img "KUUKIE 怪物口袋·黑熊" [ref=f5e8]
+  - generic [ref=f5e9]:
+    - generic [ref=f5e10]:
+      - generic [ref=f5e11]: KUUKIE 怪物口袋·黑熊
+      - generic [ref=f5e12]: 限量5000份
+    - generic [ref=f5e13]:
+      - generic [ref=f5e14]: ¥
+      - generic [ref=f5e15]: "39.90"
+  - generic [ref=f5e16]:
+    - generic [ref=f5e17]: 藏品信息
+    - generic [ref=f5e18]: 相关公告
+  - generic [ref=f5e19]:
+    - text: QBOX
+    - generic [ref=f5e20]: 创作者
+    - generic [ref=f5e21]: qbox
+  - generic [ref=f5e22]:
+    - text: ALLCOMEQBOX ALLCOMEQBOX
+    - generic [ref=f5e23]: 藏品介绍
+    - paragraph [ref=f5e24]: KUUKIE 怪物口袋系列数字藏品，以街头潮流文化为灵感，每一只怪物都有独一无二的性格与故事。
+  - generic [ref=f5e25]:
+    - text: QBOX
+    - generic [ref=f5e26]: 购买须知
+    - paragraph [ref=f5e27]: 数字藏品为虚拟数字商品，而非实物，仅限实名认证为年满18周岁，并小于60周岁的中国大陆用户购买。数字藏品的版权由发行方或原创者拥有，除另行取得版权权利者书面同意外，用户不得将数字藏品用于任何商业用途。本商品一经售出，不支持退换。请勿对数字藏品进行炒作、场外交易、欺诈，或以任何其他非法方式进行使用。
+  - generic [ref=f5e28]: 立即购买

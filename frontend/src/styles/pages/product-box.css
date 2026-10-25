@@ -1,0 +1,238 @@
+.pb-page {
+  min-height: 100vh;
+  background-color: #f7f7f7;
+  background-image: url('/static/qbox/market-goods-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% 994px;
+  background-position: center top;
+}
+/* ---- 导航栏 ---- */
+.navbar {
+  position: relative;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 36px;
+}
+.nav-back {
+  width: 17px;
+  height: 30px;
+  object-fit: contain;
+}
+.nav-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  font-size: 32px;
+  font-weight: 500;
+  color: #2d2d2d;
+  font-family: var(--font-title, 'AlimamaShuHeiTi-Bold');
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nav-fav {
+  position: absolute;
+  right: 36px;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+/* ---- 内容区 ---- */
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 33px 220px;
+  box-sizing: border-box;
+}
+.cover-box {
+  width: 436px;
+  height: 436px;
+  margin-top: 139px;
+  background: #000;
+  box-shadow: 6px 1px 33px 0 rgba(0, 0, 0, 0.13);
+  border-radius: 64px;
+  border: 6px solid #fff;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* ---- 价格卡 ---- */
+.price-card {
+  width: 684px;
+  margin-top: 65px;
+  background: rgba(255, 255, 255, 0.83);
+  box-shadow: 6px 1px 33px 0 rgba(0, 0, 0, 0.13);
+  border-radius: 32px;
+  padding: 32px 36px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pc-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.pc-name {
+  font-size: 32px;
+  color: #111;
+  font-family: var(--font-bold);
+}
+.pc-tags {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.tag {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  font-size: 22px;
+  color: #fff;
+  font-family: var(--font-thin, 'AlimamaFangYuanTiVF-Thin');
+}
+.tag-limit {
+  background: #0018ff;
+}
+.tag-flux {
+  background: #111;
+}
+.pc-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+}
+.pc-symbol {
+  font-weight: normal;
+  font-size: 19px;
+  color: #2d2d2d;
+  line-height: 1;
+  font-family: var(--font-thin, 'AlimamaFangYuanTiVF-Thin');
+}
+.pc-value {
+  font-weight: normal;
+  font-size: 38px;
+  color: #2d2d2d;
+  line-height: 1;
+  font-family: var(--font-thin, 'AlimamaFangYuanTiVF-Thin');
+}
+/* ---- 信息卡 ---- */
+.info-card {
+  position: relative;
+  width: 684px;
+  margin-top: 24px;
+  background: #fff;
+  border-radius: 32px;
+  padding: 32px 28px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.watermark {
+  position: absolute;
+  left: 42px;
+  top: 34px;
+  font-weight: 400;
+  font-size: 51px;
+  line-height: 26px;
+  color: rgba(104, 104, 104, 0.08);
+  font-family: var(--font-watermark, 'NanoByongGyeHei-Regular');
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+}
+.ic-title {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.ic-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 10px;
+  background: #0018ff;
+}
+.ic-text {
+  position: relative;
+  z-index: 1;
+  font-size: 32px;
+  color: #2d2d2d;
+  font-family: var(--font-title, 'AlimamaShuHeiTi-Bold');
+}
+.creator-row {
+  position: relative;
+  z-index: 1;
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.cr-avatar {
+  width: 122px;
+  height: 122px;
+  border-radius: 19px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.cr-name {
+  font-size: 22px;
+  color: #2d2d2d;
+  font-family: var(--font-thin, 'AlimamaFangYuanTiVF-Thin');
+}
+.notice-text {
+  position: relative;
+  z-index: 1;
+  margin: 24px 0 0;
+  font-weight: 300;
+  font-size: 22px;
+  color: #696969;
+  font-family: var(--font-thin, 'AlimamaFangYuanTiVF-Thin');
+  line-height: 1.7;
+}
+/* ---- 底部固定条 ---- */
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 750px;
+  padding: 16px 36px calc(16px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+}
+.buy-btn {
+  flex: 1;
+  height: 88px;
+  border-radius: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #cacdd3;
+}
+.buy-text {
+  font-size: 28px;
+  color: #fff;
+  font-family: var(--font-medium);
+}

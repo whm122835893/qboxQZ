@@ -1,14 +1,13 @@
 <template>
-  <!-- 启动页（pages/index/lanuch）：首页启动引导层；1 秒后自动进入首页（原站「跳过 1s」倒计时） -->
+  <!-- 启动页（pages/index/lanuch）
+       源站 DOM 实测（750 视口，2026-10-25）：
+       - 根容器 position relative / width 100% / height 100vh，
+         background-image url(/static/qbox/splash-bg.png)（no-repeat / size 100% 100% / center center）
+         —— logo 与底部标语「潮启QBOX｜藏定不凡」均烘焙在该背景图内
+       - 跳过胶囊：absolute top 120 right 40，bg rgba(0,0,0,.3)，radius 30，padding 10 24，
+         文案「跳过 Ns」24px SourceHanSansCN-Regular #fff -->
   <div class="lc-page" @click="goHome">
-    <!-- 跳过胶囊（13px 白字，右上） -->
     <div class="skip-capsule" @click.stop="goHome">跳过 {{ seconds }}s</div>
-
-    <!-- 中央 logo（QBOX 蓝盒） -->
-    <img class="lc-logo" src="/static/logo/logo.png" alt="QBOX" />
-
-    <!-- 底部标语 -->
-    <span class="lc-slogan">属GBOX｜懂数字</span>
   </div>
 </template>
 
@@ -17,15 +16,21 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 /**
- * 原站 DOM 实测（2026-10-23）：「跳过 1s」13px #fff；背景蓝紫渐变（home-bg 系）；
- * 中央 QBOX 蓝盒 logo；底部「属GBOX｜懂数字」；倒计时结束/点击 → 进入首页
+ * 源站 DOM 实测（2026-10-25，750 视口）：
+ * 根容器：position relative；width 100%；height 100vh；
+ *   background-image url("/static/qbox/splash-bg.png")，no-repeat / size 100% 100% / center center。
+ *   —— QBOX 蓝盒 logo 与底部标语「潮启QBOX｜藏定不凡」均已烘焙在 splash-bg.png 内，无需额外 DOM。
+ * 跳过胶囊：position absolute；top 120px；right 40px；background-color rgba(0,0,0,.3)；
+ *   border-radius 30px；padding 10px 24px；flex center；
+ *   文本 24px / SourceHanSansCN-Regular / #fff，内容「跳过 2s」（倒计时递减）。
  */
 const router = useRouter()
-const seconds = ref(1)
+const seconds = ref(2)
 let timer = null
 
 function goHome() {
   if (timer) clearInterval(timer)
+  timer = null
   router.replace('/pages/index/index')
 }
 
@@ -41,34 +46,26 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
 <style scoped>
 .lc-page {
   position: relative;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #eef1fc 0%, #dbe3f8 45%, #c8d4f2 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
+  background-image: url('/static/qbox/splash-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
 }
 .skip-capsule {
   position: absolute;
-  right: 19px;
-  top: 60px;
-  padding: 7px 16px;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 22px;
-  font-size: 23.6px;
+  top: 120px;
+  right: 40px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
   color: #fff;
-  z-index: 2;
-}
-.lc-logo {
-  margin-top: 425px;
-  width: 290px;
-  height: 290px;
-  object-fit: contain;
-}
-.lc-slogan {
-  position: absolute;
-  bottom: 22px;
-  font-size: 23.6px;
-  color: #9aa7d0;
+  font-family: var(--font-regular);
 }
 </style>

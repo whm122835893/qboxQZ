@@ -1,0 +1,116 @@
+.notes-content {
+  margin-top: 16px;
+  font-weight: 400;
+  font-size: 19px;
+  color: #fff;
+  line-height: 1.8;
+  font-family: var(--font-regular);
+}
+.agreement :deep(p) {
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* ---- 协议弹窗（原站实测 @414：宽360 高≈517，按钮 138×44 r6，取消#f1f0f0/确认#0018ff） ---- */
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  width: 652px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 44px 50px 54px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.modal-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  color: #000;
+  font-family: var(--font-medium);
+}
+.modal-scroll {
+  height: 600px;
+  margin-top: 20px;
+  overflow-y: auto;
+}
+.modal-agreement {
+  margin-top: 24px;
+  /* 原站弹窗正文实测 @414：14px/行距21px，4 段 12 行全部落在 600rpx 滚动区内 */
+  font-size: 25.4px;
+  color: #000;
+  line-height: 1.5;
+}
+.modal-agreement :deep(p) {
+  margin: 0.75em 0;
+}
+.check-row {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+.checkbox {
+  width: 32.6px;
+  height: 32.6px;
+  border-radius: 50%;
+  border: 1px solid #d8d8d8;
+  background: #fff;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.checkbox-active {
+  background: #0018ff;
+  border-color: #0018ff;
+}
+.check-icon {
+  width: 18px;
+  height: 18px;
+}
+.check-label {
+  margin-left: 14.5px;
+  font-size: 21.7px;
+  color: #333;
+  font-family: var(--font-regular);
+}
+.modal-ft {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.ft-btn {
+  width: 250px;
+  height: 80px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ft-cancel {
+  background: #f1f0f0;
+}
+.ft-cancel-text {
+  font-size: 28px;
+  font-weight: 600;
+  color: #000;
+  font-family: var(--font-medium);
+}
+.ft-confirm {
+  background: #0018ff;
+}
+.ft-confirm-text {
+  font-size: 28px;
+  font-weight: 600;
+  color: #fff;
+  font-family: var(--font-medium);
+}

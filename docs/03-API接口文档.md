@@ -246,6 +246,289 @@
 
 ---
 
+### 3.3 市场交易链路全实测（2026-10-25 登录态，Playwright 抓包 74+35+7 条请求）
+
+#### 3.3.1 链路总览
+
+```
+市场首页 /pages/market/market
+  ├─ GET  /api/index/getSeries?type=10              → 板块（全部区=12 / 我的关注=-2 / 全部=0 / 经典文化=2 / 盲盒系列=11）
+  ├─ POST /api/market/market/getMarketList          → 市场藏品列表
+  │     req {goods_type:2, page:1, list_rows:10, series_id:12, add_deal_num:1}
+  │     首条：QBOX赛博龙 goods_id=13, min_price=305, deal_num=132, is_out=0
+  └─ 点击藏品卡片 → /pages/market/marketGoodsList?id={goods_id}
+        ├─ POST /api/market/market/marketGoodsDetail           {id, type:2}         → 藏品详情
+        ├─ POST /api/market/trade/tradingInformation          {goods_id, status:1, page:1} → 成交记录 tab
+        └─ POST /api/market/market/getMarketGoodsListByGoodsId {page, sort, type:2, id, order} → 挂单列表
+              list[]: {id, collection_code, price, total_num, series_id, is_img_diff, status, income_type:[], createtime, img, name}
+              count / ltnum
+              渲染：status=4 → 「锁单中」胶囊；行文本「锁单中 #564 ¥315 支付钱包：A钱包」
+
+点击挂单行 → /pages/market/detail?id={挂单id}   ← 寄售详情
+  └─ GET  /api/market/market/MarketDetail/ids/{挂单id}
+        {id, sale_user_id, sale_user_collection_id, series_id, goods_type, goods_id, price, status,
+         pay_platform_service_rate:"0.05", platform_service_price, creator_service_price, real_income,
+         createtime, updatetime, deleted, buy_version, order_sn, goods_name, goods_cover_image,
+         series_name, income_type, product:{...}, user:{...}, user_collection:{...}, img, name, rush_status, pay_text}
+        页面：寄售详情 / 主图 436×436 / 限量N份·流通N份 / 售价¥N /
+              藏品编号 / 所属专辑 / 合约地址 / 认证标识 / 创作者卡 / 购买须知卡 / 底部按钮
+
+发起求购 /pages/market/submitBegBuy?id={goods_id}
+  └─ POST /api/market/trade/collectionDetail   {collection_id}
+        {id, name, listimg, reprice_limit, reprice_min_limit, reprice_beg_max_limit, max_buy_price,
+         floor_price:{minprice, price_pro, tips, price_price_ratio, pay_platform_service_rate, ...}}
+
+委托购买 /pages/market/submitEntrust?id={goods_id}
+  ├─ POST /api/market/trade/collectionDetail        {collection_id}
+  └─ POST /api/market/Prepayment/collectionDetail  {collection_id}
+        {minprice, price_pro, tips, price_price_ratio:"100", pay_platform_service_rate:"0.05",
+         platform_service_price:"0.05", share_proportion_price:"0.00", real_price:"0.95",
+         low_price:305, low_price_text:"三百五元"}
+
+订单提交 /pages/order/orderSubmit  → 确认订单 / 区块链地址 / 订单金额 / 汇付 / 立即购买
+
+我的订单 /pages/order/list
+  └─ POST /api/order/order/orderList {page:1, status:0, keywords:""}
+        {total, data:[{artel_order, uc_ids, id, num, order_type, order_status, order_sn,
+          total_price, goods_name, goods_cover_image, goods_id, goods_type, series_name,
+          createtime, price, collection_code:[...]}]}
+我的求购 → POST /api/market/trade/begBuyOrderList      {page, status, keywords}
+我的委托 → POST /api/market/Prepayment/myOrderlist    {page, status, keywords}
+赠送记录 → POST /api/market/trade/tradingInformation  {status:4, page:1}
+分类管理 → GET  /api/index/getSeries?type=10 + GET /api/index/customSeriesList + getSeries?type=20
+热榜     → POST /api/market/market/marketrebang
+```
+
+#### 3.3.2 接口明细
+
+**A. GET /api/market/market/MarketDetail/ids/{挂单id} —— 寄售详情**
+
+实测响应（2026-10-25，挂单 id=6298，在售 status=1）：
+```json
+{"code":1,"msg":"商品详情","time":"1792865134","data":{
+  "id":6298,"sale_user_id":18516,"sale_user_nickname":null,"sale_user_collection_id":550809,
+  "series_id":12,"goods_type":2,"goods_id":13,"price":350,"status":1,
+  "sale_time":null,"buy_user_id":0,
+  "pay_platform_service_rate":"0.05","platform_service_price":"17.50",
+  "creator_service_price":"0.00","real_income":"332.50",
+  "createtime":1792865073,"updatetime":1792865073,"deleted":0,"buy_version":2,
+  "order_sn":"2026102502043349569898592367",
+  "goods_name":"QBOX赛博龙",
+  "goods_cover_image":"/uploads/20261025/7c674d998b7e86b520f0930c18825d3c.jpg",
+  "series_name":"全部区","income_type":"huifu",
+  "product":{"id":13,"series_id":12,"issuer_id":0,"flux":1000,"price":"0.00","name":"QBOX赛博龙",
+    "main_image":"/uploads/20261025/7c674d998b7e86b520f0930c18825d3c.jpg",
+    "listimg":"/uploads/20261025/7c674d998b7e86b520f0930c18825d3c.jpg",
+    "total_num":1000,"types":1,"compound_num":1,"release_time":1792859520,
+    "purchase_information":"                            ",
+    "publisher":{"name":"qbox","company_logo":"/uploads/20240118/17b679f0562f639f96344f08e59e0729.jpg","user":[]},
+    "imageinfo":[],"issuer":null,"3d_url_type":"img","is_img_diff":0,"is_like":0,"creator_id":0},
+  "user":{"id":18516,"nickname":"db****","avatar":"/defautAvatar.png","mobile":"131****1615","url":"/u/18516"},
+  "user_collection":{"id":550809,"collection_code":256,"user_hash_text":"2Fl5Ia****",
+    "user_hash":"2Fl5Ia****","zuzhao_info_id":null,"task_id":"2Fl5Ia1P5Wv5Iz9P","rz_code":24513,
+    "task":{"id":10476,"type":null,"tx_hash":null,"status":0,"createtime":1792861321}},
+  "img":"","name":"","rush_status":0,"pay_text":0}}
+```
+
+**关键字段映射（源站实测校正，容易写错）**：
+
+| 页面展示项 | 真实取值路径 | 实测值 |
+|-----------|-------------|-------|
+| 藏品编号 #xxx | `user_collection.collection_code` | #256 / #53 |
+| 合约地址 xxxxxx**** | `user_collection.user_hash_text`（源站已自带掩码） | 2Fl5Ia**** |
+| 认证标识 | `user_collection.rz_code` | 24513 / 24471 |
+| 限量 N 份 | `product.total_num` | 1000 |
+| 流通 N 份 | `product.flux` | 1000 |
+| 售价 ¥N | 顶层 `price` | 350 |
+| 所属专辑 | 顶层 `series_name` | 全部区 |
+| 创作者名称 | `product.publisher.name` | qbox |
+| 创作者 Logo | `product.publisher.company_logo` | /uploads/20240118/...jpg |
+| 购买须知正文 | `product.purchase_information`（源站实际为空白串） | 平台默认文案 |
+
+**状态语义**：
+| status | 底部按钮 | 样式 |
+|--------|---------|------|
+| 4 | 锁定中 | 灰底 rgb(202,205,211) |
+| 1 / 其他 | 立即购买 | 蓝底 rgb(0,24,255) |
+
+挂单被瞬间买走时接口返回 `{"code":0,"msg":"已售出","data":null}` → 页面停留「加载中...」。
+
+**B. POST /api/market/market/getMarketGoodsListByGoodsId —— 挂单列表**
+
+请求：`{"page":1,"sort":"price","type":2,"id":"13","order":"asc"}`
+实测响应（节选）：
+```json
+{"code":1,"msg":"操作成功","data":{"list":[
+  {"id":6282,"collection_code":564,"price":315,"total_num":1000,"series_id":12,"is_img_diff":0,
+   "status":4,"income_type":["huifu"],"createtime":1792864045,"img":"","name":""},
+  {"id":6298,"collection_code":256,"price":350,"total_num":1000,"series_id":12,"is_img_diff":0,
+   "status":1,"income_type":["huifu"],"createtime":1792865073,"img":"","name":""}],
+ "count":2,"ltnum":0}}
+```
+- 无 id 时：`{"list":[],"count":0,"ltnum":0}`
+- `income_type:["huifu"]` → 页面渲染「支付钱包：A钱包」
+- `status:4` → 渲染「锁单中」灰色胶囊；其他 status 不渲染状态标签
+
+**C. POST /api/market/trade/collectionDetail —— 求购·藏品详情**
+
+请求：`{"collection_id":"13"}`
+响应字段：`{id, name, listimg, reprice_limit, reprice_min_limit, reprice_beg_max_limit, max_buy_price, floor_price:{minprice:305, price_pro:1, tips, price_price_ratio:"100", pay_platform_service_rate:"0.05"}}`
+
+**D. POST /api/market/Prepayment/collectionDetail —— 委托·藏品详情**
+
+请求：`{"collection_id":"13"}`
+响应字段：`{minprice:305, price_pro:1, tips, price_price_ratio:"100", pay_platform_service_rate:"0.05", platform_service_price:"0.05", share_proportion_price:"0.00", real_price:"0.95", low_price:305, low_price_text:"三百五元"}`
+
+**E. POST /api/order/order/orderList —— 我的订单**
+
+请求：`{"page":1,"status":0,"keywords":""}`
+实测响应：
+```json
+{"total":2,"data":[{"artel_order":"order","uc_ids":"180409","id":8783,"num":1,"order_type":"3",
+  "order_status":2,"order_sn":"2026102320534254491011244121","total_price":"0.00",
+  "goods_name":"QBOX数字徽章",
+  "goods_cover_image":"/uploads/20261022/7c48bc4f036e99b7a7df990ceeeff459.png",
+  "goods_id":10,"goods_type":2,"series_name":"经典文化",
+  "createtime":1792760022,"price":"0.00","collection_code":["136081/500000"]}]}
+```
+
+#### 3.3.3 页面像素实测（源站 750 视口 DOM + 计算样式还原）
+
+**挂单行 /pages/market/marketGoodsList**
+```
+卡片   : bg #fff, radius 20, padding 24/28, flex space-between align-center, 宽 684（左右各 33 外边距）
+  左列 : flex column gap 12
+    状态胶囊 : bg #f3f3f3, radius 8, padding 0/10, 高 32, 文字 26px #4a4a4a, margin-left 12
+    编号   : 24px fw700 #111，文本「#53」
+  右列 : flex column gap 8, align-items flex-end
+    价格   : 32px #111，文本「¥ 338」
+    支付钱包: 20px #8c8c8c，文本「支付钱包：A钱包」，margin-top 8
+列表间距: 24px（gap-pf-y-24）
+```
+
+**寄售详情 /pages/market/detail**
+```
+页面   : bg #f7f7f7 + background-image market-goods-bg.png, size 100% 994px, position 50% 0, no-repeat
+主图   : 436×436, 容器 bg #000 radius 64, 内 img 430×430；margin-top 51
+名称卡 : bg rgba(255,255,255,.83), radius 32, padding 32/36, flex space-between align-center
+  左列 : flex column gap 16
+    名称 : 32px #2d2d2d
+    胶囊 : 限量N份 bg #0018ff / 流通N份 bg #111, radius 12, padding 0/16, 高 40, 文字 22px fw300 #fff
+  右列 : flex column gap 8, align-items flex-end
+    售价 : 28px #9a9a9a
+    ¥N   : 28px #2d2d2d
+信息卡 : bg #fff, radius 32, padding 16/32
+  行   : flex space-between align-center, 高 78
+  label: 26px fw600 #181717
+  value: 26px #000, text-align right
+创作者卡/购买须知卡 : bg #fff, radius 32, padding 32/28, position relative
+  水印 : 绝对定位 left 42 top 22, 51px rgba(104,104,104,.08)
+  标题 : 38px
+  正文 : 22px fw300 #696969
+底部条 : fixed bottom 0, bg #f7f7f7, padding 16/36
+  按钮 : 678×88, radius 44, 文字 28px #fff
+```
+
+#### 3.3.4 下单链路实测（2026-10-25 12:05，全链路真实走通）
+
+> 关键结论：源站「点击立即购买」**不跳路由**，而是弹出**底部半屏订单确认弹窗**；「快捷下单」同样为半屏弹窗。早期用 `el.click()` 命中外层 `uni-view` 会误判为「无跳转」，改用 `page.mouse.click(375,1274)` 真实坐标点击后确认。
+
+**下单链路时序**
+```
+/pages/market/marketGoodsList?id={goods_id}
+  ├─ 点击挂单行 → /pages/market/detail?id={挂单id}     （寄售详情）
+  │     └─ 点击「立即购买」→ 弹出【订单确认半屏弹窗】（不跳页）
+  │           └─ 点击「立即支付」→ 第三方收银台 hfpay.cloudpnr.com（汇付）
+  └─ 底部「快捷下单」→ 弹出【快捷下单半屏弹窗】（不跳页）
+        └─ 点击「确认」→ 进入第一件在售挂单详情 /pages/market/detail?id={挂单id}
+
+下单成功后 → /pages/order/list（我的订单）
+  └─ 点订单卡 → /pages/order/marketDetail（order_type=2 市场单）| /pages/order/defaultDetail（order_type=3 普通单）
+        └─ 「去支付」→ /api/order/order/payOrder → 回 /pages/order/list（状态 1 待支付 → 2 转入成功）
+```
+
+**B. POST /api/market/market/createOrder —— 创建订单（推断，源站走第三方收银台未暴露）**
+
+请求：`{ goods_id, collection_id, num, price, pay_platform_service_rate, ... }`
+响应：`{ order_id, order_sn, total_price }`（`order_sn` 格式 `2026MMDDHHMMSS` + 21 位数字）
+
+**C. POST /api/order/order/payOrder —— 支付订单（推断）**
+
+请求：`{ id }` → 响应 `{ code:1, msg:'支付成功' }`，订单 `order_status` 由 1 变 2。
+
+**D. POST /api/order/order/orderList —— 我的订单（源站真实字段，2026-10-25 12:20 实测）**
+
+请求：`{ page:1, status:0, keywords:"" }`；`status` 语义实测：`0` 全部 / `1` 批量付 / `2` 已完成 / `3` 已取消 / `7` 待支付。
+
+响应 `data`：
+```json
+{"total":3,"per_page":15,"current_page":1,"last_page":1,"data":[{
+  "artel_order":"mh_secondary_market_order","crystal_type":"crystal_no","crystal_number":"0",
+  "uc_ids":null,"id":9538,"num":"1","order_type":"2","order_status":3,
+  "order_sn":"2026102510554448555297570810","total_price":"310.00",
+  "goods_name":"QBOX赛博龙","goods_cover_image":"/uploads/20261025/7c674d998b7e86b520f0930c18825d3c.jpg",
+  "goods_id":13,"goods_type":2,"series_name":"经典文化",
+  "createtime":1792896944,"updatetime":1792896944,"collection_code":[]
+}]}
+```
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `order_sn` | string | 订单号，前缀「订单号：」 |
+| `order_status` | int | 1 待支付 / 2 转入成功 / 3 已取消（**源站真实枚举**） |
+| `order_type` | string | `2` 市场单（→ order/marketDetail）/ `3` 普通单（→ order/defaultDetail） |
+| `total_price` | string | 购买金额，两位小数字符串 |
+| `artel_order` | string | `mh_secondary_market_order` 市场单 / `order` 普通单 |
+| `goods_cover_image` | string | 封面相对路径 |
+| `createtime` | int | Unix 时间戳，需转 `YYYY-MM-DD HH:mm:ss` |
+| `collection_code` | array | 藏品编号数组（如 `["136081/500000"]`） |
+
+**E. POST /api/order/order/saleMarketOrderDetail / GET /api/order/order/orderDetail/ids/{id} —— 订单详情**
+
+无 id 时源站返回 `{ code:0, msg:'找不到该订单或已被删除' }`；`saleMarketOrderDetail` 无 id 时返回 `{ code:0, msg:'订单不存在' }`。
+
+**订单确认半屏弹窗（源站实测几何，750 视口绝对坐标）**
+```
+内容区   : [0,695,750,639]  圆角 32 32 0 0
+遮罩     : rgba(0,0,0,.7)，z-index 10070
+拖动条   : [343,719,64,8]
+标题     : top 80（相对弹窗顶部）32px fw700
+副标     : top 133  24px #9a9a9a
+商品封面 : top 193
+支付方式 : 标签 top 340 / 渠道行灰底卡 [36,1086,678,104] #f5f5f5 radius 20
+           徽标 48×48 黑圆 #111 @[60,1114]（内「汇」22px #fff @[73,1127]）
+           名称 26px #111 @[124,1125] / 选中点 18×18 蓝 #0018ff @[672,1129]（内 12×12 白色对勾）
+支付金额 : 标签 top 538 / 金额 top 570  36px fw700
+立即支付 : right 36, top 527, 280×88, radius 44, bg #0018ff, 文字 28px #fff
+```
+
+**快捷下单半屏弹窗（源站实测几何）**
+```
+内容区   : [0,759,750,575]
+拖动条   : [343,783,64,8]
+商品封面 : [36,827,108,108]
+规格     : [164,875]
+支付方式 : 标签 [36,970] / 渠道行灰底卡 [36,1021,678,104] #f5f5f5 radius 20
+           徽标 48×48 黑圆 @[60,1049]（内「A」22px #fff @[77,1062]）
+           名称 26px @[124,1060] / 选中点 18×18 蓝 @[666,1064]
+提示     : [36,1158] 文字 #ff8a00
+确认按钮 : [36,1214,678,88] radius 44 bg #0018ff
+```
+
+**订单提交页 /pages/order/orderSubmit（源站实测，12:05）**
+```
+body padding : 0 48px
+区块链地址   : label 28px #999 @[48,172]，值 @[196,176]
+订单金额     : 32px fw500 右对齐 @[610,244]
+支付方式卡   : 徽标 @[69,374]，名称 @[120,371]，提示「未支持该支付通道收款」@[474,374]
+底部条       : [0,1214,750,120]
+立即支付     : 480×92 @[238,1228]，30px fw600
+```
+
+**复刻取舍声明**：源站「立即支付」跳转第三方收银台 `hfpay.cloudpnr.com`（汇付收银台，独立项目不接入），我方改为**本地 mock 订单闭环**（createOrder → orderList → payOrder），保证「挂单 → 详情 → 弹窗下单 → 订单列表 → 去支付 → 状态流转」全链路可走通。
+
+---
+
 ## 4. 我的 / 资产模块
 
 ### 4.1 POST /api/user_collection/user_collection/antMycollection —— 我的收藏

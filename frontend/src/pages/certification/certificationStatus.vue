@@ -46,21 +46,25 @@ onMounted(async () => {
 .status-navbar {
   position: relative;
   width: 100%;
-  height: 79.7px;
+  height: 44px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .nav-back {
-  width: 16.3px;
-  height: 29px;
-  margin-left: 27.2px;
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 27px;
+  height: 27px;
 }
 .nav-title {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 32.6px;
+  font-size: 16px;
   font-weight: 700;
   color: #000;
   font-family: var(--font-bold);
@@ -70,33 +74,40 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 172px;
+  /* 源站实测：uni-page-body 顶部 y=44，内容区 pt-40 → 标题基线区起点 y=168 */
+  padding-top: 124px;
 }
 .status-title {
   margin-top: 0;
-  font-size: 47.1px;
-  color: #000;
+  /* 源站实测 fs=48px fw=500 c=#333，r=[231,168,288,70] */
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 70px;
+  color: #333;
   font-family: var(--font-regular);
 }
 .status-sub {
-  margin-top: 18.1px;
-  font-size: 27.2px;
-  color: #999;
+  /* 源站实测 fs=28px c=#7a7a7a，r=[193,254,364,40]，与标题间距 16px */
+  margin-top: 16px;
+  font-size: 28px;
+  line-height: 40px;
+  color: #7a7a7a;
   font-family: var(--font-regular);
 }
 .retry-btn {
-  margin-top: 515px;
-  width: 327.9px;
-  height: 79.7px;
+  /* 源站实测 r=[201,738,348,92] bg=#ff7800 br=46px fs=30px fw=600 */
+  margin-top: 444px;
+  width: 348px;
+  height: 92px;
   background: #ff7800;
-  border-radius: 39.9px;
+  border-radius: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .retry-text {
   font-weight: 600;
-  font-size: 29px;
+  font-size: 30px;
   color: #fff;
   font-family: var(--font-bold);
 }

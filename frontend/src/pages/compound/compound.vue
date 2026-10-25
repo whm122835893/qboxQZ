@@ -30,6 +30,11 @@
       alt="回到顶部"
       @click="scrollTop"
     />
+
+    <!-- 原站实测：themeinfo 返回 code=0 时 uni.showToast 弹出「未开启」（uni-simple-toast，居中） -->
+    <div v-if="showNotOpen" class="uni-simple-toast">
+      <p class="uni-simple-toast__text">未开启</p>
+    </div>
   </div>
 </template>
 
@@ -42,6 +47,7 @@ const route = useRoute()
 const router = useRouter()
 const schemes = ref([])
 const showTotop = ref(false)
+const showNotOpen = ref(false)
 
 function goBack() {
   history.length > 1 ? router.back() : router.replace('/pages/compound/task')
@@ -57,9 +63,13 @@ function scrollTop() {
 onMounted(async () => {
   const thm = route.query.thm || 0
   const res = await request('/api/synthesis/themeinfo', { thm })
-  // 实测当前主题 play=[] → 原站渲染黑猫空态
+  // 原站实测：接口返回 {code:0, msg:'未开启'} → 弹出 uni.showToast「未开启」，
+  // 页面仍渲染黑猫空态（play 为空）
   if (res.code === 1 && Array.isArray(res.data?.play)) {
     schemes.value = res.data.play
+  } else {
+    showNotOpen.value = true
+    setTimeout(() => { showNotOpen.value = false }, 2000)
   }
   window.addEventListener('scroll', onWinScroll, { passive: true })
 })
@@ -149,6 +159,27 @@ onUnmounted(() => {
   height: 72.5px;
   border-radius: 50%;
   z-index: 9990;
+}
+/* 原站 uni-simple-toast：居中深色胶囊，白字 14px，1.6s 后自动消失 */
+.uni-simple-toast {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 6px;
+  padding: 10px 16px;
+  max-width: 70%;
+}
+.uni-simple-toast__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  font-family: var(--font-regular);
+  text-align: center;
+  white-space: nowrap;
 }
 </style>
 

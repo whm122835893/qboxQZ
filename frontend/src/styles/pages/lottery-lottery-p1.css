@@ -1,0 +1,25 @@
+.rule-card {
+  width: 683px;
+  margin-top: 39px;
+  background: #fff;
+  border-radius: 30.8px;
+  padding: 32.6px 23.6px;
+  box-sizing: border-box;
+}
+.rule-title {
+  font-weight: bold;
+  font-size: 30.8px;
+  color: #111;
+  font-family: var(--font-bold);
+}
+
+/* ---- 回到顶部 ---- */
+.totop {
+  position: fixed;
+  right: 19.9px;
+  bottom: 119.6px;
+  width: 70.7px;
+  height: 72.5px;
+  border-radius: 50%;
+  z-index: 9990;
+}

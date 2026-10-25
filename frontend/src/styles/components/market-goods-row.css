@@ -1,0 +1,121 @@
+.goods-row {
+  width: 678px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 24px;
+  padding: 20px 20px 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.goods-row + .goods-row {
+  margin-top: 24px;
+}
+.gr-left {
+  width: 236px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.gr-cover-box {
+  width: 86px;
+  height: 86px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #111;
+}
+.gr-cover {
+  width: 86px;
+  height: 86px;
+  object-fit: cover;
+  display: block;
+}
+.gr-name-col {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.gr-name {
+  font-size: 26px;
+  color: #0c0c0c;
+  font-family: 'MiSans-Semibold', sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gr-col {
+  flex-shrink: 0;
+}
+.gr-floor {
+  width: 118px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #323232;
+  font-family: 'AlimamaShuHeiTi-Bold', var(--font-medium);
+}
+.gr-deal {
+  width: 118px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.gr-deal-line {
+  font-size: 18px;
+  line-height: 24px;
+  color: #9a9a9a;
+  font-family: 'MiSans-Regular', sans-serif;
+  display: flex;
+  align-items: center;
+}
+.gr-deal-line:nth-child(2) {
+  padding: 6px 0;
+}
+.gr-deal-line i {
+  font-style: normal;
+}
+.gr-deal-line b {
+  font-weight: 400;
+  color: #323232;
+  font-family: 'AlimamaShuHeiTi-Bold', var(--font-medium);
+}
+.gr-change {
+  width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  font-size: 22px;
+  font-family: 'AlimamaShuHeiTi-Bold', var(--font-medium);
+}
+.gr-change img {
+  width: 28px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.gr-change.up {
+  color: #ff3b30;
+}
+.gr-change.down {
+  color: #00b578;
+}
+.gr-out {
+  font-size: 22px;
+  line-height: 26px;
+  color: #ff0000;
+  font-family: var(--font-regular);
+}
+.gr-change-out {
+  justify-content: flex-end;
+  color: #323232;
+}

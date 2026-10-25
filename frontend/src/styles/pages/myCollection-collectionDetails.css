@@ -1,0 +1,214 @@
+.cd-page {
+  min-height: 100vh;
+  /* 源站实测双层背景：顶部为徽章模糊图 market-goods-bg（414×549，盖住 login-bg 顶部文字区），
+     下方透出 login-bg 白雾；两层均 100% 宽等比、顶部对齐 */
+  background-color: #f7f7f7;
+  background-image: url('/static/qbox/market-goods-bg.png'), url('/static/qbox/login-bg.png');
+  background-repeat: no-repeat, no-repeat;
+  background-size: 100% auto, 100% auto;
+  background-position: center top, center top;
+  padding-bottom: 220px;
+  box-sizing: border-box;
+}
+.navbar {
+  position: relative;
+  width: 100%;
+  height: 79.7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar-back {
+  position: absolute;
+  left: 23.6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 17px;
+  height: auto;
+}
+.nav-title {
+  font-size: 30.8px;
+  font-weight: 700;
+  color: #111;
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.body {
+  padding: 0 34.4px;
+}
+
+/* 主图：居中 435 方卡，源站实测容器黑底（藏品图自带白底衬托）、圆角 63.4、柔和投影 */
+.main-wrap {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+}
+.main-img {
+  width: 435px;
+  height: 435px;
+  border-radius: 63.4px;
+  box-sizing: border-box;
+  object-fit: cover;
+  background: #000;
+  box-shadow: 5.4px 1.8px 32.6px rgba(0, 0, 0, 0.13);
+}
+
+/* 名称卡（源站实测半透明白 rgba(255,255,255,0.83)，雾状背景可透出） */
+.name-card {
+  margin-top: 27.2px;
+  background: rgba(255, 255, 255, 0.83);
+  border-radius: 31px;
+  padding: 27.2px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.name-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.g-name {
+  font-size: 30.8px;
+  font-weight: 700;
+  color: #111;
+}
+.num-capsule {
+  margin-top: 14.5px;
+  padding: 5.4px 12.7px;
+  background: #0018ff;
+  border-radius: 9px;
+  font-size: 19.9px;
+  color: #fff;
+}
+.price {
+  margin-top: 9px;
+  font-size: 34.4px;
+  color: #111;
+}
+.price-cny {
+  font-size: 21.7px;
+  color: #4a4a4a;
+  margin-right: 2px;
+}
+
+/* 信息卡（三行 48px 行距实测） */
+.info-card {
+  margin-top: 27.2px;
+  background: #fff;
+  border-radius: 31px;
+  padding: 5.4px 27.2px;
+}
+.info-row {
+  padding: 25.4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f5f5f5;
+}
+.info-row:last-child {
+  border-bottom: none;
+}
+.info-label {
+  font-size: 27.2px;
+  color: #111;
+}
+.info-value {
+  font-size: 25.4px;
+  color: #111;
+}
+
+/* 内容卡（QBOX 水印 + 蓝色下划线标题）
+   下划线为源站实测统一规范：绝对定位蓝条，宽=文字宽、高 9rpx、叠压文字底部（z-index -1） */
+.creator-card {
+  position: relative;
+  margin-top: 27.2px;
+  background: #fff;
+  border-radius: 31px;
+  padding: 31px 28px 34px;
+  overflow: hidden;
+}
+.watermark {
+  position: absolute;
+  left: 24px;
+  top: 9px;
+  font-size: 50.7px;
+  line-height: 26px;
+  color: rgba(104, 104, 104, 0.08);
+  font-family: 'NanoByongGyeHei-Regular', var(--font-regular);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.watermark-wide {
+  left: 12px;
+}
+.creator-title {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  margin-top: 25px;
+  font-size: 30.8px;
+  color: #2d2d2d;
+  font-family: 'AlimamaShuHeiTi-Bold', var(--font-medium);
+}
+.creator-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.8px;
+  height: 9px;
+  background: #0018ff;
+  z-index: -1;
+}
+.creator-name {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 25.4px;
+  font-size: 25.4px;
+  color: #4a4a4a;
+  text-align: center;
+}
+.intro-text,
+.notice-text {
+  position: relative;
+  z-index: 1;
+  margin: 21.7px 0 0;
+  font-size: 25.4px;
+  line-height: 1.7;
+  color: #696969;
+}
+
+/* 底部固定栏（源站实测：不透明 #f7f7f7；按钮 678×92 圆角 19px，左右留白 36px） */
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #f7f7f7;
+  padding: 18.1px 36px calc(14.5px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  z-index: 100;
+}
+.bottom-btn {
+  width: 100%;
+  height: 92px;
+  border-radius: 19px;
+  background: #0018ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+}
+/* 上链中态：源站实测灰底 rgb(202,205,211)，不可点击 */
+.bottom-btn-disabled {
+  background: rgb(202, 205, 211);
+  color: #fff;
+  cursor: default;
+}

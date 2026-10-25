@@ -45,13 +45,14 @@ import { useUserStore } from '../../stores/user'
 const router = useRouter()
 const userStore = useUserStore()
 
-const balanceA = computed(() => userStore.userinfo?.money ?? '0.00')
+// 源站实测（2026-10-25 登录态）：钱包卡底部「余额」后为空白（源站未回填余额数值）
+const balanceA = computed(() => '')
 
 // 三张钱包卡：状态/文案/底色均来自原站实测（A 蓝 #2a51ef 已开通；B 青 #4a8eb0；C 绿 #6b9a4a）
 const wallets = ref([
-  { name: '钱包A', desc: '安全便捷，交易更高效', open: true, icon: '/static/icon/huifupay.png', footerColor: 'rgb(42, 81, 239)', balance: '0.00' },
-  { name: '钱包B', desc: '敬请期待对接中', open: false, icon: '/static/logo/logo.png', footerColor: 'rgb(74, 142, 176)', balance: '0.00' },
-  { name: '钱包C', desc: '敬请期待对接中', open: false, icon: '/static/logo/logo.png', footerColor: 'rgb(107, 154, 74)', balance: '0.00' }
+  { name: '钱包A', desc: '安全便捷，交易更高效', open: true, icon: '/static/icon/huifupay.png', footerColor: 'rgb(42, 81, 239)', balance: '' },
+  { name: '钱包B', desc: '敬请期待对接中', open: false, icon: '/static/logo/logo.png', footerColor: 'rgb(74, 142, 176)', balance: '' },
+  { name: '钱包C', desc: '敬请期待对接中', open: false, icon: '/static/logo/logo.png', footerColor: 'rgb(107, 154, 74)', balance: '' }
 ])
 
 function openWallet() {

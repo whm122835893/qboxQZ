@@ -42,10 +42,29 @@
       </div>
     </div>
 
-    <!-- 列表：空态黑猫 -->
+    <!-- 列表：订单卡（源站实测 2026-10-25 11:58 登录态：
+         订单号 + 状态（右）/ 藏品封面 + 名称 / 购买数量 N + 购买金额 / 订单时间 + 金额；
+         待支付订单右侧额外有「去支付」按钮 [604,482,66,33] 白字 22px 蓝底 radius 8） -->
     <div class="list-area">
       <div v-if="list.length" class="order-list">
-        <div v-for="(o, i) in list" :key="i" class="order-item">{{ o.order_no || o.id }}</div>
+        <div v-for="(o, i) in list" :key="i" class="order-item" @click="goOrderDetail(o)">
+          <div class="oi-head">
+            <span class="oi-no">订单号：{{ o.order_sn }}</span>
+            <span class="oi-status" :class="{ 'oi-status-pay': o.order_status === 1 }">{{ statusText(o.order_status) }}</span>
+          </div>
+          <div class="oi-body">
+            <img v-if="o.goods_cover_image" class="oi-cover" :src="o.goods_cover_image" alt="" />
+            <div class="oi-info">
+              <span class="oi-name">{{ o.goods_name }}</span>
+              <span class="oi-sub">购买数量 {{ o.num }} 购买金额</span>
+            </div>
+            <div v-if="o.order_status === 1" class="oi-pay-btn" @click.stop="goOrderDetail(o)">去支付</div>
+          </div>
+          <div class="oi-foot">
+            <span class="oi-time">订单时间:{{ formatTime(o.createtime) }}</span>
+            <span class="oi-amount">¥ {{ o.total_price }}</span>
+          </div>
+        </div>
       </div>
       <div v-else class="list-empty">
         <img class="list-empty-img" src="/static/qbox/common-empty.png" alt="" />
@@ -100,6 +119,36 @@ function updateLine() {
   }
 }
 
+/**
+ * 源站订单状态 → 文案（源站实测 2026-10-25 11:58）：
+ *   order_status 1 = 待支付（红色 #e53e3e + 「去支付」按钮）
+ *   order_status 2 = 转入成功（灰色 #8c8c8c）
+ *   order_status 3 = 已取消（灰色 #8c8c8c）
+ */
+const ORDER_STATUS_TEXT = { 1: '待支付', 2: '转入成功', 3: '已取消' }
+
+function statusText(s) {
+  return ORDER_STATUS_TEXT[s] || ''
+}
+
+/** 源站订单时间格式：YYYY-MM-DD HH:mm:ss（源站实测 "2026-10-25 10:55:44"） */
+function formatTime(ts) {
+  const d = new Date(Number(ts || 0) * 1000)
+  const p = (n) => String(n).padStart(2, '0')
+  return (
+    d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) +
+    ' ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds())
+  )
+}
+
+/** 点击订单卡 → 订单详情（寄售单走 marketDetail，商城单走 defaultDetail） */
+function goOrderDetail(o) {
+  const path = o.order_type === '3' || o.order_type === 3
+    ? '/pages/order/defaultDetail?id=' + o.id
+    : '/pages/order/marketDetail?id=' + o.id
+  router.push(path)
+}
+
 async function loadList() {
   const res = await request('/api/order/order/orderList', {
     page: 1,
@@ -144,174 +193,4 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
-.order-page {
-  min-height: 100vh;
-  background-color: #f7f7f7;
-}
-.order-head {
-  width: 100%;
-  box-sizing: border-box;
-  padding-top: 36.2px;
-}
-.nav-row {
-  width: 100%;
-  height: 87px;
-  padding: 0 34.4px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.nav-back {
-  width: 23.6px;
-  height: 23.6px;
-  transform: rotate(180deg);
-}
-.nav-title {
-  font-size: 30.8px;
-  color: #111;
-  font-family: var(--font-bold);
-}
-.nav-spacer {
-  width: 23.6px;
-  height: 23.6px;
-}
-
-/* tabs 行 */
-.tabs-row {
-  width: 100%;
-  padding: 0 23.6px 0 7.2px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-}
-.tabs-scroll {
-  flex: 1;
-  min-width: 0;
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.tabs-scroll::-webkit-scrollbar {
-  display: none;
-}
-.tab-item {
-  flex-shrink: 0;
-  padding: 0 27.2px;
-  height: 61.6px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-.tab-text {
-  font-size: 25.4px;
-  color: #8c8c8c;
-  font-family: var(--font-regular);
-  white-space: nowrap;
-}
-.tab-text.on {
-  color: #111;
-}
-.tab-line {
-  position: absolute;
-  bottom: 7.2px;
-  left: 0;
-  width: 32.6px;
-  height: 3.6px;
-  border-radius: 1.8px;
-  background: #0047ff;
-  transition: transform 0.3s;
-}
-.tabs-search {
-  width: 25.4px;
-  height: 25.4px;
-  flex-shrink: 0;
-}
-
-/* 搜索行 */
-.search-row {
-  width: 100%;
-  margin-top: 12.7px;
-  padding: 7.2px 34.4px 19.9px;
-  box-sizing: border-box;
-}
-.search-bar {
-  width: 100%;
-  height: 70.7px;
-  background: #eee;
-  border-radius: 34.4px;
-  padding: 0 27.2px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-}
-.search-input {
-  flex: 1;
-  min-width: 0;
-  height: 70.7px;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 23.6px;
-  color: #111;
-  font-family: var(--font-regular);
-}
-.search-input::placeholder {
-  color: #b2b2b2;
-}
-.search-icon {
-  width: 34.4px;
-  height: 34.4px;
-  flex-shrink: 0;
-}
-
-/* 列表 */
-.list-area {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  margin-top: 30.8px;
-}
-.list-empty {
-  width: 100%;
-  min-height: 478.2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.list-empty-img {
-  width: 282.6px;
-  height: 282.6px;
-  /* 原站 uni-image 实测：156×156 容器 + background-size:contain → 图等比缩放为 106.7×156 居中显示；
-     object-fit:contain 与其完全等价（此前 fill 压扁 / height:auto 放大 均有偏差，已按实测修正） */
-  object-fit: contain;
-}
-.order-list {
-  padding: 0 34.4px;
-}
-.order-item {
-  background: #fff;
-  border-radius: 25.4px;
-  padding: 27.2px;
-  margin-bottom: 21.7px;
-  font-size: 25.4px;
-  color: #111;
-  font-family: var(--font-medium);
-}
-
-/* 回到顶部 */
-.totop {
-  position: fixed;
-  right: 19.9px;
-  bottom: 119.6px;
-  width: 70.7px;
-  height: 72.5px;
-  border-radius: 50%;
-  z-index: 9990;
-}
-</style>
+<style scoped src="../../styles/pages/order-list.css"></style>

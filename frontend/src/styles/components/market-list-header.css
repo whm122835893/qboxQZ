@@ -1,0 +1,44 @@
+.list-header {
+  width: 678px;
+  margin-top: 42px;
+  padding-left: 24px;
+  padding-right: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.lh-name {
+  width: 240px;
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 1.5;
+  color: #919191;
+  font-family: 'MiSans-Regular', sans-serif;
+  flex-shrink: 0;
+}
+
+/* ---- 表头三列（藏品名称之外的 地板价 / 成交量 / 涨跌幅）----
+   源站实测：列宽 118（末列 110），文字 23px MiSans-Regular #919191 右对齐，
+   排序箭头 market-sort.png 约束为 28×28（图片原始 72×92，须显式限尺寸）。 */
+.lh-col {
+  width: 118px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 1.5;
+  color: #919191;
+  font-family: 'MiSans-Regular', sans-serif;
+  gap: 2px;
+}
+.lh-last {
+  width: 110px;
+}
+.lh-sort {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}

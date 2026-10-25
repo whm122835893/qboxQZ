@@ -1,113 +1,125 @@
 <template>
+  <!--
+    确认订单页（源站 pages/order/orderSubmit）
+    源站实测 2026-10-25 12:05（无订单参数直接访问）：
+      导航：uni 原生 page-head（高 44px），标题「确认订单」34px fw700 居中（容器宽 400）
+      区块链地址: label 28px #999 @[48,172,148,40]；值 28px #000 @[196,176,478,32]
+      订单金额:   label 28px #999 @[48,247,120,40]；值 32px fw500 #000 右对齐 @[610,244,92,46]
+      支付方式卡：徽标「汇」22px #fff 圆底 @[69,374,22,33]；名称「汇付」26px #111 @[120,371,338,39]；
+                  「未支持该支付通道收款」22px #8c8c8c @[474,374,220,33]
+      底部条 [0,1214,750,120]：合计「￥」24px fw500 @[32,1267,24,26] + 金额 40px fw500 @[56,1252]；
+                  「立即支付」480×92 @[238,1228]，30px fw600 #fff
+      无订单参数时源站金额显示 NaN（源站自身 bug，如实复刻）
+  -->
   <div class="os-page">
-    <!-- 导航栏 -->
     <div class="navbar">
-      <img class="navbar-back" src="/static/cw/back_btn.png" alt="返回" @click="$router.back()" />
+      <img class="navbar-back" src="/static/cw/back_btn.png" alt="返回" @click="goBack" />
       <span class="nav-title">确认订单</span>
     </div>
 
     <div class="body">
-      <!-- 商品卡（product 无数据 → 高度塌缩为浅灰条，原站实测一致） -->
-      <div class="goods-card">
-        <div v-if="product.listimg" class="goods-img">{{ product.listimg }}</div>
-        <div class="goods-info">
-          <span class="goods-name">{{ product.name || '' }}</span>
-        </div>
+      <!-- 订单信息卡（商品信息为空时源站不渲染卡片） -->
+      <div v-if="product.name" class="goods-card">
+        <img v-if="product.cover" class="goods-img" :src="product.cover" alt="" />
+        <span class="goods-name">{{ product.name }}</span>
       </div>
 
-      <!-- 信息卡 -->
-      <div class="info-card">
-        <div v-if="product.publisher?.user?.nickname" class="info-row">
-          <span class="k">创作者:</span><span class="v">{{ product.publisher.user.nickname }}</span>
-        </div>
-        <div v-if="orderBaseInfo.order_type === 1" class="info-row">
-          <span class="k">藏品编号:</span><span class="v">随机编号</span>
-        </div>
-        <div v-if="userinfo?.ntf_url" class="info-row">
-          <span class="k">区块链地址:</span>
-          <span class="v addr">{{ hideUrl(userinfo.ntf_url) }}</span>
-          <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-        </div>
-        <div class="info-row">
-          <span class="k">订单金额:</span>
-          <span class="v amount">￥{{ totalPrice }}</span>
-        </div>
+      <!-- 区块链地址 -->
+      <div class="info-row">
+        <span class="k">区块链地址:</span>
+        <span class="v addr">{{ hideUrl(userinfo?.ntf_url || '') }}</span>
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2">
+          <rect x="9" y="9" width="12" height="12" rx="2" />
+          <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+        </svg>
       </div>
 
-      <!-- 支付方式卡（PayType） -->
+      <!-- 订单金额 -->
+      <div class="info-row">
+        <span class="k">订单金额:</span>
+        <span class="v amount">￥{{ totalPrice }}</span>
+      </div>
+
+      <!-- 支付方式（源站实测：汇付通道未开通 → 显示「未支持该支付通道收款」） -->
       <div class="pay-card">
-        <div v-for="p in payList" :key="p.key" class="pay-row">
-          <div class="pay-badge"><span class="pay-badge-text">{{ (p.aname || '').slice(0, 1) }}</span></div>
-          <span class="pay-name"> {{ p.name }} </span>
-          <span class="pay-unsupport"> 未支持该支付通道收款 </span>
+        <div class="pay-row">
+          <span class="pay-badge">汇</span>
+          <span class="pay-name">汇付</span>
+          <span class="pay-unsupport">未支持该支付通道收款</span>
         </div>
       </div>
     </div>
 
-    <!-- 底部（fixed：合计 + 立即支付 480rpx #ff7800） -->
+    <!-- 底部：合计 + 立即支付 -->
     <div class="footer">
-      <div class="footer-inner">
-        <span class="total"><span class="total-symbol">￥</span><span class="total-num">{{ totalPrice }}</span></span>
-        <div class="pay-btn pay-btn-text" @click="onPay"> 立即支付 </div>
-      </div>
+      <span class="total-symbol">￥</span>
+      <span class="total-num">{{ totalPrice }}</span>
+      <div class="pay-btn" :class="{ disabled: disable }" @click="onPay">立即支付</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { request } from '../../api/request'
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '../../stores/user'
 import { toast } from '../../utils/toast'
 
 /**
- * 原站 chunk 反解（pages-order-orderSubmit）：
- *  - 确认订单支付页：商品卡（order_type==1 时带数量步进器）+ 信息卡（创作者/藏品编号:随机编号/
- *    区块链地址 hideUrl 打码 0x590****b783d + 复制 / 订单金额 ￥totalPrice）
- *    + PayType 支付方式（radio；有 auth_key 不可用 → 「未支持该支付通道收款」）
- *    + 底部 ￥totalPrice + 立即支付 480rpx circle #ff7800（disabled 不可点）
- *  - 直接访问无订单参数：product 空、totalPrice=NaN（原站即显示 ￥NaN，bug 原样复刻，实测）
- *  - createOrder/createDefaultOrder/createMarketOrder → pay() 拉起支付（未抓包，标注推断）
+ * 源站实测（2026-10-25 12:05 登录态，pages/order/orderSubmit）：
+ *  - 确认订单支付页：区块链地址（hideUrl 打码 0x590****b783d + 复制）/ 订单金额 ￥totalPrice
+ *    + PayType 支付方式（汇付通道 auth_key 未开通 → 「未支持该支付通道收款」）
+ *    + 底部合计 ￥totalPrice + 立即支付 480×92
+ *  - 直接访问无订单参数：源站金额显示 NaN（源站自身 bug，如实复刻）
+ *  - 源站 market 链路（寄售详情「立即购买」）实际不走本页，而是弹底部订单确认弹窗后拉起汇付收银台；
+ *    本页对应商城 / 盲盒等确认订单入口。
  */
+const router = useRouter()
 const userStore = useUserStore()
 const product = ref({})
-const orderBaseInfo = ref({ order_type: 1, count: 1 })
-const payInfo = ref({})
 const userinfo = computed(() => userStore.userinfo)
 
-const payList = ref([{ name: '汇付', aname: 'A', key: 'huifu_pay_status', auth_key: 'huifu_account', pay_way: 'huifu', able: false }])
-
 const totalPrice = computed(() => {
-  // 原站：totalPrice 依赖商品价格与数量，无数据时为 NaN（实测显示 ￥NaN）
+  // 源站：totalPrice 依赖商品价格，无数据时为 NaN（源站即显示 ￥NaN，如实复刻）
   const price = Number(product.value.price)
-  return Number.isFinite(price) ? (price * Number(orderBaseInfo.value.count || 1)).toFixed(2) : 'NaN'
+  return Number.isFinite(price) ? price.toFixed(2) : 'NaN'
 })
-const disable = computed(() => !payInfo.value.pay_way)
+
+/** 源站支付通道未开通时按钮不可用 */
+const disable = computed(() => true)
 
 function hideUrl(a) {
-  return a && a.length > 10 ? a.slice(0, 5) + '****' + a.slice(-5) : a
+  return a && a.length > 10 ? a.slice(0, 5) + '****' + a.slice(-5) : a || ''
 }
 
 function onPay() {
-  if (disable.value) return
-  // 原站：checkCaptcha → createOrder → pay() 拉起支付；独立项目支付通道未接入（标注推断）
-  toast('支付通道暂未接入')
+  // 源站：checkCaptcha → createOrder → pay() 拉起汇付收银台；
+  // 独立项目未接支付通道，按钮按源站不可用态处理。
+  if (disable.value) {
+    toast('未支持该支付通道收款')
+    return
+  }
 }
 
-async function init() {
-  await userStore.getUserInfo()
+function goBack() {
+  history.length > 1 ? router.back() : router.replace('/pages/my/my')
 }
-init()
+
+onMounted(() => {
+  userStore.getUserInfo()
+})
 </script>
 
 <style scoped>
 .os-page {
   min-height: 100vh;
   background: #f4f6fa;
+  padding-bottom: 240px;
+  box-sizing: border-box;
 }
+/* 源站用 uni 原生 page-head（高 44px），此处按项目约定用固定导航承载标题 */
 .navbar {
   position: relative;
-  width: 100%;
   height: 79.7px;
   display: flex;
   align-items: center;
@@ -122,162 +134,152 @@ init()
   height: auto;
 }
 .nav-title {
-  font-size: 32.6px;
+  font-size: 34px;
   font-weight: 700;
   color: #000;
   font-family: var(--font-medium);
 }
+/* 源站实测：body 左右留白 48px */
 .body {
-  padding: 0 17.7px;
+  padding: 0 48px;
 }
+/* 商品卡（源站 product 为空时不渲染） */
 .goods-card {
   margin-top: 38px;
-  background: #f4f6fa;
+  background: #fff;
   border-radius: 8px;
-  padding: 8.8px;
-  margin-bottom: 8.8px;
-  display: flex;
-  min-height: 20px;
-}
-.goods-img {
-  width: 45.8px;
-  height: 45.8px;
-  border-radius: 4.4px;
-  overflow: hidden;
-  object-fit: cover;
-}
-.goods-info {
-  flex: 1;
-  padding: 0 8.8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.goods-name {
-  font-size: 27.2px;
-  color: #000;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-.info-card {
-  border-radius: 8px;
-  background: #f4f6fa;
-  padding: 8.8px;
-  margin-bottom: 4.4px;
-}
-.info-row {
+  padding: 20px 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 27.2px;
-  margin-bottom: 8.8px;
+  gap: 20px;
 }
-.info-row:last-child {
-  margin-bottom: 0;
+.goods-img {
+  width: 92px;
+  height: 92px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #f4f6fa;
+}
+.goods-name {
+  font-size: 28px;
+  color: #000;
+  line-height: 38px;
+}
+/* 信息行：源站实测 行 1 @y172，行 2 @y247（行距 75px） */
+.info-row {
+  margin-top: 35px;
+  display: flex;
+  align-items: center;
+  font-size: 28px;
+  min-height: 40px;
 }
 .k {
   color: #999;
+  flex-shrink: 0;
 }
 .v {
   color: #000;
+  margin-left: 0;
+  flex: 1;
+  min-width: 0;
+  line-height: 32px;
 }
 .addr {
-  flex: 1;
-  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .copy-icon {
-  width: 12px;
-  height: 12px;
-  margin-left: 4px;
+  width: 24px;
+  height: 24px;
+  margin-left: 12px;
   flex-shrink: 0;
 }
+/* 源站实测：订单金额 32px fw500 */
 .amount {
+  font-size: 32px;
   font-weight: 500;
-  font-size: 30.8px;
-  font-family: 'PingFang SC-Medium', 'PingFang SC', var(--font-medium);
+  text-align: right;
+  flex: none;
+  line-height: 46px;
 }
-/* ---- 支付方式 ---- */
+/* 支付方式卡：源站实测 徽标 @[69,374,22,33] 名称 @[120,371] 提示 @[474,374] */
 .pay-card {
-  margin-top: 56.7px;
-  background: #f5f5f5;
-  border-radius: 11px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.pay-row {
-  padding: 27.2px 13.2px;
-  display: flex;
-  align-items: center;
+  margin-top: 72px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px 21px;
   box-sizing: border-box;
 }
+.pay-row {
+  display: flex;
+  align-items: center;
+}
 .pay-badge {
-  width: 26.5px;
-  height: 26.5px;
+  width: 33px;
+  height: 33px;
   border-radius: 50%;
   background: #111;
+  color: #fff;
+  font-size: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.pay-badge-text {
-  font-size: 25.4px;
-  color: #fff;
-  font-family: var(--font-bold);
-}
 .pay-name {
-  flex: 1;
-  min-width: 0;
-  margin-left: 8.8px;
-  font-size: 25.4px;
+  margin-left: 28px;
+  font-size: 26px;
   color: #111;
+  line-height: 39px;
 }
 .pay-unsupport {
-  font-size: 21.7px;
+  margin-left: auto;
+  font-size: 22px;
   color: #8c8c8c;
-  flex-shrink: 0;
+  line-height: 33px;
 }
-/* ---- 底部 ---- */
+/* 底部条：源站实测 [0,1214,750,120]；立即支付 480×92 @[238,1228] */
 .footer {
   position: fixed;
   left: 0;
+  right: 0;
   bottom: 0;
-  width: 100%;
+  height: 120px;
   background: #f4f6fa;
-  z-index: 10;
-}
-.footer-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 14.5px 17.7px calc(14.5px + env(safe-area-inset-bottom));
+  padding: 0 32px;
   box-sizing: border-box;
-}
-.total {
-  color: #000;
+  z-index: 10;
 }
 .total-symbol {
-  font-size: 23.6px;
+  font-size: 24px;
+  font-weight: 500;
+  color: #000;
+  align-self: center;
 }
 .total-num {
-  font-size: 39.9px;
+  font-size: 40px;
+  font-weight: 500;
+  color: #000;
+  align-self: center;
+  margin-left: 0;
 }
 .pay-btn {
-  width: 264.9px;
-  height: 90.6px;
-  border-radius: 44px;
+  margin-left: auto;
+  width: 480px;
+  height: 92px;
+  border-radius: 46px;
   background: #ff7800;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
-.pay-btn-text {
-  font-size: 29px;
-  color: #fff;
-  font-family: var(--font-medium);
+.pay-btn.disabled {
+  background: #cacdd3;
 }
 </style>

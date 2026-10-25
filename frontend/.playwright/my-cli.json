@@ -1,0 +1,12 @@
+{
+  "browser": {
+    "launchOptions": {
+      "chromiumSandbox": false,
+      "args": ["--no-sandbox"]
+    },
+    "contextOptions": {
+      "viewport": { "width": 414, "height": 896 },
+      "deviceScaleFactor": 2
+    }
+  }
+}

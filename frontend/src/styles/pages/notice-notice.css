@@ -1,0 +1,209 @@
+.notice-page {
+  min-height: 100vh;
+  background-color: #f8f8f9;
+}
+.notice-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 23.6px 34.4px 219.2px;
+  box-sizing: border-box;
+  background-color: #f8f8f9;
+}
+
+/* ---- 顶部双 Tab ---- */
+.top-tabs {
+  width: 677.5px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 48px;
+}
+.top-tab {
+  font-weight: 400;
+  font-size: 30.8px;
+  font-family: 'MiSans-Semibold', sans-serif;
+  color: #8c8c8c;
+}
+.top-tab.on {
+  font-weight: 600;
+  color: #000;
+}
+
+/* ---- 搜索框 ---- */
+.search-bar {
+  width: 677.5px;
+  margin-top: 27.2px;
+  height: 70.7px;
+  background: #eeeded;
+  border-radius: 34.4px;
+  padding: 0 23.6px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.search-icon {
+  width: 30.8px;
+  height: 30.8px;
+}
+.search-placeholder {
+  font-weight: 300;
+  font-size: 23.6px;
+  color: #7c7c7c;
+  font-family: var(--font-regular);
+}
+
+/* ---- 分类横滑卡 ---- */
+.cat-scroll {
+  width: 677.5px;
+  height: 126.8px;
+  margin-top: 14.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 14.5px 7.2px;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+.cat-scroll::-webkit-scrollbar {
+  display: none;
+}
+.cat-card {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  background: linear-gradient(0deg, #fdfdfd, #eee);
+  border-radius: 18.1px;
+  border: 5.4px solid #fefefe;
+  padding: 16.3px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cat-card.selected {
+  background: linear-gradient(0deg, #fdfdfd, #eee);
+  box-shadow: rgba(0, 0, 0, 0.23) 0 1.8px 10.9px 0;
+}
+.cat-box {
+  width: 63.4px;
+  height: 63.4px;
+  border-radius: 10.9px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #bdbdbd;
+  font-weight: normal;
+  font-size: 23.6px;
+  color: #fbf2d5;
+  font-family: 'AlimamaFangYuanTiVF-Thin', var(--font-regular);
+}
+.cat-box.dark {
+  background: linear-gradient(49deg, #161616, #362c1f, #222);
+}
+.cat-box-img {
+  width: 63.4px;
+  height: 63.4px;
+  border-radius: 10.9px;
+  flex-shrink: 0;
+  opacity: 0.55;
+}
+.cat-label {
+  font-size: 25.4px;
+  line-height: 1.2;
+  text-align: center;
+  font-family: 'MiSans-Semibold', sans-serif;
+  color: #bfbfbf;
+  white-space: nowrap;
+}
+.cat-label.on {
+  color: #000;
+}
+
+/* ---- 列表 ---- */
+.notice-list {
+  width: 686.6px;
+  margin-top: 27.2px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.notice-item {
+  width: 686.6px;
+  height: 170.3px;
+  background: rgba(255, 255, 255, 0.71);
+  border-radius: 18.1px;
+  padding: 19.9px 23.6px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.notice-item-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.notice-item-title {
+  line-height: 1.4;
+  font-weight: 600;
+  font-size: 23.6px;
+  color: #181818;
+  font-family: 'MiSans-Semibold', sans-serif;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.notice-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.notice-item-badge {
+  padding: 3.6px 16.3px;
+  background: #2e72f2;
+  border-radius: 10.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 18.1px;
+  color: #fff;
+  font-family: var(--font-medium);
+}
+.notice-item-date {
+  font-weight: 300;
+  font-size: 23.6px;
+  color: #444;
+  font-family: var(--font-regular);
+}
+.notice-item-thumb {
+  width: 237.3px;
+  height: 135.9px;
+  border-radius: 14.5px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #e8e8e8;
+}
+.notice-item-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- 回到顶部 ---- */
+.totop {
+  position: fixed;
+  right: 19.9px;
+  bottom: 119.6px;
+  width: 70.7px;
+  height: 72.5px;
+  border-radius: 50%;
+  z-index: 9990;
+}

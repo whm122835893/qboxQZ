@@ -1,0 +1,126 @@
+.sheet-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sheet-title {
+  font-weight: bold;
+  font-size: 29px;
+  color: #000;
+  font-family: 'MiSans-Semibold', sans-serif;
+}
+.sheet-close {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+}
+.cal-month {
+  margin-top: 21.7px;
+  text-align: center;
+  font-size: 25.4px;
+  color: #333;
+  font-family: var(--font-regular);
+}
+.cal-week {
+  margin-top: 21.7px;
+  display: flex;
+}
+.cal-week-item {
+  flex: 1;
+  text-align: center;
+  font-size: 23.6px;
+  color: #333;
+  font-family: var(--font-regular);
+}
+.cal-month2 {
+  margin-top: 25.4px;
+  text-align: center;
+  font-size: 25.4px;
+  color: #333;
+  font-family: var(--font-regular);
+  position: relative;
+  z-index: 1;
+}
+.cal-grid {
+  margin-top: 14.5px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+.cal-watermark {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 163px;
+  color: rgba(0, 0, 0, 0.04);
+  pointer-events: none;
+}
+.cal-cell {
+  width: 14.2857%;
+  height: 74.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25.4px;
+  color: #333;
+  font-family: var(--font-regular);
+  box-sizing: border-box;
+}
+.cal-cell.disabled {
+  color: #ccc;
+}
+.cal-cell.picked {
+  background: #0018ff;
+  color: #fff;
+  border-radius: 14.5px;
+}
+/* ---- 弹窗容器（与份数筛选弹窗共用源站规格，组件内独立副本） ---- */
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+  display: flex;
+  align-items: flex-end;
+}
+.sheet {
+  width: 100%;
+  background: #fff;
+  border-radius: 29px 29px 0 0;
+  padding: 32px 25px calc(25px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+.sheet-btns {
+  margin-top: 21.7px;
+  display: flex;
+  gap: 21.7px;
+}
+.btn-cancel {
+  flex: 1;
+  height: 79.7px;
+  background: #fff;
+  border: 1.8px solid #ececec;
+  border-radius: 39.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #333;
+  font-family: var(--font-medium);
+}
+.btn-ok {
+  flex: 1;
+  height: 79.7px;
+  background: #0024ff;
+  border-radius: 39.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #fff;
+  font-family: var(--font-medium);
+}

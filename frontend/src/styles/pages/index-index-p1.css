@@ -1,0 +1,46 @@
+.hg-name {
+  font-size: 25.4px;
+  font-weight: 700;
+  color: #c8c8c8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hg-price-row {
+  display: flex;
+  align-items: baseline;
+}
+.hg-cny {
+  font-size: 12.7px;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 1.8px;
+}
+.hg-price {
+  font-size: 21.7px;
+  color: #fff;
+}
+.hg-status {
+  flex-shrink: 0;
+  margin-left: 8px;
+  height: 38px;
+  padding: 0 14.5px;
+  background: #0018ff;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 18.1px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ---- 回到顶部 ---- */
+.totop {
+  position: fixed;
+  right: 19.9px;
+  bottom: 119.6px;
+  width: 70.7px;
+  height: 72.5px;
+  border-radius: 50%;
+  z-index: 9990;
+}

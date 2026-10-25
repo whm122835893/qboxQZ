@@ -1,0 +1,117 @@
+.option-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 21.7px;
+}
+.option-pill {
+  width: calc((100% - 43.4px) / 3);
+  height: 59.8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border: 1.8px solid transparent;
+  border-radius: 14.5px;
+  box-sizing: border-box;
+  font-size: 23.6px;
+  color: #333;
+  font-family: var(--font-regular);
+}
+.option-pill.picked {
+  background: #fff;
+  border: 1.8px solid #1a1a1a;
+}
+.option-btns {
+  margin-top: 32px;
+}
+.btn-reset {
+  width: 154px;
+  height: 79.7px;
+  background: #fff;
+  border: 1.8px solid #ececec;
+  border-radius: 39.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #333;
+  font-family: var(--font-medium);
+}
+.btn-dark {
+  flex: 1;
+  height: 79.7px;
+  background: #1a1a1a;
+  border-radius: 39.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #fff;
+  font-family: var(--font-medium);
+}
+
+/* ---- 弹窗容器（与日期弹窗共用同一套源站规格，组件内独立副本） ---- */
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+  display: flex;
+  align-items: flex-end;
+}
+.sheet {
+  width: 100%;
+  background: #fff;
+  border-radius: 29px 29px 0 0;
+  padding: 32px 25px calc(25px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+.sheet-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sheet-title {
+  font-weight: bold;
+  font-size: 29px;
+  color: #000;
+  font-family: 'MiSans-Semibold', sans-serif;
+}
+.sheet-close {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+}
+.sheet-btns {
+  margin-top: 21.7px;
+  display: flex;
+  gap: 21.7px;
+}
+.btn-cancel {
+  flex: 1;
+  height: 79.7px;
+  background: #fff;
+  border: 1.8px solid #ececec;
+  border-radius: 39.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #333;
+  font-family: var(--font-medium);
+}
+.btn-ok {
+  flex: 1;
+  height: 79.7px;
+  background: #0024ff;
+  border-radius: 39.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #fff;
+  font-family: var(--font-medium);
+}

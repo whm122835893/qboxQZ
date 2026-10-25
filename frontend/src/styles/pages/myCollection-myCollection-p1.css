@@ -1,0 +1,95 @@
+.pp-head-left {
+  flex: 1;
+  min-width: 0;
+}
+.pp-title-row {
+  display: flex;
+  align-items: center;
+}
+.pp-title {
+  font-size: 30.8px;
+  /* 源站实测：字体文件为 SourceHanSansCN-Bold、字重 400（视觉粗体） */
+  font-family: 'SourceHanSansCN-Bold', var(--font-bold);
+  font-weight: 400;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pp-issue {
+  flex-shrink: 0;
+  margin-left: 10.8px;
+  height: 34.4px;
+  padding: 0 10.8px;
+  background: #f0f0f0;
+  border-radius: 16.3px;
+  display: flex;
+  align-items: center;
+  font-size: 19.9px;
+  color: #8c8c8c;
+}
+.pp-batch-btn {
+  flex-shrink: 0;
+  margin-left: 14.5px;
+  height: 54.4px;
+  padding: 0 27.2px;
+  background: #0018ff;
+  border-radius: 27.2px;
+  display: flex;
+  align-items: center;
+  font-size: 23.6px;
+  color: #fff;
+}
+.pp-hold {
+  display: block;
+  margin-top: 14.5px;
+  font-size: 23.6px;
+  color: #6e7f9a;
+}
+.pp-list {
+  margin-top: 30.8px;
+}
+.pp-row {
+  height: 94.2px;
+  display: flex;
+  align-items: center;
+}
+.pp-row + .pp-row {
+  margin-top: 39.9px;
+}
+.pp-row-cover {
+  width: 94.2px;
+  height: 94.2px;
+  border-radius: 14.5px;
+  object-fit: cover;
+  background: #111;
+  flex-shrink: 0;
+}
+.pp-row-info {
+  flex: 1;
+  min-width: 0;
+  margin-left: 14.5px;
+  display: flex;
+  flex-direction: column;
+}
+.pp-no {
+  font-size: 27.2px;
+  color: #111;
+}
+.pp-price {
+  margin-top: 12.6px;
+  font-size: 21.7px;
+  color: #9a9a9a;
+}
+.pp-sell-btn {
+  flex-shrink: 0;
+  margin-left: 14.5px;
+  height: 54.4px;
+  padding: 0 27.2px;
+  background: #0018ff;
+  border-radius: 27.2px;
+  display: flex;
+  align-items: center;
+  font-size: 23.6px;
+  color: #fff;
+}

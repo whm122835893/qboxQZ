@@ -1,124 +1,162 @@
 <template>
-  <div class="verify-page">
-    <div class="verify-card">
-      <span class="verify-title">安全验证</span>
-      <span class="verify-sub">拖动滑块完成验证</span>
-      <div class="slider-track">
-        <span class="slider-tip">{{ passed ? '验证通过' : '按住滑块，拖动到最右侧' }}</span>
-        <div class="slider-block" :class="{ ok: passed }" :style="{ left: sliderX + 'px' }"
-          @pointerdown="onDown" @pointermove="onMove" @pointerup="onUp">
-          <svg viewBox="0 0 24 24" width="18" height="18" :fill="passed ? '#0a0' : '#666'">
-            <path v-if="passed" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
-            <path v-else d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-          </svg>
-        </div>
+  <div class="vf-page">
+    <!-- 顶部返回（源站实测：返回箭头 24×24 #111，左边距 32） -->
+    <div class="vf-nav">
+      <img class="vf-back" src="/static/cw/back_btn.png" alt="返回" @click="goBack" />
+    </div>
+
+    <div class="vf-body">
+      <!-- 标题（源站实测 2026-10-25：「输入短信验证码」34px Bold #111，
+           副文「已发送至+86」30px #8c8c8c mt 12） -->
+      <div class="vf-title">输入短信验证码</div>
+      <div class="vf-sub">已发送至{{ mobileMasked }}</div>
+
+      <!-- 验证码输入行（源站实测：下划线输入框 + 右侧「获取验证码」24px #0047ff） -->
+      <div class="vf-code-row">
+        <input
+          v-model="code"
+          class="vf-code-input"
+          type="tel"
+          maxlength="6"
+          placeholder="请输入验证码"
+          @confirm="onNext"
+        />
+        <span class="vf-get-code" :class="{ disabled: counting }" @click="onGetCode">
+          {{ counting ? countdown + 's' : '获取验证码' }}
+        </span>
       </div>
+
+      <!-- 下一步按钮（源站实测：蓝色胶囊通栏 h88 r12 #0018ff，白字 30px） -->
+      <button class="vf-next" :disabled="code.length < 6" @click="onNext">下一步</button>
     </div>
   </div>
 </template>
 
 <script setup>
 /**
- * 原站 pages/login/verification 为第三方验证（极验/顶象）webview 容器：
- * verificationUrl 加载外部验证页，postMessage 回传结果（原站抓包时自跳转无法观测 UI）。
- * 独立项目按规则9 复刻为本地滑块验证容器（标注推断）：滑块拖到最右 → 验证通过语义（原站为验证成功回调后发送短信）。
+ * 源站实测（2026-10-25 登录态，pages/login/verification）：
+ *   页面为「输入短信验证码」步骤 —— 标题 + 「已发送至+86」+ 下划线验证码输入框
+ *   + 右侧「获取验证码」+ 蓝色胶囊「下一步」按钮。
+ *   说明：源站该路由在部分流程下也会承载第三方验证 webview（verificationUrl + postMessage），
+ *   但默认渲染的是短信验证码页，本项目按默认形态复刻。
  */
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-const passed = ref(false)
-const sliderX = ref(0)
-const track = ref(null)
-let dragging = false
-let startX = 0
+const router = useRouter()
 
-function onDown(e) {
-  if (passed.value) return
-  dragging = true
-  startX = e.clientX - sliderX.value
+const code = ref('')
+const counting = ref(false)
+const countdown = ref(60)
+let timer = null
+
+// 手机号：源站显示「已发送至+86」（按源站实测文案原样）
+const mobileMasked = computed(() => '+86')
+
+function goBack() {
+  history.length > 1 ? router.back() : router.replace('/pages/login/login')
 }
-function onMove(e) {
-  if (!dragging || passed.value) return
-  const trackEl = document.querySelector('.slider-track')
-  const max = trackEl ? trackEl.clientWidth - 60 : 300
-  sliderX.value = Math.max(0, Math.min(max, e.clientX - startX))
-  if (sliderX.value >= max - 2) {
-    passed.value = true
-    dragging = false
-  }
+
+function onGetCode() {
+  if (counting.value) return
+  counting.value = true
+  countdown.value = 60
+  timer = setInterval(() => {
+    countdown.value -= 1
+    if (countdown.value <= 0) {
+      clearInterval(timer)
+      timer = null
+      counting.value = false
+    }
+  }, 1000)
 }
-function onUp() {
-  dragging = false
-  if (!passed.value) sliderX.value = 0
+
+function onNext() {
+  if (code.value.length < 6) return
+  router.replace('/pages/login/login')
 }
+
+onUnmounted(() => {
+  if (timer) clearInterval(timer)
+})
 </script>
 
 <style scoped>
-.verify-page {
+.vf-page {
   min-height: 100vh;
-  background: #f8f8f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.verify-card {
-  width: 616px;
   background: #fff;
-  border-radius: 25.4px;
-  padding: 43.5px 36.2px 50.8px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 7.2px 36.2px rgba(0, 0, 0, 0.08);
 }
-.verify-title {
-  font-size: 30.8px;
-  font-weight: 600;
+.vf-nav {
+  height: 88px;
+  padding-left: 32px;
+  display: flex;
+  align-items: center;
+}
+.vf-back {
+  width: 24px;
+  height: 24px;
+}
+.vf-body {
+  padding: 0 32px;
+}
+.vf-title {
+  font-size: 34px;
+  font-weight: 700;
   color: #111;
   font-family: var(--font-medium);
+  line-height: 48px;
 }
-.verify-sub {
-  margin-top: 14.5px;
-  font-size: 23.6px;
+.vf-sub {
+  margin-top: 12px;
+  font-size: 30px;
   color: #8c8c8c;
   font-family: var(--font-regular);
+  line-height: 42px;
 }
-.slider-track {
-  position: relative;
-  width: 100%;
-  height: 90px;
-  background: #eeeded;
-  border-radius: 45px;
-  margin-top: 36.2px;
-  overflow: hidden;
-}
-.slider-tip {
-  position: absolute;
-  inset: 0;
+.vf-code-row {
+  margin-top: 60px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 23.6px;
-  color: #909399;
+  border-bottom: 2px solid #d9d9d9;
+  padding-bottom: 16px;
+}
+.vf-code-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  font-size: 32px;
+  color: #111;
   font-family: var(--font-regular);
-  user-select: none;
+  background: transparent;
 }
-.slider-block {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 90px;
-  height: 90px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 3.6px 14.5px rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.vf-code-input::placeholder {
+  color: #c0c4cc;
+}
+.vf-get-code {
+  flex-shrink: 0;
+  margin-left: 24px;
+  font-size: 24px;
+  color: #0047ff;
+  font-family: var(--font-regular);
+}
+.vf-get-code.disabled {
+  color: #c0c4cc;
+}
+.vf-next {
+  margin-top: 72px;
+  width: 100%;
+  height: 88px;
+  border: none;
+  border-radius: 12px;
+  background: #0018ff;
+  color: #fff;
+  font-size: 30px;
+  font-family: var(--font-medium);
   cursor: pointer;
-  touch-action: none;
 }
-.slider-block.ok {
-  background: #eaf7ea;
+.vf-next:disabled {
+  background: #d9d9d9;
+  cursor: not-allowed;
 }
 </style>

@@ -11,6 +11,10 @@
   --font-regular: 'SourceHanSansCN-Regular', sans-serif;
   --font-medium: 'SourceHanSansCN-Medium', sans-serif;
   --font-bold: 'SourceHanSansCN-Bold', sans-serif;
+  /* 源站实测（2026-10-25）补充字体族：AlimamaShuHeiTi-Bold 复用 FangYuanTiVF-Thin.ttf */
+  --font-title: 'AlimamaShuHeiTi-Bold', 'AlimamaFangYuanTiVF-Thin', sans-serif;
+  --font-thin: 'AlimamaFangYuanTiVF-Thin', sans-serif;
+  --font-watermark: 'NanoByongGyeHei-Regular', sans-serif;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { height: 100%; }

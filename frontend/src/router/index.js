@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { getToken } from '../api/request'
 
 // 路由表 1:1 对应原站 uni-app pages 路由（共 111 条，从原站主包 index.js 提取）
 // 已开发页面映射到真实组件；未开发页面统一落 PendingPage（明确标注待开发，不臆造 UI）
@@ -8,40 +9,69 @@ const comp = (p) => modules[`../pages/${p}.vue`] || undefined
 const pending = () => import('../pages/common/PendingPage.vue')
 
 const PENDING_ROUTES = [
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
 ]
+
+/**
+ * 需登录才能访问的页面清单。
+ *
+ * 依据：2026-10-24 22:40 Playwright 实测源站 h5.xiyanwl.asia 未登录访问全站 111 页，
+ * 捕获到「手机号登录 账号密码登录 没有账号？点击注册」登录授权页（源站路由 /pages/login/auth）
+ * 的页面集合 —— 即这些页面在未登录时会被源站路由拦截器重定向到登录授权页。
+ * 复刻版按同规则拦截，未登录时跳转本地登录授权页 /pages/login/auth。
+ */
+const AUTH_REQUIRED = new Set([
+  '/pages/activeSelected/activeSelected',
+  '/pages/activity/draw',
+  '/pages/activity/record',
+  '/pages/blindBox/blindBoxDetails',
+  '/pages/compound/compound',
+  '/pages/compound/record',
+  '/pages/compound/result',
+  '/pages/compound/schemeDetails',
+  '/pages/compound/task',
+  '/pages/consignments/myConsignment',
+  '/pages/invitation/invitation',
+  '/pages/invitation/invitationrecord',
+  '/pages/leaderboard/leaderboard',
+  '/pages/lottery/record',
+  '/pages/market/categoryManager',
+  '/pages/market/giftRecord',
+  '/pages/market/marketGoodsList',
+  '/pages/market/submitBegBuy',
+  '/pages/market/submitEntrust',
+  '/pages/marketCapRanking/marketCapRanking',
+  '/pages/my/actionPwd/getCode',
+  '/pages/my/address/list',
+  '/pages/my/flowDoc',
+  '/pages/my/vip',
+  '/pages/myCollection/collectionDetails',
+  '/pages/myCollection/myCollection',
+  '/pages/myCollection/soldAssets',
+  '/pages/notice/wallDetails',
+  '/pages/order/beg/info',
+  '/pages/order/beg/list',
+  '/pages/order/defaultDetail',
+  '/pages/order/entrust/info',
+  '/pages/order/entrust/list',
+  '/pages/order/list',
+  '/pages/order/marketDetail',
+  '/pages/order/orderSubmit',
+  '/pages/rank/masterRank',
+  '/pages/rank/userBuy',
+  '/pages/rebate/leaderboard',
+  '/pages/rebate/rebate',
+  '/pages/rebate/rebateInviteDetail',
+  '/pages/regift/record',
+  '/pages/shop/detail/box',
+  '/pages/shop/detail/collection',
+  '/pages/shop/detailList',
+  '/pages/shop/exchange',
+  '/pages/shop/record',
+  '/pages/shop/shop',
+  '/pages/sign/index',
+  '/pages/wallet/wallet',
+])
 
 const routes = [
   { path: '/', redirect: '/pages/login/login' },
@@ -162,6 +192,17 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+/**
+ * 登录态守卫（对齐源站行为）
+ * 源站在 token 缺失时把这些页面重定向到 /pages/login/auth（登录授权页）。
+ * 复刻版同规则：未登录 → replace 到 /pages/login/auth，并带上原路径供登录后回跳。
+ */
+router.beforeEach((to) => {
+  if (!AUTH_REQUIRED.has(to.path)) return true
+  if (getToken()) return true
+  return { path: '/pages/login/auth', query: { redirect: to.fullPath } }
 })
 
 export default router

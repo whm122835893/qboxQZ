@@ -34,7 +34,15 @@
         </div>
         <div class="hot-body">
           <template v-if="hotThemes.length > 0">
-            <div v-for="t in hotThemes" :key="t.id" class="hot-theme">{{ t.name }}</div>
+            <!-- 源站实测（2026-10-25 登录态）：热门活动为时间行 + 场次 + 活动名 + 状态 -->
+            <div v-for="t in hotThemes" :key="t.id" class="hot-theme" @click="goTheme(t)">
+              <div class="hot-theme-time">{{ t.start_time }} - {{ t.end_time }}</div>
+              <div class="hot-theme-row">
+                <span class="hot-theme-num">【{{ t.num }}】</span>
+                <span class="hot-theme-name">{{ t.name }}</span>
+                <span class="hot-theme-status">{{ t.status_text || t.status }}</span>
+              </div>
+            </div>
           </template>
           <div v-else class="hot-empty">
             <img class="hot-empty-img" src="/static/qbox/common-empty.png" alt="" />
@@ -71,7 +79,7 @@ function goBack() {
 onMounted(async () => {
   const res = await request('/api/synthesis/themeList', { thm: '1', type: 1 })
   if (res.code === 1 && Array.isArray(res.data)) {
-    // 原站实测：image 非法（如占位 "1"）的主题不渲染，页面呈现空态
+    // 原站实测：image 非法（如占位 "1"）的主题不渲染；2026-10-25 起真实合成活动已带时间/场次/状态
     hotThemes.value = res.data.filter(t => typeof t.image === 'string' && (t.image.startsWith('/') || t.image.startsWith('http')))
   }
 })
@@ -233,5 +241,40 @@ onMounted(async () => {
   font-size: 30.8px;
   color: #111;
   font-family: var(--font-medium);
+}
+/* 源站实测（2026-10-25）：时间行 26px #8c8c8c，下方为「【场次】+ 名称 + 状态」行 */
+.hot-theme-time {
+  font-size: 26px;
+  color: #8c8c8c;
+  font-family: var(--font-regular);
+  line-height: 36px;
+}
+.hot-theme-row {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+}
+.hot-theme-num {
+  font-size: 30.8px;
+  color: #111;
+  font-family: var(--font-medium);
+  flex-shrink: 0;
+}
+.hot-theme-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 30.8px;
+  color: #111;
+  font-family: var(--font-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hot-theme-status {
+  flex-shrink: 0;
+  margin-left: 16px;
+  font-size: 26px;
+  color: #8c8c8c;
+  font-family: var(--font-regular);
 }
 </style>

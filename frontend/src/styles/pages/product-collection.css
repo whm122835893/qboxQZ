@@ -1,0 +1,223 @@
+.pd-page {
+  min-height: 100vh;
+  /* 源站实测：页面顶部铺预模糊背景图 market-goods-bg.png（878×1164，100% 宽等比缩放，
+     414 视口下渲染 414×549px，与源站 background-size:100% 549px 完全一致） */
+  background-color: #f7f7f7;
+  background-image: url('/static/qbox/market-goods-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center top;
+  padding-bottom: 220px;
+  box-sizing: border-box;
+}
+.pd-navbar {
+  position: relative;
+  width: 100%;
+  height: 79.7px;
+  display: flex;
+  align-items: center;
+}
+.nav-back {
+  width: 17px;
+  height: auto;
+  margin-left: 23.6px;
+}
+.nav-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30.8px;
+  font-weight: 700;
+  color: #2d2d2d;
+}
+.nav-fav {
+  position: absolute;
+  right: 23.6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 43.5px;
+  height: 43.5px;
+  object-fit: contain;
+}
+
+/* 主图：居中 424 方卡，白框 + 阴影 */
+.pd-main-wrap {
+  margin-top: 14.5px;
+  display: flex;
+  justify-content: center;
+}
+.pd-main-img {
+  width: 424px;
+  height: 424px;
+  border-radius: 54px;
+  border: 10.8px solid #fff;
+  box-sizing: border-box;
+  object-fit: cover;
+  background: #eee;
+  box-shadow: 0 14.5px 36px rgba(0, 0, 0, 0.12);
+}
+
+/* 名称卡 */
+.pd-name-card {
+  margin: 27.2px 34.4px 0;
+  background: #fff;
+  border-radius: 31px;
+  padding: 27.2px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.pd-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.pd-name {
+  font-size: 30.8px;
+  font-weight: 700;
+  color: #111;
+}
+.pd-capsule {
+  margin-top: 14.5px;
+  padding: 5.4px 14.5px;
+  background: #0018ff;
+  border-radius: 11px;
+  font-size: 21.7px;
+  color: #fff;
+}
+.pd-price {
+  display: flex;
+  align-items: baseline;
+  margin-top: 9px;
+}
+.pd-cny {
+  font-size: 21.7px;
+  color: #4a4a4a;
+  margin-right: 3.6px;
+}
+.pd-num {
+  font-size: 36px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Tabs（黑色胶囊） */
+.pd-tabs {
+  margin: 27.2px 34.4px 0;
+  display: flex;
+  gap: 14.5px;
+}
+.pd-tab {
+  height: 50.7px;
+  padding: 0 27.2px;
+  border-radius: 25.4px;
+  display: flex;
+  align-items: center;
+  font-size: 25.4px;
+  color: #4a4a4a;
+  background: transparent;
+}
+.pd-tab.on {
+  background: #161616;
+  color: #fff;
+}
+
+/* 内容卡（QBOX 水印 + 蓝色下划线小节标题）
+   水印/下划线均为源站实测统一规范（2026-10-24，与持仓详情页一致）：
+   水印 28px(50.7rpx) NanoByongGyeHei rgba(104,104,104,.08)；
+   标题 17px(30.8rpx) AlimamaShuHeiTi #2d2d2d；下划线为绝对定位蓝条（宽=文字、高 9rpx、叠压文字底部） */
+.pd-card {
+  position: relative;
+  margin: 27.2px 34.4px 0;
+  background: #fff;
+  border-radius: 31px;
+  /* 与持仓详情页统一（源站实测 pad 17.1/15.5/18.8px → 31/28/34rpx） */
+  padding: 31px 28px 34px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.pd-card::before {
+  content: 'QBOX';
+  position: absolute;
+  left: 24px;
+  top: 9px;
+  font-size: 50.7px;
+  line-height: 26px;
+  color: rgba(104, 104, 104, 0.08);
+  font-family: 'NanoByongGyeHei-Regular', var(--font-regular);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.pd-sec-title {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  margin-top: 25px;
+  font-size: 30.8px;
+  font-weight: 400;
+  color: #2d2d2d;
+  font-family: 'AlimamaShuHeiTi-Bold', var(--font-medium);
+}
+.pd-sec-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.8px;
+  height: 9px;
+  background: #0018ff;
+  z-index: -1;
+}
+/* 介绍卡水印：源站为 ALLCOMEQBOX 连排（实测文本） */
+.pd-card-wide::before {
+  content: 'ALLCOMEQBOX ALLCOMEQBOX';
+}
+.pd-creator {
+  display: block;
+  margin-top: 25.4px;
+  font-size: 25.4px;
+  color: #4a4a4a;
+  text-align: center;
+}
+.pd-text {
+  margin: 21.7px 0 0;
+  font-size: 25.4px;
+  line-height: 1.7;
+  color: #4a4a4a;
+}
+.pd-empty {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pd-empty-img {
+  width: 282.6px;
+  height: 282.6px;
+  object-fit: contain;
+}
+
+/* 底部固定栏（源站实测：不透明底栏，滚动内容不会从按钮下穿过） */
+.pd-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18.1px 34.4px calc(14.5px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: #f7f7f7;
+  z-index: 100;
+}
+.pd-buy-btn {
+  width: 100%;
+  height: 88px;
+  border-radius: 44px;
+  background: #0018ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  color: #fff;
+}

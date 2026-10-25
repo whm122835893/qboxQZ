@@ -1,0 +1,211 @@
+.sign-page {
+  min-height: 100vh;
+  background-color: #fff;
+  background-image: url('/static/sign/sign_bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center top;
+}
+.sign-navbar {
+  position: relative;
+  width: 100%;
+  height: 79.7px;
+  display: flex;
+  align-items: center;
+  z-index: 5;
+}
+.nav-back {
+  width: 16.3px;
+  height: 29px;
+  margin-left: 27.2px;
+}
+.nav-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30.8px;
+  font-weight: 700;
+  color: #111;
+  font-family: var(--font-bold);
+}
+.sign-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24.5px;
+  box-sizing: border-box;
+  background-color: transparent;
+  padding-top: 418.3px;
+}
+/* 用户行 */
+.user-row {
+  width: 693.8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.user-avatar {
+  width: 108.7px;
+  height: 108.7px;
+  border-radius: 50%;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.user-name {
+  max-width: 298.9px;
+  font-size: 30.8px;
+  font-weight: 600;
+  color: #000;
+  font-family: var(--font-bold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user-uid {
+  font-size: 23.6px;
+  color: #0d0d0d;
+  font-family: var(--font-regular);
+  white-space: nowrap;
+}
+/* 连签 */
+.streak-row {
+  width: 693.8px;
+  margin-top: 33px;
+  display: flex;
+  align-items: center;
+}
+.streak-label {
+  font-size: 30.8px;
+  color: #111;
+  font-family: var(--font-bold);
+}
+.streak-num {
+  margin: 0 12.7px;
+  font-size: 70.7px;
+  line-height: 85.1px;
+  color: #2a51ef;
+  font-family: var(--font-bold);
+}
+/* 日历卡 */
+.calendar-card {
+  width: 695.6px;
+  margin-top: 16px;
+  border-radius: 29px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 3.6px 14.5px;
+}
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36.2px;
+  padding: 25.4px 0 34.4px;
+}
+.cal-month { /* 14 渲染 */
+  font-size: 25.4px;
+  color: #111;
+  font-family: var(--font-regular);
+}
+.cal-arrow {
+  display: flex;
+  align-items: center;
+}
+.cal-weeks {
+  display: flex;
+  padding: 0 7.2px;
+}
+.cal-week-label {
+  flex: 1;
+  text-align: center;
+  font-size: 25.4px;
+  color: #333;
+  font-family: var(--font-regular);
+}
+.cal-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 18px 7.2px 25.4px;
+}
+.cal-cell {
+  position: relative;
+  width: 14.2857%;
+  height: 99.6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cal-day {
+  font-size: 25.4px;
+  color: #111;
+  font-family: var(--font-regular);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cal-day.today {
+  font-weight: 400;
+  color: #2a51ef;
+}
+.cal-today-tag {
+  font-size: 21.7px;
+  color: #2a51ef;
+  font-family: var(--font-regular);
+  margin-top: 3.6px;
+}
+.cal-day.dim {
+  color: #c0c0c0;
+}
+/* 已签到徽章：原站 uni-calendar-item__weeks-extra 实测 32x35 渲染px */
+.cal-extra {
+  width: 58px;
+  height: 63.7px;
+  background: #2a51ef;
+  border-radius: 9px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.15;
+}
+.cal-extra-line {
+  font-size: 20px;
+  font-family: var(--font-regular);
+}
+
+/* 底部固定按钮 */
+.sign-btn-wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 23.6px;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  padding: 0 54.3px;
+  box-sizing: border-box;
+}
+.sign-btn {
+  width: 639.4px;
+  height: 90.6px;
+  border-radius: 45.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0047ff;
+}
+.sign-btn.disabled {
+  background: #cacdd3;
+}
+.sign-btn-text {
+  font-size: 29px;
+  color: #fff;
+  font-family: var(--font-bold);
+  font-weight: 600;
+}

@@ -11,7 +11,7 @@
         <span class="agreement-check" :class="{ on: checked }" @click="checked = !checked">
           <svg v-if="checked" viewBox="0 0 24 24" width="14" height="14" fill="#fff"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
         </span>
-        <span class="agreement-text">登录即同意 <span class="agreement-link agreement-link-main">《用户协议》</span> 、 <span class="agreement-link">《隐私政策》</span></span>
+        <span class="agreement-text">登录即同意<span class="agreement-link agreement-link-main">《用户协议》</span>、<span class="agreement-link">《隐私政策》</span></span>
       </div>
     </div>
   </div>

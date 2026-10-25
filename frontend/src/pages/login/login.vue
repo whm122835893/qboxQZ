@@ -155,12 +155,15 @@
 </template>
 
 <script setup>
-import { ref, reactive, nextTick, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, reactive, nextTick, watch, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '../../stores/user'
 import { request } from '../../api/request'
 
 const router = useRouter()
+const route = useRoute()
+// 登录成功后回跳到被拦截的原页面（路由守卫写入 ?redirect=）
+const redirectTarget = computed(() => (route.query.redirect ? String(route.query.redirect) : '/pages/index/index'))
 const userStore = useUserStore()
 
 // 与原站一致的登录状态，报错文案均来自原站实测
@@ -207,7 +210,7 @@ async function handleLogin() {
   const res = await userStore.login(account, password)
   if (res.code === 1) {
     toast('登录成功')
-    setTimeout(() => router.replace('/pages/index/index'), 600)
+    setTimeout(() => router.replace(redirectTarget.value), 600)
   } else {
     toast(res.msg || '登录失败')
   }
@@ -258,248 +261,11 @@ async function handleSmsLogin() {
   const res = await request('/api/user/mobilelogin', { mobile: String(form2.mobile), captcha })
   if (res.code === 1) {
     toast('登录成功')
-    setTimeout(() => router.replace('/pages/index/index'), 600)
+    setTimeout(() => router.replace(redirectTarget.value), 600)
   } else {
     toast(res.msg || '登录失败')
   }
 }
 </script>
 
-<style scoped>
-/* ===== 布局与数值均取自原站登录页源码（rpx 数值直接书写为 px，经 postcss 转 vw） ===== */
-.login-page {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #fff;
-  background-image: url('/static/qbox/login-bg.png');
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: center top;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.login-navbar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 2;
-  width: 100%;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  padding: 0 13px;
-  background: transparent;
-}
-.navbar-back {
-  width: 9px;
-  height: 16px;
-  object-fit: contain;
-}
-.login-content {
-  position: relative;
-  z-index: 2;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 0 48px 80px;
-}
-
-/* ---- 输入框 ---- */
-.form-block {
-  margin-top: 620px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-.ipt-row {
-  display: flex;
-  align-items: center;
-  height: 83px;
-  padding: 0 32px;
-  background: #f5f5f5;
-  border-radius: 19px;
-}
-.ipt-label {
-  font-size: 26px;
-  color: #000000;
-  font-family: var(--font-regular);
-  white-space: nowrap;
-}
-.ipt-divider {
-  width: 1px;
-  height: 28px;
-  background: #d9d9d9;
-  margin: 0 16px;
-  flex-shrink: 0;
-}
-.ipt-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 30.8px;
-  color: #000000;
-  font-family: 'AlimamaFangYuanTiVF-Thin', var(--font-regular);
-  min-width: 0;
-}
-.ipt-input::placeholder {
-  font-weight: 400;
-  font-size: 22px;
-  color: #8b8b8b;
-}
-.forgot-pwd {
-  font-size: 24px;
-  color: #8c8c8c;
-  font-family: var(--font-regular);
-  white-space: nowrap;
-}
-
-/* ---- 按钮 ---- */
-.btn-block {
-  margin-top: 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-.btn-block-sms {
-  margin-top: 64px;
-}
-.btn-primary {
-  width: 100%;
-  height: 99px;
-  background: var(--qbox-primary);
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.btn-primary:active {
-  opacity: 0.85;
-}
-.btn-primary-text {
-  color: #fff;
-  font-size: 30.8px;
-  font-family: var(--font-medium);
-}
-.btn-outline {
-  width: 100%;
-  height: 99px;
-  background: #fff;
-  border: 2px solid #1a1a1a;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.btn-outline:active {
-  background: #f7f7f7;
-}
-.btn-outline-text {
-  color: #1a1a1a;
-  font-size: 30.8px;
-  font-family: var(--font-medium);
-}
-
-/* ---- 协议 ---- */
-.agreement-row {
-  margin-top: 156px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.agreement-check {
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  border: 2px solid #8c8c8c;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 8px;
-  flex-shrink: 0;
-}
-.agreement-check.checked {
-  background: #000000;
-  border-color: #000000;
-}
-.agreement-text {
-  font-size: 24px;
-  color: #8c8c8c;
-  font-family: var(--font-regular);
-}
-.agreement-link {
-  font-size: 24px;
-  color: var(--qbox-primary);
-  font-family: var(--font-regular);
-}
-
-/* ---- 短信验证码 ---- */
-.sms-tip-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.sms-tip {
-  font-size: 24px;
-  color: #8c8c8c;
-  font-family: var(--font-regular);
-}
-.smscode-head {
-  margin-top: 620px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.smscode-title {
-  font-size: 30.8px;
-  color: #111;
-  font-family: var(--font-medium);
-}
-.smscode-sub {
-  font-size: 24px;
-  color: #8c8c8c;
-  font-family: var(--font-regular);
-}
-.smscode-boxs {
-  margin-top: 48px;
-  position: relative;
-  display: flex;
-  gap: 16px;
-}
-.smscode-box {
-  flex: 1;
-  height: 83px;
-  border-radius: 16px;
-  background: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.smscode-char {
-  font-size: 40px;
-  color: #111;
-  font-family: 'NanoByongGyeHei-Regular', var(--font-regular);
-}
-.smscode-hidden-input {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  border: none;
-  outline: none;
-  background: transparent;
-}
-.smscode-resend {
-  margin-top: 24px;
-}
-.smscode-resend-text {
-  font-size: 24px;
-  color: #8c8c8c;
-  font-family: var(--font-regular);
-}
-</style>
+<style scoped src="../../styles/pages/login-login.css"></style>

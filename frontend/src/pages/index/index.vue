@@ -72,8 +72,28 @@
           <span class="hot-header-title">热门藏品</span>
         </div>
         <div class="hot-box">
-          <div class="hot-empty">
-            <img class="hot-empty-img" src="/static/qbox/common-empty.png" alt="" />
+          <!-- 正在发售中的藏品（样式 1:1 实测自源站 2026-10-24 登录抓取：
+               300rpx 方卡/圆角31/底部 #383838 信息条/名称 #c8c8c8 Bold/白色价格/右侧状态胶囊；
+               源站胶囊实测仅见灰色"未开售"，"发售中"用源站主蓝 #0018ff 表示） -->
+          <div class="hot-grid">
+            <div
+              v-for="g in hotGoods"
+              :key="g.id"
+              class="hot-goods-card"
+              @click="goGoods(g)"
+            >
+              <img class="hg-cover" :src="g.cover" :alt="g.goods_name" />
+              <div class="hg-bar">
+                <div class="hg-left">
+                  <span class="hg-name">{{ g.goods_name }}</span>
+                  <div class="hg-price-row">
+                    <span class="hg-cny">¥</span>
+                    <span class="hg-price">{{ g.floor_price }}</span>
+                  </div>
+                </div>
+                <span class="hg-status">发售中</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -124,6 +144,24 @@ const cardIndex = ref(0)
 const cardPages = computed(() => Math.ceil(cards.length / 2))
 
 const showTotop = ref(false)
+
+// ---- 热门藏品：正在发售中的藏品（演示数据，仅用于样式预览） ----
+// 封面使用原站真实上传图（/uploads/20261013/KUUKIE 黑熊）；字段结构对应 getMarketList 实测
+const hotGoods = ref([
+  {
+    id: 1,
+    goods_name: 'KUUKIE 怪物口袋·黑熊',
+    cover: '/uploads/20261013/891305447d1a31e997fd7a0e078488a5.png',
+    total_num: 5000,
+    circ_num: 3268,
+    floor_price: '39.90'
+  }
+])
+
+function goGoods(g) {
+  // 源站实测：首页热门藏品卡 → /pages/product/collection?id=x&batch_id=x（藏品发售详情）
+  router.push('/pages/product/collection?id=' + g.id + '&batch_id=' + g.id)
+}
 
 const trackStyle = computed(() => ({
   transform: `translateX(-${bannerIndex.value * 100}%)`
@@ -201,247 +239,5 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
-/* 页面背景：home-bg.png 含顶部 "THIS IS QBOX 欢迎来到Qbox" 标题艺术字（原站同款） */
-.home-page {
-  min-height: 100vh;
-  background-color: #f8f8f8;
-}
-.home-container {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 244.6px 36.2px 23.6px;
-  box-sizing: border-box;
-  background-color: #f8f8f8;
-  background-image: url('/static/qbox/home-bg.png');
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: center top;
-}
-
-/* ---- Banner ---- */
-.banner-box {
-  width: 677.5px;
-  height: 253.6px;
-}
-.banner-swiper {
-  width: 100%;
-  height: 231.1px;
-  border-radius: 32.6px;
-  overflow: hidden;
-}
-.banner-track {
-  display: flex;
-  height: 100%;
-  transition: transform 0.4s ease;
-}
-.banner-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  flex-shrink: 0;
-  border-radius: 32.6px;
-}
-.banner-indicator {
-  height: 22.5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.banner-dot {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-}
-.banner-dot.on {
-  background: #fff;
-}
-
-/* ---- 公告栏 ---- */
-.notice-bar {
-  margin-top: 23.6px;
-  width: 677.5px;
-  height: 58px;
-  background: #fff;
-  border-radius: 18.1px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  padding: 0 23.6px;
-  box-sizing: border-box;
-}
-.notice-badge {
-  width: 47.3px;
-  height: 36.2px;
-  background: #393939;
-  border-radius: 5.4px;
-  font-size: 18.1px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.notice-scroll {
-  flex: 1;
-  margin-left: 16px;
-  padding-right: 24px;
-  overflow: hidden;
-}
-.notice-viewport {
-  height: 23.6px;
-  overflow: hidden;
-}
-.notice-inner {
-  transition: transform 0.4s ease;
-}
-.notice-item {
-  display: block;
-  height: 23.6px;
-  line-height: 23.6px;
-  font-size: 23.6px;
-  color: #939393;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.notice-more {
-  width: 34.4px;
-  height: 34.4px;
-  flex-shrink: 0;
-}
-
-/* ---- 活动卡片 ---- */
-.cards-section {
-  margin-top: 23.6px;
-  width: 677.5px;
-}
-.cards-scroll {
-  display: flex;
-  gap: 29px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.cards-scroll::-webkit-scrollbar {
-  display: none;
-}
-.act-card {
-  width: 324.3px;
-  height: 170.3px;
-  flex-shrink: 0;
-  background-image: url('/static/qbox/home-card-bg.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  box-sizing: border-box;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.act-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.act-card-title {
-  font-size: 30.8px;
-  color: #111;
-  font-family: var(--font-medium);
-}
-.act-card-pill {
-  width: 59.8px;
-  height: 36.2px;
-  background: #343434;
-  border-radius: 18.1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.act-card-pill-icon {
-  width: 30.8px;
-  height: 18.1px;
-}
-.act-card-sub {
-  font-size: 23.6px;
-  color: #8c8c8c;
-  font-family: var(--font-regular);
-}
-.cards-dots {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-.cards-dot {
-  height: 5.4px;
-  border-radius: 1.8px;
-  width: 39.9px;
-  background: #d8d8d8;
-  transition: width 0.3s;
-}
-.cards-dot.on {
-  width: 23.6px;
-  background: #111;
-}
-
-/* ---- 热门藏品 ---- */
-.hot-section {
-  margin-top: 23.6px;
-  width: 677.5px;
-}
-.hot-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 47.1px;
-}
-.hot-header-icon {
-  width: 34.4px;
-  height: 34.4px;
-}
-.hot-header-title {
-  font-size: 30.8px;
-  color: #111;
-  font-family: var(--font-bold);
-}
-.hot-box {
-  margin-top: 23.6px;
-  width: 677.5px;
-  border-radius: 25.4px;
-  padding: 25.4px;
-  box-sizing: border-box;
-  background: transparent;
-}
-.hot-empty {
-  width: 100%;
-  min-height: 478.2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hot-empty-img {
-  width: 282.6px;
-  height: 282.6px;
-  /* 原站 uni-image 实测：156×156 容器 + background-size:contain → 图等比缩放为 106.7×156 居中显示；
-     object-fit:contain 与其完全等价（此前 fill 压扁 / height:auto 放大 均有偏差，已按实测修正） */
-  object-fit: contain;
-}
-
-/* ---- 回到顶部 ---- */
-.totop {
-  position: fixed;
-  right: 19.9px;
-  bottom: 119.6px;
-  width: 70.7px;
-  height: 72.5px;
-  border-radius: 50%;
-  z-index: 9990;
-}
-</style>
+<style scoped src="../../styles/pages/index-index-p0.css"></style>
+<style scoped src="../../styles/pages/index-index-p1.css"></style>

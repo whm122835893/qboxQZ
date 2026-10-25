@@ -37,7 +37,7 @@
       <div class="field-card field-card-sm">
         <div class="field-row">
           <span class="field-label">订单编号</span>
-          <span class="field-value">--</span>
+          <span class="field-value"></span>
         </div>
         <div class="field-row">
           <span class="field-label">支付方式</span>

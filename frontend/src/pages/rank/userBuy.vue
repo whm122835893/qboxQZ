@@ -1,9 +1,10 @@
 <template>
   <div class="ub-page">
-    <!-- 导航栏（标题「XX的买入清单」白字 —— 原站白底白字不可见，如实复刻） -->
+    <!-- 导航栏（标题「买入清单」白字 —— 原站白底白字不可见，如实复刻；
+         带 name 参数时原站显示「XX的买入清单」） -->
     <div class="navbar">
       <img class="navbar-back" src="/static/cw/back_btn.png" alt="返回" @click="$router.back()" />
-      <span class="nav-title">{{ title }}的买入清单</span>
+      <span class="nav-title">{{ title ? title + '的买入清单' : '买入清单' }}</span>
     </div>
 
     <!-- 骨架占位（原站实测：697×1421rpx 灰块 #b9babd r40，数据加载前的骨架/占位） -->
@@ -47,10 +48,11 @@ const title = ref(route.query.name || '')
   height: auto;
 }
 .nav-title {
-  font-size: 32.6px;
+  font-size: 34px;
   font-weight: 500;
   color: #fff;
   font-family: var(--font-medium);
+  white-space: nowrap;
 }
 .skeleton {
   width: 697px;
