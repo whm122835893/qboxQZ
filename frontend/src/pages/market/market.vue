@@ -95,6 +95,7 @@
           :goods="g"
           @select="goGoods"
         />
+
         <div v-if="!loading && goods.length === 0" class="list-empty">
           <img class="list-empty-img" src="/static/qbox/common-empty.png" alt="" />
         </div>
@@ -231,8 +232,11 @@ function syncSeriesFloor(seriesId) {
     return
   }
   const avg = rows.reduce((sum, g) => sum + Number(g.floor_price || 0), 0) / rows.length
+  // 源站实测（2026-10-25 23:4x）：推荐板块卡显示「9,999.00」—— 千分位 + 2 位小数
   const cur = activitySeries.value.find((s) => s.series_id === seriesId)
-  if (cur) cur.floor = avg.toFixed(2)
+  if (cur) {
+    cur.floor = avg.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  }
 }
 
 function goGoods(g) {

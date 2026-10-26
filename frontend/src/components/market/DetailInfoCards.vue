@@ -32,7 +32,8 @@
     <span class="wm-text">QBOX</span>
     <div class="card-title">创作者</div>
     <div class="creator-row">
-      <img class="creator-logo" :src="publisherLogo" alt="" />
+      <!-- 源站实测 2026-10-25：该头像 src 为空，渲染 122×122r 灰底空块；加载失败时隐藏 img 露出底色 -->
+      <img class="creator-logo" :src="publisherLogo" alt="" @error="onLogoError" />
       <span class="creator-name">{{ publisherName }}</span>
     </div>
   </div>
@@ -49,6 +50,11 @@
  * 寄售详情信息卡组（单一职责：纯展示，不含业务请求）。
  * 几何与配色严格对齐源站实测值（见模板注释）。
  */
+/** 头像加载失败时隐藏 img，露出灰底占位（与源站空 src 表现一致） */
+function onLogoError(e) {
+  e.target.style.visibility = 'hidden'
+}
+
 defineProps({
   collectionCode: { type: [String, Number], default: '' },
   seriesName: { type: String, default: '' },
@@ -96,14 +102,19 @@ defineProps({
   padding: 32px 28px;
   overflow: hidden;
 }
+/* 水印 QBOX（源站实测 2026-10-26，market/detail 创作者卡/购买须知卡）：
+   span 182×72rpx，fs 50rpx，行高 26rpx（小于字号，字形贴顶，与标题同层重叠），
+   left 44rpx top 10rpx（相对卡片），颜色 rgba(104,104,104,.08) */
 .wm-text {
   position: absolute;
-  left: 42px;
-  top: 22px;
-  font-size: 51px;
+  left: 44px;
+  top: 10px;
+  width: 182px;
+  height: 72px;
+  font-size: 50px;
   color: rgba(104, 104, 104, 0.08);
   font-family: var(--font-medium);
-  line-height: 74px;
+  line-height: 26px;
   pointer-events: none;
 }
 .card-title {

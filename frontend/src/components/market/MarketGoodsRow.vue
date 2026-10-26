@@ -37,7 +37,8 @@
         :src="goods.price_change >= 0 ? '/static/qbox/market-change-up.png' : '/static/qbox/market-change-down.png'"
         alt=""
       />
-      {{ Number(goods.price_change).toFixed(2) }}%
+      <!-- 源站实测 2026-10-25：百分比 22rpx，容器 110rpx 内不够宽时按 pre-line 换行（如 3233.00% → 3233.0 / 0%） -->
+      <span class="gr-change-text">{{ Number(goods.price_change).toFixed(2) }}%</span>
     </span>
   </div>
 </template>

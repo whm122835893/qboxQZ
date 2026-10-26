@@ -42,9 +42,12 @@
       </div>
     </div>
 
-    <!-- 列表：订单卡（源站实测 2026-10-25 11:58 登录态：
-         订单号 + 状态（右）/ 藏品封面 + 名称 / 购买数量 N + 购买金额 / 订单时间 + 金额；
-         待支付订单右侧额外有「去支付」按钮 [604,482,66,33] 白字 22px 蓝底 radius 8） -->
+    <!-- 列表：订单卡（源站实测 2026-10-25 23:5x 登录态，相对卡 678×282rpx：
+         行1 订单号：xxx 22r #8c8c8c（左）+ 状态 24r #8c8c8c（右，待支付红 #e53e3e）
+         行2 封面 120×120r + 名称 28r #111 + 名称下「购买数量 N」22r 灰
+             右列「购买金额」22r 灰 / ¥金额 28r #8c8c8c 数字体 + 右箭头 16×24r
+         行3 订单时间:xxx 20r #8c8c8c
+         待支付单右侧「去支付」132×66r 白字 22r 蓝底 r16） -->
     <div class="list-area">
       <div v-if="list.length" class="order-list">
         <div v-for="(o, i) in list" :key="i" class="order-item" @click="goOrderDetail(o)">
@@ -56,13 +59,21 @@
             <img v-if="o.goods_cover_image" class="oi-cover" :src="o.goods_cover_image" alt="" />
             <div class="oi-info">
               <span class="oi-name">{{ o.goods_name }}</span>
-              <span class="oi-sub">购买数量 {{ o.num }} 购买金额</span>
+              <span class="oi-sub">购买数量 {{ o.num }}</span>
             </div>
-            <div v-if="o.order_status === 1" class="oi-pay-btn" @click.stop="goOrderDetail(o)">去支付</div>
+            <div class="oi-right">
+              <span class="oi-amt-label">购买金额</span>
+              <span class="oi-amount">¥ {{ o.total_price }}</span>
+            </div>
+            <img class="oi-arrow" src="/static/qbox/common-arrow-right-gray.png" alt="" />
           </div>
           <div class="oi-foot">
             <span class="oi-time">订单时间:{{ formatTime(o.createtime) }}</span>
-            <span class="oi-amount">¥ {{ o.total_price }}</span>
+            <span
+              v-if="o.order_status === 1"
+              class="oi-pay-btn"
+              @click.stop="goOrderDetail(o)"
+            >去支付</span>
           </div>
         </div>
       </div>
@@ -141,12 +152,13 @@ function formatTime(ts) {
   )
 }
 
-/** 点击订单卡 → 订单详情（寄售单走 marketDetail，商城单走 defaultDetail） */
+/**
+ * 点击订单卡 → 订单详情
+ * 源站实测（2026-10-25 23:5x）：市场单(order_type=2)与商城单(order_type=3)均进入
+ * /pages/order/defaultDetail?id={id}&orderType={order_type}，由 orderType 区分详情接口
+ */
 function goOrderDetail(o) {
-  const path = o.order_type === '3' || o.order_type === 3
-    ? '/pages/order/defaultDetail?id=' + o.id
-    : '/pages/order/marketDetail?id=' + o.id
-  router.push(path)
+  router.push('/pages/order/defaultDetail?id=' + o.id + '&orderType=' + (o.order_type || '3'))
 }
 
 async function loadList() {

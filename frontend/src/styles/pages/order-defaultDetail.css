@@ -1,0 +1,221 @@
+/**
+ * 订单详情（order/defaultDetail）页面样式
+ * 源站实测（2026-10-25 23:5x 登录态，750 设计稿）：
+ *   导航标题 = 状态文案 32r Bold #111 SourceHanSansCN-Bold；返回箭头 16×28r @[26,30]
+ *   卡1 藏品卡 [36,88,678,208] 白底 r22 pad24：封面 160×160r + 名称 28r #111 Bold
+ *     （名称/最高价/求购价 左列距封面 40r；最高价/求购价 22r #8c8c8c）
+ *   卡2 金额卡 [36,320,678,280] pad 8/28：三行 行高 92r，label 28r #111 Bold，value 右对齐
+ *   卡3 购买订单卡 [36,624,678,302] pad28：标题 28r Bold；行 label 26r #8c8c8c，
+ *     value 26r #111 右对齐（订单编号截断 + 复制图标 28×28r）
+ *   底部按钮：取消订单 260×92r 白底蓝字蓝框 r18 + 继续购买 400×92r 蓝底#0018ff白字 r18，
+ *     间距 18r，区底部留 28r
+ * 注：数值单位按项目约定直接书写源站 rpx 数值（pxToVw 插件换算）。
+ */
+.od-page {
+  --od-brand: #0018ff;
+  --od-loading-fg: #c8c8c8;
+  min-height: 100vh;
+  background: var(--qbox-page-bg);
+  padding-bottom: 220px;
+  box-sizing: border-box;
+}
+
+/* 导航栏（源站标题为状态文案 32r Bold #111，返回箭头 16×28r） */
+.navbar {
+  position: relative;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar-back {
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 28px;
+  object-fit: contain;
+}
+.nav-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111;
+  font-family: 'SourceHanSansCN-Bold', var(--font-medium);
+}
+
+/* 卡片通用（白底 r22，左右 36r 边距，卡间距 24r） */
+.body { padding: 0 36px; }
+.card {
+  background: #fff;
+  border-radius: 22px;
+  margin-bottom: 24px;
+  box-sizing: border-box;
+}
+
+/* 卡1 藏品卡 [678×208] pad24：封面 160×160r + 右列（名称 28r Bold / 两行 22r 灰） */
+.card-goods {
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+}
+.goods-cover {
+  width: 160px;
+  height: 160px;
+  border-radius: 16px;
+  object-fit: cover;
+  background: var(--qbox-input-bg);
+  flex-shrink: 0;
+}
+.goods-info {
+  flex: 1;
+  min-width: 0;
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+}
+.goods-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  font-family: 'SourceHanSansCN-Bold', var(--font-medium);
+  line-height: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.goods-sub {
+  margin-top: 12px;
+  font-size: 22px;
+  color: var(--qbox-gray-text);
+  font-family: var(--font-regular);
+  line-height: 22px;
+}
+
+/* 卡2 金额卡 [678×280] pad 8/28：三行 行高 92r */
+.card-amount { padding: 8px 28px; }
+.amt-row {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.amt-label {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  font-family: 'SourceHanSansCN-Bold', var(--font-medium);
+}
+.amt-value {
+  font-size: 28px;
+  color: #111;
+  font-family: var(--font-regular);
+}
+
+/* 卡3 购买订单卡 [678×302] pad28 */
+.card-order { padding: 28px; }
+.card-title {
+  margin: 0 0 10px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  font-family: 'SourceHanSansCN-Bold', var(--font-medium);
+  line-height: 34px;
+}
+.info-row {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.info-label {
+  font-size: 26px;
+  color: var(--qbox-gray-text);
+  font-family: var(--font-regular);
+  flex-shrink: 0;
+}
+.info-value {
+  flex: 1;
+  min-width: 0;
+  margin-left: 24px;
+  text-align: right;
+  font-size: 26px;
+  color: #111;
+  font-family: var(--font-regular);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.copy-icon {
+  flex-shrink: 0;
+  margin-left: 12px;
+  width: 28px;
+  height: 28px;
+  color: #4a4a4a;
+  cursor: pointer;
+}
+
+/* 底部操作条：取消订单 260×92r 白底蓝字蓝框 / 继续购买 400×92r 蓝底白字，r18 */
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 20px 36px calc(20px + env(safe-area-inset-bottom));
+  background: var(--qbox-page-bg);
+  box-sizing: border-box;
+}
+.btn {
+  height: 92px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 600;
+  font-family: var(--font-medium);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  box-sizing: border-box;
+}
+.btn:active { opacity: 0.85; }
+.btn-cancel {
+  width: 260px;
+  background: #fff;
+  color: var(--od-brand);
+  border: 2px solid var(--od-brand);
+}
+.btn-continue {
+  width: 400px;
+  background: var(--od-brand);
+  color: #fff;
+}
+
+/* 加载态（源站：居中「加载中...」12px 灰 + spinner） */
+.loading-mask {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loading-wrap { display: flex; flex-direction: column; align-items: center; }
+.loading-icon { display: flex; align-items: center; justify-content: center; }
+.spinner {
+  display: block;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  border: 2px solid var(--qbox-input-bg);
+  border-top-color: var(--od-loading-fg);
+  animation: od-spin 1.2s ease-in-out infinite;
+}
+@keyframes od-spin { to { transform: rotate(360deg); } }
+.loading-text {
+  margin-top: 8px;
+  font-size: 24px;
+  color: var(--od-loading-fg);
+  font-family: var(--font-regular);
+}

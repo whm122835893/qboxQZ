@@ -147,60 +147,42 @@
 .order-list {
   padding: 0 34.4px;
 }
+/* 订单卡（源站实测 2026-10-25 23:5x：白底 r20 pad28，卡间距 16rpx，页底 #f7f7f7） */
 .order-item {
   background: #fff;
-  border-radius: 25.4px;
-  padding: 27.2px;
-  margin-bottom: 21.7px;
-  font-size: 25.4px;
-  color: #111;
-  font-family: var(--font-medium);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 16px;
+  font-family: var(--font-regular);
 }
-/* 源站实测（2026-10-25）：订单号 26px #111（左）+ 状态 26px #8c8c8c（右） */
+/* 行1：订单号 22r #8c8c8c（左）+ 状态 24r #8c8c8c（右） */
 .oi-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .oi-no {
-  font-size: 26px;
-  color: #111;
-  font-family: var(--font-regular);
+  font-size: 22px;
+  color: #8c8c8c;
 }
 .oi-status {
-  font-size: 26px;
+  font-size: 24px;
   color: #8c8c8c;
-  font-family: var(--font-regular);
 }
-/* 源站实测：待支付状态文案红色 #e53e3e 24px */
+/* 源站实测：待支付状态文案红色 #e53e3e */
 .oi-status-pay {
   color: #e53e3e;
-  font-size: 24px;
 }
-/* 源站实测：「去支付」按钮 [604,482,66,33] 白字 22px 蓝底 radius 8 */
-.oi-pay-btn {
-  margin-left: 16px;
-  padding: 0 12px;
-  height: 33px;
-  border-radius: 8px;
-  background: #0018ff;
-  color: #fff;
-  font-size: 22px;
-  font-family: var(--font-regular);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
+/* 行2：封面 120×120r + 名称 28r #111 + 购买数量 22r 灰 + 右列金额 + 右箭头 */
 .oi-body {
-  margin-top: 20px;
+  margin-top: 34px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 .oi-cover {
-  width: 96px;
-  height: 96px;
-  border-radius: 12px;
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
   object-fit: cover;
   flex-shrink: 0;
   background: #f4f6fa;
@@ -211,36 +193,68 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
+  align-self: stretch;
 }
 .oi-name {
   font-size: 28px;
   color: #111;
-  font-family: var(--font-medium);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .oi-sub {
-  margin-top: 12px;
-  font-size: 24px;
+  margin-top: 16px;
+  font-size: 22px;
   color: #8c8c8c;
-  font-family: var(--font-regular);
 }
+.oi-right {
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-self: stretch;
+}
+.oi-amt-label {
+  font-size: 22px;
+  color: #8c8c8c;
+}
+.oi-amount {
+  margin-top: 14px;
+  font-size: 28px;
+  color: #8c8c8c;
+  font-family: 'AlimamaShuHeiTi-Bold', var(--font-medium);
+}
+.oi-arrow {
+  margin-left: 16px;
+  width: 16px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+  align-self: center;
+}
+/* 行3：订单时间 20r #8c8c8c（左）+ 待支付「去支付」按钮 132×66r 蓝底白字 r16 */
 .oi-foot {
-  margin-top: 20px;
+  margin-top: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .oi-time {
-  font-size: 24px;
+  font-size: 20px;
   color: #8c8c8c;
-  font-family: var(--font-regular);
 }
-.oi-amount {
-  font-size: 28px;
-  color: #111;
-  font-family: var(--font-medium);
+.oi-pay-btn {
+  padding: 0 24px;
+  height: 66px;
+  border-radius: 16px;
+  background: #0018ff;
+  color: #fff;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 /* 回到顶部 */

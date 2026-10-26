@@ -9,6 +9,9 @@ qboxQZ/
 ├─ frontend/          Vue3 前端工程
 │  ├─ src/
 │  │  ├─ api/         request.js（统一封装）+ mock.js（入口）+ mock/（routes 路由域 + state 内存态 + data 源站实录）
+│  │  │               └─ data/collections.js = 唯一公共藏品数据源（藏品按 id 唯一编号，挂单表按挂单 id；
+│  │  │                 市场列表/挂单列表/藏品详情/寄售详情/藏品商品详情/仓库藏品 全部从此派生，
+│  │  │                 页面禁止写死或随机藏品数据；列表页点击经 URL ?id= 传参，详情页按 id 查同源数据）
 │  │  ├─ pages/       111 个路由页面（与源站一一对应）
 │  │  ├─ components/  通用组件
 │  │  ├─ composables/ 组合式逻辑（如 useDatePicker）

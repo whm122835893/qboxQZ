@@ -8,9 +8,11 @@
     </div>
 
     <div class="body">
-      <!-- 主图（源站实测 2026-10-25 15:11：藏品封面，圆角 28，居中展示） -->
-      <img v-if="goods.main_image" class="main-img" :src="goods.main_image" :alt="goods.name" />
-      <div v-else class="main-img main-img-empty"></div>
+      <!-- 主图（源站实测 2026-10-26：黑色底卡 436×436r 圆角64r 白描边6r，居中；
+           页面顶部铺原站背景图 market-goods-bg.png 100%×994r no-repeat 顶部居中） -->
+      <div class="main-wrap">
+        <img v-if="goods.main_image" class="main-img" :src="goods.main_image" :alt="goods.name" />
+      </div>
 
       <!-- 名称卡（源站实测 2026-10-25：卡片 rect=[33,640,684,177] bg #fff radius 32 padding 32/36，
            flex space-between align-center；左列 = 名称 32px #111 + 胶囊行 gap 12；
@@ -30,31 +32,34 @@
         </div>
       </div>
 
-      <!-- Tabs（市场价格 #111 / 相关公告 / 成交记录 / 成交趋势 #8c8c8c，15px） -->
+      <!-- Tabs（源站实测 2026-10-25 23:5x：28rpx，active #111 + 下方 48×6r 蓝线，间距 56rpx） -->
       <div class="m-tabs">
-        <span
+        <div
           v-for="(t, i) in mTabs"
           :key="t"
-          class="m-tab"
-          :class="{ 'm-tab-active': current === i }"
+          class="m-tab-col"
           @click="current = i"
-        >{{ t }}</span>
+        >
+          <span class="m-tab" :class="{ 'm-tab-active': current === i }">{{ t }}</span>
+          <span class="m-tab-line" :class="{ on: current === i }"></span>
+        </div>
       </div>
 
-      <!-- 筛选行（售罄/求购/委托 小 tab + 价格/编号 排序箭头 8×13） -->
+      <!-- 筛选行（源站实测：寄售=蓝底#0018ff白字胶囊 88×52r r12，未选中 24rpx #8c8c8c；
+           价格列=升序箭头 market-sort-asc 16×24r，编号列=普通箭头 market-sort） -->
       <div class="filter-row">
         <div class="mini-tabs">
-          <span class="mini-tab mini-tab-active">寄售</span>
-          <span class="mini-tab">求购</span>
-          <span class="mini-tab">委托</span>
+          <div class="mini-tab mini-tab-active">寄售</div>
+          <div class="mini-tab">求购</div>
+          <div class="mini-tab">委托</div>
         </div>
         <div class="sort-col">
           <span class="sort-label">价格</span>
-          <img class="sort-icon" src="/static/qbox/market-sort.png" alt="" />
+          <img class="sort-icon" src="/static/qbox/market-sort-asc.png" alt="" />
         </div>
         <div class="sort-col">
           <span class="sort-label">编号</span>
-          <img class="sort-icon" src="/static/qbox/market-sort-asc.png" alt="" />
+          <img class="sort-icon" src="/static/qbox/market-sort.png" alt="" />
         </div>
       </div>
 
@@ -73,6 +78,7 @@
     <QuickOrderSheet
       :visible="showQuickPopup"
       :cover="goodsCover"
+      :goods-name="goods.name"
       :flux="goodsFlux"
       :total-num="goodsTotal"
       badge="A"

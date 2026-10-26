@@ -103,6 +103,11 @@
   object-fit: contain;
   flex-shrink: 0;
 }
+/* 源站实测 2026-10-25：百分比文字 white-space pre-line，容器不够宽时换行 */
+.gr-change-text {
+  white-space: pre-line;
+  line-height: 26px;
+}
 .gr-change.up {
   color: #ff3b30;
 }

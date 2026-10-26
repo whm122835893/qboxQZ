@@ -24,7 +24,7 @@ const SOURCE_ORDER_LIST = [
     goods_cover_image: '/uploads/20261025/7c674d998b7e86b520f0930c18825d3c.jpg',
     goods_id: 13,
     goods_type: 2,
-    series_name: '全部区',
+    series_name: '经典文化',
     createtime: 1792896944,
     updatetime: 1792896944,
     collection_code: []

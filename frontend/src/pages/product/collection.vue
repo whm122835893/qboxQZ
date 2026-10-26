@@ -63,31 +63,59 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { request } from '../../api/request'
+import { toast } from '../../utils/toast'
 
 const router = useRouter()
 const route = useRoute()
 
 /**
- * 演示数据：后端未就绪（ProductDetail 接口源站需有效商品 id，无法抓包），
- * 字段结构对应 docs/03-API接口文档 的 ProductDetail；id/batch_id 由首页发售卡传入。
+ * 藏品发售详情页 —— 数据唯一来源约束：
+ *   本页禁止写死/随机数据。藏品 id 经 URL 参数传入（列表页点击携带），
+ *   由 POST /api/box/collection/ProductDetail/ids/{id} 从唯一藏品数据源
+ *   （api/mock/data/collections.js）查询渲染；查无 → toast + 保持加载态。
  */
 const goods = ref({
   id: route.query.id || null,
   batch_id: route.query.batch_id || null,
-  goods_name: 'KUUKIE 怪物口袋·黑熊',
-  cover: '/uploads/20261013/891305447d1a31e997fd7a0e078488a5.png',
-  limit_num: 5000,
-  price: '39.90',
-  creator: 'qbox',
-  intro: 'KUUKIE 怪物口袋系列数字藏品，以街头潮流文化为灵感，每一只怪物都有独一无二的性格与故事。',
-  // 购买须知文案取自源站详情页实测原文
-  notice:
-    '数字藏品为虚拟数字商品，而非实物，仅限实名认证为年满18周岁，并小于60周岁的中国大陆用户购买。' +
-    '数字藏品的版权由发行方或原创者拥有，除另行取得版权权利者书面同意外，用户不得将数字藏品用于任何商业用途。' +
-    '本商品一经售出，不支持退换。请勿对数字藏品进行炒作、场外交易、欺诈，或以任何其他非法方式进行使用。'
+  goods_name: '',
+  cover: '',
+  limit_num: 0,
+  price: '',
+  creator: '',
+  intro: '',
+  notice: ''
 })
+
+// 购买须知兜底文案（源站详情页实测原文，仅当数据源未提供 purchase_information 时使用）
+const DEFAULT_NOTICE =
+  '数字藏品为虚拟数字商品，而非实物，仅限实名认证为年满18周岁，并小于60周岁的中国大陆用户购买。' +
+  '数字藏品的版权由发行方或原创者拥有，除另行取得版权拥有者书面同意外，用户不得将数字藏品用于任何商业用途。' +
+  '本商品一经售出，不支持退换。请勿对数字藏品进行炒作、场外交易、欺诈，或以任何其他非法方式进行使用。'
+
+async function loadGoods() {
+  const id = route.query.id
+  const res = await request('/api/box/collection/ProductDetail/ids/' + (id || 'undefined'), {})
+  if (!res || res.code !== 1 || !res.data) {
+    toast(res && res.msg ? res.msg : '找不到该商品')
+    return
+  }
+  const d = res.data
+  const rawNotice = String(d.purchase_information || '').trim()
+  goods.value = {
+    id: d.id,
+    batch_id: route.query.batch_id || d.id,
+    goods_name: d.name || '',
+    cover: d.main_image || d.listimg || '',
+    limit_num: d.total_num || 0,
+    price: String(d.min_price ?? d.price ?? ''),
+    creator: (d.publisher && d.publisher.name) || 'qbox',
+    intro: d.intro || '',
+    notice: rawNotice || DEFAULT_NOTICE
+  }
+}
 
 const tab = ref(0)
 
@@ -98,6 +126,6 @@ function onBuy() {
   // 支付为 mock（规则9：不对接真实资金通道），跳转订单确认占位
   router.push('/pages/order/orderSubmit?id=' + (goods.value.id || ''))
 }
-</script>
 
-<style scoped src="../../styles/pages/product-collection.css"></style>
+onMounted(loadGoods)
+</script>

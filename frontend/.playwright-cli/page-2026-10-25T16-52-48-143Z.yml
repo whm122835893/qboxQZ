@@ -1,0 +1,16 @@
+- generic [ref=f1e2]:
+  - generic [ref=f1e8]:
+    - generic [ref=f1e9]:
+      - generic [ref=f1e10]: 手机号登录
+      - generic [ref=f1e12]: 账号密码登录
+      - generic [ref=f1e14]: 没有账号？点击注册
+    - generic [ref=f1e18]:
+      - generic [ref=f1e19]: 
+      - generic [ref=f1e24]:
+        - generic [ref=f1e25]: 登录即同意
+        - generic [ref=f1e26]: 《用户协议》
+        - generic [ref=f1e27]: 、
+        - generic [ref=f1e28]: 《隐私政策》
+  - generic:
+    - generic:
+      - paragraph: 请先登录

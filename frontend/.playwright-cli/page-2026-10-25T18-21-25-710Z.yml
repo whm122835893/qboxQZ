@@ -1,0 +1,21 @@
+- generic [ref=f2e183]:
+  - generic [ref=f2e184]:
+    - generic [ref=f2e185]:
+      - generic [ref=f2e186]: 账号
+      - spinbutton [ref=f2e193]: "17587881293"
+    - generic [ref=f2e194]:
+      - generic [ref=f2e195]: 密码
+      - generic [ref=f2e201]:
+        - generic: 输入你的密码
+        - textbox [ref=f2e202]
+      - generic [ref=f2e203]: 忘记密码?
+  - generic [ref=f2e204]:
+    - generic [ref=f2e205]: 立即登录
+    - generic [ref=f2e207]: 验证码登录
+  - generic [ref=f2e211]:
+    - generic [ref=f2e212]: 
+    - generic [ref=f2e217]:
+      - generic [ref=f2e218]: 登录即同意
+      - generic [ref=f2e219]: 《用户协议》
+      - generic [ref=f2e220]: 、
+      - generic [ref=f2e221]: 《隐私政策》

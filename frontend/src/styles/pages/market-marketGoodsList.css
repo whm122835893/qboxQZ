@@ -1,6 +1,9 @@
 .mg-page {
   min-height: 100vh;
-  background: #f2f3f5;
+  /* 源站实测 2026-10-26：页面容器 = #f7f7f7 + 顶部背景图 market-goods-bg.png
+     （100% × 994rpx，no-repeat，水平居中、顶部对齐） */
+  background: #f7f7f7 url('/static/qbox/market-goods-bg.png') no-repeat 50% 0;
+  background-size: 100% 994px;
   padding-bottom: 160px;
   box-sizing: border-box;
 }
@@ -38,18 +41,22 @@
   /* 源站实测：名称卡 rect=[33,640,684,177] → 内容区左右外边距 33px */
   padding: 0 33px;
 }
-/* 主图（源站实测 2026-10-25 15:11：212×212 正方形，居中，圆角 28） */
-.main-img {
-  margin: 8px auto 0;
-  width: 424px;
-  height: 424px;
-  border-radius: 28px;
-  background: #0e0f12;
-  object-fit: cover;
-  display: block;
+/* 主图（源站实测 2026-10-26：黑色底卡 436×436r，圆角 64r，白色描边 6r，
+   顶部距导航 58rpx；封面铺满底卡） */
+.main-wrap {
+  width: 436px;
+  height: 436px;
+  margin: 58px auto 0;
+  background: #000;
+  border: 6px solid #fff;
+  border-radius: 64px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
-/* 无封面时的深色占位（源站实测：主图区域渲染为深色块） */
-.main-img-empty {
+.main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 /* 名称卡（源站实测 rect=[33,640,684,177]：bg #fff radius 32 padding 32/36 flex space-between align-center） */
@@ -117,37 +124,66 @@
 .num-capsule-black {
   background: #111;
 }
+/* ---- Tabs（源站实测 2026-10-25 23:5x：文字 28rpx，未选中 #8c8c8c / 选中 #111，
+     间距 56rpx，选中下方 48×6r 蓝线 #0018ff，与文字间距 16rpx） ---- */
 .m-tabs {
   margin-top: 60px;
   display: flex;
-  gap: 27px;
-  padding: 0 8px 0 12px;
+  gap: 56px;
+  padding: 0 8px 0 34px;
+}
+.m-tab-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .m-tab {
-  font-size: 27.2px;
+  font-size: 28px;
+  font-weight: 400;
   color: #8c8c8c;
+  line-height: 32px;
 }
 .m-tab-active {
   color: #111;
-  font-weight: 700;
 }
+.m-tab-line {
+  margin-top: 16px;
+  width: 48px;
+  height: 6px;
+  border-radius: 3px;
+  background: transparent;
+}
+.m-tab-line.on {
+  background: #0018ff;
+}
+/* ---- 筛选行（源站实测：胶囊统一 88×52r pad 0/20 r12，间距 16rpx；
+     选中蓝底 #0018ff 白字，未选中透明底 #8c8c8c；文字 24rpx fw500；
+     价格列升序箭头 market-sort-asc / 编号列普通箭头 market-sort，均 16×24r） ---- */
 .filter-row {
-  margin-top: 52px;
+  margin-top: 36px;
   display: flex;
   align-items: center;
-  padding-left: 33px;
+  padding-left: 34px;
 }
 .mini-tabs {
   display: flex;
-  gap: 54px;
+  gap: 16px;
 }
 .mini-tab {
-  font-size: 23.6px;
-  color: #999;
+  height: 52px;
+  padding: 0 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 500;
+  color: #8c8c8c;
+  background: transparent;
+  box-sizing: border-box;
 }
 .mini-tab-active {
-  color: #0018ff;
-  font-weight: 600;
+  color: #fff;
+  background: #0018ff;
 }
 .sort-col {
   margin-left: auto;
@@ -159,12 +195,12 @@
   margin-left: 30px;
 }
 .sort-label {
-  font-size: 21.7px;
-  color: #666;
+  font-size: 22px;
+  color: #8c8c8c;
 }
 .sort-icon {
-  width: 14.5px;
-  height: 23.6px;
+  width: 16px;
+  height: 24px;
   object-fit: contain;
 }
 /* ---- 底部快捷下单（源站实测：固定条 [0,1214,750,120]，按钮 [36,1230,678,88] radius 44 bg #0018ff） ---- */

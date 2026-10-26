@@ -18,8 +18,9 @@
     <div class="qk-grabber"></div>
 
     <div class="qk-goods">
-      <img class="qk-goods-img" :src="cover" alt="" />
+      <img class="qk-goods-img" :src="cover" :alt="goodsName" />
       <div class="qk-goods-info">
+        <div class="qk-goods-name">{{ goodsName }}</div>
         <div class="qk-goods-spec">流通量{{ flux }}/发行量{{ totalNum }}</div>
       </div>
     </div>
@@ -51,6 +52,7 @@
 defineProps({
   visible: { type: Boolean, default: false },
   cover: { type: String, default: '' },
+  goodsName: { type: String, default: '' },
   flux: { type: [Number, String], default: 0 },
   totalNum: { type: [Number, String], default: 0 },
   /** 支付渠道徽标文字（源站 income_type=huifu → 徽标 A + A钱包） */
@@ -108,10 +110,20 @@ defineEmits(['close', 'confirm'])
 }
 .qk-goods-info {
   margin-left: 20px;
-  padding-top: 48px;
+  padding-top: 30px;
   min-width: 0;
 }
+/* 源站实测 2026-10-25 23:5x：封面右侧两行 —— 名称 28r #111 / 规格 22r #8c8c8c */
+.qk-goods-name {
+  font-size: 28px;
+  color: #111;
+  line-height: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .qk-goods-spec {
+  margin-top: 12px;
   font-size: 22px;
   color: #8c8c8c;
   line-height: 22px;

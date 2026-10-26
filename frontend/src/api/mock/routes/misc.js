@@ -8,6 +8,8 @@
 /**
  * 路由分发：命中返回响应体，未命中返回 undefined 交由上层继续匹配
  */
+import { getCollection, myCollectionIds } from '../data/collections'
+
 export function handleMiscRoute(path, data = {}) {
   if (path === '/api/synthesis/recordList') {
     // 合成活动记录（原站实测返回空，2026-10-23 抓包）
@@ -35,8 +37,24 @@ export function handleMiscRoute(path, data = {}) {
     return { code: 0, msg: '找不到该盲盒，或者已经下架了', time: String(Math.floor(Date.now() / 1000)), data: null }
   }
   if (path.startsWith('/api/box/collection/ProductDetail/ids/')) {
-    // 藏品商品详情（原站直接访问无 id 实测：找不到该商品）
-    return { code: 0, msg: '找不到该商品，或者已经下架了', time: String(Math.floor(Date.now() / 1000)), data: null }
+    // 藏品商品详情（product/collection 页数据源）：
+    //  按 id 从唯一藏品数据源查询；查无 → 源站实测错误形态（无 id 直接访问）
+    const pid = path.split('/ids/')[1]
+    const g = pid && pid !== 'undefined' && pid !== 'null' ? getCollection(pid) : null
+    if (!g) {
+      return { code: 0, msg: '找不到该商品，或者已经下架了', time: String(Math.floor(Date.now() / 1000)), data: null }
+    }
+    return { code: 1, msg: 'successfully !!!', time: String(Math.floor(Date.now() / 1000)), data: g }
+  }
+  if (path === '/api/user_collection/user_collection/antMycollection') {
+    // 仓库藏品（我的收藏）：从唯一藏品数据源按 myCollectionIds 派生。
+    //  源站实测（2026-10-25 登录态）：当前账号收藏为空（total:0），派生列表保持为空与源站一致；
+    //  后续收藏写入后在此追加藏品 id 即可，页面数据自动跟随唯一数据源。
+    const ids = myCollectionIds()
+    const rows = ids.map((id) => getCollection(id)).filter(Boolean)
+    return { code: 1, msg: '获取成功', time: String(Math.floor(Date.now() / 1000)),
+      data: { total: rows.length, per_page: 15, current_page: 1, last_page: rows.length ? 1 : 0,
+        data: rows, current_count: rows.length, current_consignment: 0 } }
   }
   if (path === '/api/user_collection/user_collection/getRecord') {
     // 流转记录（原站直接访问无藏品 id 实测：参数错误）
