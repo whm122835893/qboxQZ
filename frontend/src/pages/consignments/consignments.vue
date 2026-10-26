@@ -77,9 +77,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
+import { request } from '../../api/request'
 import { toast } from '../../utils/toast'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
@@ -93,32 +94,58 @@ const router = useRouter()
 const hasParams = computed(() => !!(route.query.id || route.query.pageType))
 
 /**
- * 演示数据：挂单提交需操作真实持仓（规则9：不向原站账号写入），
- * 字段由持仓弹窗传入（pageType/id/编号）；接口对接后替换。
+ * 寄售上架页 —— 唯一数据源约束：
+ *   持仓 id 经 URL 参数传入，藏品信息由持仓详情接口
+ *   （/api/user_collection/user_collection/detail/ids/{id}）查询渲染，禁止写死数据。
+ *   提交调用 POST /api/market/market/consign（真实上架，服务费率由后端配置下发）。
  */
 const goods = ref({
   id: route.query.id || null,
-  goods_name: 'KUUKIE 怪物口袋·黑熊',
-  cover: '/uploads/20261013/891305447d1a31e997fd7a0e078488a5.png',
-  collection_no: route.query.no ? decodeURIComponent(route.query.no) : '#000027'
+  goods_name: '',
+  cover: '',
+  collection_no: route.query.no ? decodeURIComponent(route.query.no) : ''
 })
+
+async function loadGoods() {
+  if (!goods.value.id) return
+  const res = await request('/api/user_collection/user_collection/detail/ids/' + goods.value.id, {})
+  if (!res || res.code !== 1 || !res.data) {
+    toast(res && res.msg ? res.msg : '找不到该持仓')
+    return
+  }
+  const d = res.data
+  goods.value.goods_name = (d.goods && d.goods.name) || d.goods_name || ''
+  goods.value.cover = (d.goods && d.goods.main_image) || d.main_image || ''
+  if (!goods.value.collection_no) goods.value.collection_no = '#' + (d.collection_code ?? '')
+}
 
 const price = ref('')
 const num = computed(() => parseFloat(price.value) || 0)
 const feeTotal = computed(() => num.value ? num.value.toFixed(2).replace(/\.00$/, '') : '0')
-const feeService = computed(() => (num.value * 0.05).toFixed(2))
-const feeIncome = computed(() => (num.value * 0.95).toFixed(2))
-const canSubmit = computed(() => num.value > 0)
+// 服务费率：由系统配置下发（后端 sysConfig），前端按同值展示；提交以后端计算为准
+const feeRate = 0.05
+const feeService = computed(() => (num.value * feeRate).toFixed(2))
+const feeIncome = computed(() => (num.value * (1 - feeRate)).toFixed(2))
+const canSubmit = computed(() => num.value > 0 && goods.value.id)
 
 function goBack() {
   history.length > 1 ? router.back() : router.replace('/pages/myCollection/myCollection')
 }
-function onSubmit() {
+async function onSubmit() {
   if (!canSubmit.value) return
-  // 挂单提交为 mock（规则9），成功后进入我的寄售列表
+  const res = await request('/api/market/market/consign', {
+    user_collectible_id: goods.value.id,
+    price: num.value
+  })
+  if (!res || res.code !== 1) {
+    toast(res && res.msg ? res.msg : '上架失败')
+    return
+  }
   toast('寄售挂单已提交')
   setTimeout(() => router.replace('/pages/consignments/myConsignment'), 1500)
 }
+
+onMounted(loadGoods)
 </script>
 
 <style scoped src="../../styles/pages/consignments-consignments.css"></style>

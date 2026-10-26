@@ -1,0 +1,34 @@
+- generic [ref=e847]:
+  - generic [ref=e848]:
+    - img "返回" [ref=e849]
+    - generic [ref=e850]: 订单待支付
+  - generic [ref=e851]:
+    - generic [ref=e852]:
+      - img "暴富有道" [ref=e853]
+      - generic [ref=e854]:
+        - generic [ref=e855]: 暴富有道
+        - generic [ref=e856]: 当前藏品最高价：¥ 0
+        - generic [ref=e857]: 当前藏品求购价：¥ 0
+    - generic [ref=e858]:
+      - generic [ref=e859]:
+        - generic [ref=e860]: 藏品金额
+        - generic [ref=e861]: ¥ 9999.00
+      - generic [ref=e862]:
+        - generic [ref=e863]: 应付金额
+        - generic [ref=e864]: ¥ 9999.00
+      - generic [ref=e865]:
+        - generic [ref=e866]: 支付钱包
+        - generic [ref=e867]: "--"
+    - generic [ref=e868]:
+      - heading "购买订单" [level=2] [ref=e869]
+      - generic [ref=e870]:
+        - generic [ref=e871]: 订单编号
+        - generic [ref=e872]: "2026102618514065272281353691"
+        - img [ref=e873] [cursor=pointer]
+      - generic [ref=e876]:
+        - generic [ref=e877]: 支付方式
+        - generic [ref=e878]: "--"
+      - generic [ref=e879]: 支付时间
+  - generic [ref=e881]:
+    - generic [ref=e882] [cursor=pointer]: 取消订单
+    - generic [ref=e883] [cursor=pointer]: 继续购买

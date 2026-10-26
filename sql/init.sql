@@ -27,6 +27,10 @@ CREATE TABLE `nft_users` (
   `is_realname`          TINYINT(1)      NOT NULL DEFAULT 0      COMMENT '实名标志 0否 1是（购买/寄售/转赠前置）',
   `real_name`            VARCHAR(255)    NULL            COMMENT '真实姓名 AES-256/SM4加密存储',
   `id_card`              VARCHAR(255)    NULL            COMMENT '身份证号 加密存储',
+  `password_hash`        VARCHAR(255)    NULL            COMMENT '登录密码 bcrypt/scrypt哈希，禁止明文',
+  `person_intro`         VARCHAR(255)    NOT NULL DEFAULT ''     COMMENT '个人简介',
+  `real_name_time`       DATETIME(3)     NULL            COMMENT '实名认证通过时间',
+  `invitee_bound`        TINYINT(1)      NOT NULL DEFAULT 0      COMMENT '是否已绑定邀请关系',
   `transaction_password` VARCHAR(255)    NULL            COMMENT '交易密码 bcrypt/scrypt哈希，禁止明文',
   `status`               TINYINT         NOT NULL DEFAULT 1      COMMENT '账号状态 1正常 0禁用',
   `transfer_permission`  TINYINT(1)      NOT NULL DEFAULT 0      COMMENT '转赠权限开关',
@@ -113,7 +117,7 @@ CREATE TABLE `nft_verification_codes` (
   `id`         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '记录ID',
   `phone`      VARCHAR(11)     NOT NULL                COMMENT '接收手机号',
   `scene`      ENUM('register','login','reset_password') NOT NULL COMMENT '使用场景',
-  `code`       VARCHAR(6)      NOT NULL                COMMENT '验证码（建议哈希存储）',
+  `code`       VARCHAR(255)    NOT NULL                COMMENT '验证码（哈希存储）',
   `expires_at` DATETIME(3)     NOT NULL                COMMENT '过期时间（发送+5分钟）',
   `used_at`    DATETIME(3)     NULL            COMMENT '核销时间（一次性）',
   `ip`         VARCHAR(45)     NULL            COMMENT '请求IP（风控/频控）',
@@ -254,6 +258,7 @@ CREATE TABLE `nft_blind_boxes` (
   `is_openable`    TINYINT(1)     NOT NULL DEFAULT 1      COMMENT '是否可开启（0=禁止开启）',
   `rule_text`      TEXT           NULL            COMMENT '规则说明',
   `status`         ENUM('upcoming','onsale','soldout') NOT NULL DEFAULT 'upcoming' COMMENT '发售状态',
+  `deleted_at`     DATETIME(3)    NULL            COMMENT '软删除时间',
   `created_at`     DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
   `updated_at`     DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -278,6 +283,36 @@ CREATE TABLE `nft_blind_box_items` (
   CONSTRAINT `fk_bbi_prize` FOREIGN KEY (`prize_collectible_id`) REFERENCES `nft_collectibles`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='盲盒奖品池配置表';
 
+CREATE TABLE IF NOT EXISTS `nft_user_blind_boxes` (
+  `id`            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '持有记录ID',
+  `user_id`       BIGINT UNSIGNED NOT NULL                COMMENT '用户ID',
+  `blind_box_id`  INT UNSIGNED   NOT NULL                COMMENT '盲盒ID',
+  `order_id`      BIGINT UNSIGNED NULL            COMMENT '购买来源订单ID',
+  `status`        TINYINT        NOT NULL DEFAULT 1      COMMENT '1未开启/2已开启',
+  `opentime`      DATETIME(3)    NULL            COMMENT '开启时间',
+  `created_at`    DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '获得时间',
+  `updated_at`    DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_ubb_user_status` (`user_id`, `status`),
+  KEY `idx_ubb_box` (`blind_box_id`),
+  CONSTRAINT `fk_ubb_user` FOREIGN KEY (`user_id`) REFERENCES `nft_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_ubb_box` FOREIGN KEY (`blind_box_id`) REFERENCES `nft_blind_boxes`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户盲盒持有表';
+
+CREATE TABLE IF NOT EXISTS `nft_blind_box_open_record` (
+  `id`                  BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '开启记录ID',
+  `user_id`             BIGINT UNSIGNED NOT NULL                COMMENT '用户ID',
+  `blind_box_id`        INT UNSIGNED   NOT NULL                COMMENT '盲盒ID',
+  `collectible_id`      INT UNSIGNED   NOT NULL                COMMENT '开出藏品ID',
+  `user_collectible_id` BIGINT UNSIGNED NULL            COMMENT '新持仓凭证ID',
+  `created_at`          DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '开启时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_bor_user_created` (`user_id`, `created_at`),
+  KEY `idx_bor_box` (`blind_box_id`),
+  CONSTRAINT `fk_bor_user` FOREIGN KEY (`user_id`) REFERENCES `nft_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_bor_box` FOREIGN KEY (`blind_box_id`) REFERENCES `nft_blind_boxes`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='盲盒开启记录表';
+
 -- =====================================================================
 -- 三、资产与交易域（5 表）
 -- =====================================================================
@@ -291,6 +326,7 @@ CREATE TABLE `nft_user_collectibles` (
   `blind_box_item_id`  INT UNSIGNED   NULL            COMMENT '盲盒来源奖品池ID（source=blindbox时回填）',
   `airdrop_record_id`  BIGINT UNSIGNED NULL            COMMENT '空投来源记录ID（source=airdrop时回填，溯源决策#13）',
   `serial`             VARCHAR(20)    NOT NULL                COMMENT '藏品编号（全局唯一，如 387）',
+  `collection_code`    INT UNSIGNED   NOT NULL DEFAULT 0      COMMENT '藏品编号数值形态（与serial同值，供索引/查询）',
   `source`             ENUM('purchase','blindbox','transfer','airdrop','synthesis','lucky_draw') NOT NULL COMMENT '获得来源（决策#2）',
   `acquired_price`     DECIMAL(10,2)  NOT NULL DEFAULT 0.00   COMMENT '入手价（非购买来源存0，决策#8）',
   `acquired_at`        DATETIME(3)    NOT NULL                COMMENT '入库时间',
@@ -323,7 +359,7 @@ CREATE TABLE `nft_user_collectibles` (
 -- 12. 订单表
 CREATE TABLE `nft_orders` (
   `id`                          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单ID',
-  `order_no`                    VARCHAR(20)     NOT NULL                COMMENT '订单号（全局唯一）',
+  `order_no`                    VARCHAR(32)     NOT NULL                COMMENT '订单号（全局唯一，2026MMDDHHMMSS+14位随机）',
   `user_id`                     BIGINT UNSIGNED NOT NULL                COMMENT '买家用户ID',
   `collectible_id`              INT UNSIGNED   NOT NULL                COMMENT '藏品ID',
   `resale_listing_id`           BIGINT UNSIGNED NULL            COMMENT '寄售挂单ID（市场单必填）',
@@ -340,6 +376,7 @@ CREATE TABLE `nft_orders` (
   `series_name`                 VARCHAR(100)   NULL            COMMENT '板块名称快照（冗余）',
   `pay_type`                    TINYINT        NULL            COMMENT '支付方式编码',
   `pay_way`                     VARCHAR(16)    NULL            COMMENT '支付渠道（如 huifu；空展示--）',
+  `pay_time`                    DATETIME(3)    NULL            COMMENT '支付时间（空则前端取下单时间，源站字段名）',
   `pay_scene`                   VARCHAR(8)     NULL            COMMENT '支付场景（H5）',
   `paid_at`                     DATETIME(3)    NULL            COMMENT '支付时间（空则展示下单时间）',
   `transaction_id`              VARCHAR(64)    NULL            COMMENT '三方交易流水号',
@@ -360,6 +397,7 @@ CREATE TABLE `nft_orders` (
   `uc_ids`                      VARCHAR(64)    NULL            COMMENT '空投持仓ID串（源站空投单实证）',
   `collection_codes`            JSON           NULL            COMMENT '成交藏品编号数组',
   `related_collectible_id`      INT UNSIGNED   NULL            COMMENT '市场单关联藏品ID',
+  `c_goods_id`                  BIGINT UNSIGNED NOT NULL DEFAULT 0     COMMENT '市场单关联藏品ID（源站字段名）',
   `batch_order_id`              BIGINT UNSIGNED NULL            COMMENT '批量付主订单ID',
   `is_rush`                     TINYINT(1)     NOT NULL DEFAULT 0      COMMENT '是否抢购单',
   `crystal_type`                VARCHAR(16)    NULL            COMMENT '龙晶抵扣类型',
@@ -427,7 +465,7 @@ CREATE TABLE `nft_resale_listings` (
   `listed_at`                  DATETIME(3)    NOT NULL                COMMENT '挂单时间',
   `sold_at`                    DATETIME(3)    NULL            COMMENT '成交时间',
   `buyer_id`                   BIGINT UNSIGNED NULL            COMMENT '买家用户ID（成交后回填）',
-  `order_no`                   VARCHAR(20)    NULL            COMMENT '成交订单号（回填）',
+  `order_no`                   VARCHAR(32)    NULL            COMMENT '成交订单号（回填）',
   `rush_status`                TINYINT(1)     NOT NULL DEFAULT 0      COMMENT '抢购标记',
   `created_at`                 DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
   `updated_at`                 DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
@@ -513,7 +551,7 @@ CREATE TABLE `nft_trade_records` (
   `num`             INT UNSIGNED   NOT NULL DEFAULT 1      COMMENT '数量',
   `from_user_id`    BIGINT UNSIGNED NULL            COMMENT '卖家/赠送人',
   `to_user_id`      BIGINT UNSIGNED NULL            COMMENT '买家/受赠人',
-  `order_no`        VARCHAR(20)    NULL            COMMENT '关联订单号',
+  `order_no`        VARCHAR(32)    NULL            COMMENT '关联订单号',
   `created_at`      DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '流水时间（前端换算相对时间）',
   PRIMARY KEY (`id`),
   KEY `idx_trade_collectible_type_created` (`collectible_id`, `type`, `created_at`),
@@ -623,6 +661,7 @@ CREATE TABLE `nft_lucky_draw_prizes` (
 CREATE TABLE `nft_lucky_draw_records` (
   `id`                   BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '记录ID',
   `user_id`              BIGINT UNSIGNED NOT NULL                COMMENT '用户ID',
+  `activity_id`          INT UNSIGNED   NULL            COMMENT '抽奖活动ID',
   `prize_id`             INT UNSIGNED   NOT NULL                COMMENT '奖品ID',
   `user_collectible_id`  BIGINT UNSIGNED NULL            COMMENT '获得藏品凭证ID（可空：谢谢参与无资产）',
   `created_at`           DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '抽奖时间',
@@ -792,6 +831,24 @@ CREATE TABLE `nft_chain_tasks` (
 -- =====================================================================
 -- 八、内容域（4 表）
 -- =====================================================================
+
+CREATE TABLE IF NOT EXISTS `nft_user_addresses` (
+  `id`          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '地址ID',
+  `user_id`     BIGINT UNSIGNED NOT NULL                COMMENT '用户ID',
+  `name`        VARCHAR(50)     NOT NULL                COMMENT '收货人姓名',
+  `phone`       VARCHAR(11)     NOT NULL                COMMENT '收货人手机号',
+  `province`    VARCHAR(50)     NOT NULL DEFAULT ''     COMMENT '省',
+  `city`        VARCHAR(50)     NOT NULL DEFAULT ''     COMMENT '市',
+  `district`    VARCHAR(50)     NOT NULL DEFAULT ''     COMMENT '区',
+  `address`     VARCHAR(255)    NOT NULL                COMMENT '详细地址',
+  `is_default`  TINYINT(1)      NOT NULL DEFAULT 0      COMMENT '默认地址（同用户唯一）',
+  `deleted_at`  DATETIME(3)     NULL            COMMENT '软删除时间',
+  `created_at`  DATETIME(3)     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+  `updated_at`  DATETIME(3)     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_ua_user` (`user_id`, `is_default`),
+  CONSTRAINT `fk_ua_user` FOREIGN KEY (`user_id`) REFERENCES `nft_users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='收货地址表';
 
 -- 33. 文物展馆表
 CREATE TABLE `nft_artifacts` (

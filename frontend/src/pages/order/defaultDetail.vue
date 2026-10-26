@@ -79,11 +79,12 @@
       </div>
     </div>
 
-    <!-- 底部操作条：未取消单显示「取消订单 + 继续购买」，已取消单只显示「继续购买」
-         （源站实测：9538 已取消单仅「继续购买」；8783 转入成功单两枚均显示） -->
+    <!-- 底部操作条：待支付单显示「取消订单 + 立即支付」（支付入口，语义推导补齐）；
+         已取消单仅「继续购买」（源站实测 9538）；已完成单「取消订单 + 继续购买」（8783 样本） -->
     <div v-if="order" class="bottom-bar">
       <div v-if="order.status !== 3" class="btn btn-cancel" @click="onCancel">取消订单</div>
-      <div class="btn btn-continue" @click="onContinue">继续购买</div>
+      <div v-if="Number(order.status) === 1" class="btn btn-continue" @click="onPayNow">立即支付</div>
+      <div v-else class="btn btn-continue" @click="onContinue">继续购买</div>
     </div>
   </div>
 </template>
@@ -173,6 +174,17 @@ async function loadOrder() {
     return
   }
   order.value = mapOrder(res.data)
+}
+
+/** 立即支付（待支付单，语义推导补齐；模拟收银台支付闭环） */
+async function onPayNow() {
+  const res = await request('/api/order/order/payOrder', { order_id: order.value.id })
+  if (!res || res.code !== 1) {
+    toast(res && res.msg ? res.msg : '支付失败')
+    return
+  }
+  toast('支付成功')
+  loadOrder()
 }
 
 /** 取消订单（源站有该按钮；接口未抓包，按语义调用本地 cancelOrder，已在 API 文档标注推断） */

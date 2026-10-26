@@ -1,0 +1,28 @@
+- generic [ref=e991]:
+  - img "返回" [ref=e993]
+  - generic [ref=e994]:
+    - img "藏品名称" [ref=e996]
+    - generic [ref=e997]:
+      - generic [ref=e998]:
+        - generic [ref=e999]: 藏品名称
+        - generic [ref=e1000]: 限量0份
+      - generic [ref=e1001]: ¥0.00
+    - generic [ref=e1002]:
+      - generic [ref=e1003]:
+        - generic [ref=e1004]: 藏品持有者
+        - generic [ref=e1005]: Q9GSWCuI2
+      - generic [ref=e1006]:
+        - generic [ref=e1007]: 认证时间
+        - generic [ref=e1008]: 2026.10.26
+    - generic [ref=e1009]:
+      - generic: QBOX
+      - generic [ref=e1010]: 创作者
+      - generic [ref=e1011]: QBOX
+    - generic [ref=e1012]:
+      - generic: ALLCOMEQBOX ALLCOMEQBOX
+      - generic [ref=e1013]: 藏品介绍
+      - paragraph [ref=e1014]: QBOX
+    - generic [ref=e1015]:
+      - generic [ref=e1016]: 购买须知
+      - paragraph [ref=e1017]: 数字藏品为虚拟数字商品，而非实物，仅限实名认证为年满18周岁，并小于60周岁的中国大陆用户购买。数字藏品的版权由发行方或原创者拥有，除另行取得版权拥有者书面同意外，用户不得将数字藏品用于任何商业用途。本商品一经售出，不支持退换请勿对数字藏品进行炒作、场外交易、欺诈，或以任何其他非法方式进行使用。
+  - generic [ref=e1018]: 上链中

@@ -112,10 +112,9 @@ const shortAddr = computed(() => {
   if (!a) return '--'
   return a.length > 16 ? a.slice(0, 10) + '...' + a.slice(-6) : a
 })
-// 持仓市值：源站由持仓藏品逐件累加得出（随实时成交/持仓变化，非固定值）。
-// 2026-10-25 源站登录态实测该账号显示 ¥200；源站未在 getUserInfo 接口暴露该字段，
-// 故取实测快照值，后续可由 /api/user_collection/user_collection/antMycollection 累加覆盖。
-const marketValue = ref(200)
+// 持仓市值：随实时成交/持仓变化，取 getUserInfo.collection_total_price（后端由持仓逐件累加）；
+// 无数据时回退 0（源站该字段未暴露时同样展示 0）
+const marketValue = computed(() => Number(userStore.userinfo?.collection_total_price) || 0)
 
 // 菜单跳转路径全部来自原站实测
 const menus = [

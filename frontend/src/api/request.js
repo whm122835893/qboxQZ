@@ -21,7 +21,9 @@ export async function request(path, data = {}) {
     const { mockRequest } = await import('./mock')
     return mockRequest(path, data)
   }
-  const res = await fetch('/api' + path, {
+  // 调用方路径已带 /api 前缀（与 mock 路由一致），避免拼接出 /api/api
+  const url = path.startsWith('/api') ? path : '/api' + path
+  const res = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
